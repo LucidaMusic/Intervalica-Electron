@@ -1,0 +1,92 @@
+h1 {
+    text-align: center;
+    margin: 1em;
+}
+
+
+.errorText {
+    color: red;
+    font-size: small;
+    display: none;
+}
+
+#songControlsPanel {
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+    border: 2px solid black;
+    width: 90vw;
+    margin: auto;
+}
+
+#songControlsPanel__rythm {
+    margin: 1em 1em;
+}
+
+#songControlsPanel__rythm:hover {
+    background-color: aqua;
+}
+
+#songControlsPanel__tonal {
+    margin: 1em 1em;
+}
+
+#songControlsPanel__rythm__inputContainer,
+#songControlsPanel__tonal__inputContainer {
+    font-size: 3em;
+}
+
+#songControlsPanel input {
+    border: none;
+    display: inline;
+}
+
+
+#bpmInput,
+#keyInput {
+    margin: 0;
+    display: inline-block;
+}
+
+#musicControlsBar {
+    border: 2px solid black;
+    width: 90vw;
+    margin: auto;
+    display: flex;
+
+}
+
+#musicControlsBar__playerButtons{
+    display: flex;
+    justify-content: center;
+}
+
+.musicControlButton{
+    min-width: 50px;
+    min-height: 50px;
+}
+
+#musicControlsBar__volumeControl{
+
+}
+
+#chordBar {
+    width: 90vw;
+    height: auto;
+    display: flex;
+    overflow-y: visible;
+    overflow-x: auto;
+    scrollbar-gutter: stable;
+    margin: auto;
+    margin-top: 40px;
+    margin-bottom: 40px;
+    border: 1px solid #000;
+}
+
+.chordBox {
+    width: 150px;
+    min-width: 150px;
+    min-height: 150px;
+    background-color: rgb(233, 232, 232);
+    border: 1px solid #000;
+}

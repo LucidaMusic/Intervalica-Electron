@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Generador de acordes </title>
+    <link rel="stylesheet" href="styles/popupStyle.css">
+</head>
+
+<body>
+    <h3>Introduce duración del acorde</h3>
+    <label for="freqInput">Duración (pulsos): </label>
+    <input autofocus type="number" id="freqInput" placeholder="Escribe duración del acorde...">
+    <button id="submitButton" type="submit" onclick="informChordDuration()">Continuar</button>
+    <!--Botones adelante (un boton Cancelar no parece necesario))-->
+    <div id="pageNavigationButtons">
+        <button onclick="goToNextPage()">Siguiente</button>
+    </div>
+
+    <script src="chordDurationPopupRender.js"></script>
+</body>
+
+</html>

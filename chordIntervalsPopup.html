@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Generador de acordes </title>
+    <link rel="stylesheet" href="styles/popupStyle.css">
+</head>
+
+<body>
+    <h3>Introduce intervalos del acorde</h3>
+    <!--Tipo de modo-->
+    <select name="Modo">
+        <option value=[1.25, 1.5] selected>Mayor</option>
+        <option value=[1.2, 1.5]>Menor</option>
+    </select>
+    <!--Posibles extensiones, incluyendo personalizados-->
+    <select name="Extensiones">
+        <option value=null selected>Ninguna</option>
+        <option value=1.75>Séptima de dominante</option>
+        <option value=1.0666666>Séptima mayor</option>
+    </select>
+    <!--Botones adelante y atrás-->
+    <div id="pageNavigationButtons">
+        <button onclick="goToPreviousPage()">Anterior</button>
+        <button onclick="goToNextPage()">Siguiente</button>
+    </div>
+
+
+
+
+    <script src="chordDurationPopupRender.js"></script>
+</body>
+
+</html>
