@@ -1,78 +1,96 @@
+*{
+    margin: 0;
+}
+
+body{
+    padding: 0 4rem;
+}
+
 h1 {
     text-align: center;
+    text-transform: uppercase;
     margin: 1em;
 }
 
+button{
+    cursor: pointer;
+}
 
 .errorText {
-    color: red;
-    font-size: small;
+    color: red;  /* No pongas los colores por defecto, metelos con hexadecimal */
+    /* Si te animas mete los colores en variables, y tiras del var() para usar el color en todos sitios */
+    font-size: small; /* Igual, ponlo exacto porque esto depende del navegador el que tenga por defecto */
     display: none;
 }
 
-#songControlsPanel {
+#songControlsPanelContainer {
     display: flex;
     justify-content: space-evenly;
-    flex-wrap: wrap;
+    /* flex-wrap: wrap;  Esto solo vale para responsive */
     border: 2px solid black;
-    width: 90vw;
+    padding: 1rem;
+}
+
+.songControlsPanel{
+}
+
+.songControlsPanel p{
+    font-size: 22px;
+    padding: 0.5rem 0;
+    text-align: center;
+    font-weight: 800;
+}
+
+
+.songControlsPanel__inputContainer{
+    font-size: 3rem;
+    width: 15rem;
+    display: flex;
+}
+
+.songControlsPanel__inputContainer span{
     margin: auto;
 }
 
-#songControlsPanel__rythm {
-    margin: 1em 1em;
-}
 
-#songControlsPanel__rythm:hover {
-    background-color: aqua;
-}
-
-#songControlsPanel__tonal {
-    margin: 1em 1em;
-}
-
-#songControlsPanel__rythm__inputContainer,
-#songControlsPanel__tonal__inputContainer {
-    font-size: 3em;
-}
-
-#songControlsPanel input {
+.songControlsPanel__inputContainer input{
+    display: flex;
     border: none;
-    display: inline;
+    font-size: 3rem;
+    width: 7rem;
+    background-color: transparent;
 }
 
-
-#bpmInput,
-#keyInput {
-    margin: 0;
-    display: inline-block;
-}
 
 #musicControlsBar {
     border: 2px solid black;
-    width: 90vw;
-    margin: auto;
     display: flex;
-
+    justify-content: center;
+    position: relative;
 }
 
 #musicControlsBar__playerButtons{
     display: flex;
-    justify-content: center;
+}
+
+#volumeInput{
+    margin: auto 0;
+    display: flex;
+    position: absolute;
+    right: 0;
+    height: 100%;
+    margin: auto 1rem;
+    cursor: pointer;
 }
 
 .musicControlButton{
-    min-width: 50px;
-    min-height: 50px;
+    width: 50px;
+    height: 50px;
 }
 
-#musicControlsBar__volumeControl{
-
-}
 
 #chordBar {
-    width: 90vw;
-    height: auto;
+    /* No se que pollas estas intentando hacer aqui jajaja */
     display: flex;
     overflow-y: visible;
     overflow-x: auto;
