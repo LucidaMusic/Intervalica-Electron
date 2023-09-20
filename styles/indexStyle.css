@@ -1,3 +1,8 @@
+body {
+    margin: 0;
+    padding: 0 2.5rem;
+}
+
 h1 {
     text-align: center;
     margin: 1em;
@@ -15,8 +20,6 @@ h1 {
     justify-content: space-evenly;
     flex-wrap: wrap;
     border: 2px solid black;
-    width: 90vw;
-    margin: auto;
 }
 
 #songControlsPanel__rythm {
@@ -41,7 +44,6 @@ h1 {
     display: inline;
 }
 
-
 #bpmInput,
 #keyInput {
     margin: 0;
@@ -50,34 +52,28 @@ h1 {
 
 #musicControlsBar {
     border: 2px solid black;
-    width: 90vw;
-    margin: auto;
     display: flex;
-
+    justify-content: space-between;
 }
 
-#musicControlsBar__playerButtons{
+#musicControlsBar__playerButtons {
     display: flex;
-    justify-content: center;
+    margin: 0 auto;
 }
 
-.musicControlButton{
+.musicControlButton {
     min-width: 50px;
     min-height: 50px;
 }
 
-#musicControlsBar__volumeControl{
-
-}
+#musicControlsBar__volumeControl {}
 
 #chordBar {
-    width: 90vw;
     height: auto;
     display: flex;
     overflow-y: visible;
     overflow-x: auto;
     scrollbar-gutter: stable;
-    margin: auto;
     margin-top: 40px;
     margin-bottom: 40px;
     border: 1px solid #000;
