@@ -1,0 +1,20 @@
+body {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-content: center;
+}
+
+.container {
+    border: 1px solid black;
+    padding: 25px;
+}
+
+.block{
+    display: block;
+}
+
+.no-borders{
+    border: 0;
+}
+

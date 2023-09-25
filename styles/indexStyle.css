@@ -8,7 +8,6 @@ body{
 
 h1 {
     text-align: center;
-    text-transform: uppercase;
     margin: 1em;
 }
 
@@ -31,14 +30,10 @@ button{
     padding: 1rem;
 }
 
-.songControlsPanel{
-}
-
 .songControlsPanel p{
     font-size: 22px;
     padding: 0.5rem 0;
     text-align: center;
-    font-weight: 800;
 }
 
 
@@ -63,6 +58,7 @@ button{
 
 
 #musicControlsBar {
+    margin-top: 4em;
     border: 2px solid black;
     display: flex;
     justify-content: center;
@@ -90,20 +86,36 @@ button{
 
 
 #chordBar {
-    /* No se que pollas estas intentando hacer aqui jajaja */
     display: flex;
-    overflow-y: visible;
-    overflow-x: auto;
+    overflow-x: scroll;
     scrollbar-gutter: stable;
-    margin-top: 40px;
-    margin-bottom: 40px;
     border: 1px solid #000;
 }
 
 .chordBox {
-    width: 150px;
-    min-width: 150px;
-    min-height: 150px;
+    min-width: 200px;
+    height: 300px;
     background-color: rgb(233, 232, 232);
     border: 1px solid #000;
+}
+
+.modalWindow{
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100vw;
+    height: 100vh;
+}
+
+.modalWindow_pContainer{
+    background-color: white;
+    border: 52px thin #000;
+    box-shadow:  0px 0px 20px black;
+    padding: 2em;
+    z-index: 20;
 }

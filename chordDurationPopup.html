@@ -10,12 +10,14 @@
 
 <body>
     <h3>Introduce duración del acorde</h3>
-    <label for="freqInput">Duración (pulsos): </label>
-    <input autofocus type="number" id="freqInput" placeholder="Escribe duración del acorde...">
-    <button id="submitButton" type="submit" onclick="informChordDuration()">Continuar</button>
+    <label for="chordDurationInput">Duración (pulsos): </label>
+    <input autofocus type="number" id="chordDurationInput" placeholder="Ej: 1.5">
+    <button id="submitButton" type="submit">Continuar</button>
+    <p class="error_text">El valor indicado ha de ser mayor que cero. </p>
     <!--Botones adelante (un boton Cancelar no parece necesario))-->
     <div id="pageNavigationButtons">
-        <button onclick="goToNextPage()">Siguiente</button>
+        <button id="closeWindowButton" onclick="closeWindow()">Cerrar</button>
+        <button id="go-to-next-page-button">Siguiente</button>
     </div>
 
     <script src="chordDurationPopupRender.js"></script>
