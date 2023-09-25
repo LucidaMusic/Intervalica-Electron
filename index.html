@@ -10,38 +10,48 @@
 
 <body>
     <h1> Generador de acordes</h1>
-    <div id="songControlsPanel">
-        <div id="songControlsPanel__rythm">
-            <label>Pulsos por minuto (BPM)</label>
-            <div id="songControlsPanel__rythm__inputContainer">
+    <div id="songControlsPanelContainer">
+        <div id="songControlsPanel__rythm" class="songControlsPanel">
+            <p>Pulsos por minuto (BPM)</p>
+            <div class="songControlsPanel__inputContainer">
                 <span> 𝅘𝅥 = </span>
-                <p id="bpmInput" contenteditable="true">120</p>
+                <input type="text" maxlength="3" value="120">
+                <!-- Esto que has hecho con los contenditable deberia estar penado jajaja -->
+                <!-- <p id="bpmInput" contenteditable="true">120</p> -->
             </div>
         </div>
-        <div id="songControlsPanel__tonal">
-            <label>Frecuencia primera tónica (Hz)</label>
-            <div id="songControlsPanel__tonal__inputContainer">
+        <div id="songControlsPanel__tonal" class="songControlsPanel">
+            <p>Frecuencia primera tónica (Hz)</p>
+            <div class="songControlsPanel__inputContainer">
                 <span> 1ª𝅘𝅥 = </span>
-                <p id="keyInput" contenteditable="true">440</p>
+                <input type="text" maxlength="4" value="440">
+                <!-- <p id="keyInput" contenteditable="true">440</p> -->
             </div>
         </div>
     </div>
     <div id="musicControlsBar">
-        <div>
-            
-        </div>
+
         <div id="musicControlsBar__playerButtons">
             <button id="playButton" class="musicControlButton"><img src="img/musicControlsImages/play.png"
                     alt="Reproducir/Pausar"></button>
             <button id="stopButton" class="musicControlButton"><img src="img/musicControlsImages/stop.png"
                     alt="Parar"></button>
         </div>
-        <div id="musicControlsBar__volumeControl" >
-            <input id="volumeInput" type="range" value="100" min="0" max="100">
-        </div>
+
+        <input id="volumeInput" type="range" value="100" min="0" max="100">
     </div>
+
     <div id="chordBar">
         <!--Pa los "acordes"-->
+        <a class="chordBox">PRUEBA ACORDE</a>
+        <a class="chordBox">PRUEBA ACORDE</a>
+        <a class="chordBox">PRUEBA ACORDE</a>
+        <a class="chordBox">PRUEBA ACORDE</a>
+        <a class="chordBox">PRUEBA ACORDE</a>
+        <a class="chordBox">PRUEBA ACORDE</a>
+        <a class="chordBox">PRUEBA ACORDE</a>
+        <a class="chordBox">PRUEBA ACORDE</a>
+
 
         <button onclick="openRequestNoteCreationWindow()" id="newChordButton" class="chordBox">Nuevo tono (+)</button>
     </div>
