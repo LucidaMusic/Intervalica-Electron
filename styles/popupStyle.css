@@ -1,4 +1,17 @@
 #pageNavigationButtons{
-    position: absolute;
-    bottom: 10px;
+    position: relative;
+    top: 200px;
+}
+
+.error_text{
+    display: none;
+    font-size: small;
+    color: red;
+}
+
+input{
+    display: inine;
+    border: none;
+    width: 4.5em;
+    background-color: transparent;
 }

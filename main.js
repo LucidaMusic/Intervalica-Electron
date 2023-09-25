@@ -1,9 +1,9 @@
 const { app, BrowserWindow, ipcMain, dialog } = require("electron");
 
-let win = null;
+let mainWindow;
 
 app.whenReady().then(() => {
-  win = new BrowserWindow({
+  mainWindow = new BrowserWindow({
     resizable: true,
     icon: "img/icon.png",
     webPreferences: {
@@ -13,29 +13,29 @@ app.whenReady().then(() => {
     }
   });
 
-  win.loadFile("index.html");
+  mainWindow.maximize();
+  mainWindow.loadFile("index.html");
 });
-
-//Inicializamos lista de acordes (por ahora tonos)
-const chordList = [];
 
 /* ipcMain.on("generarTono", (event, data) => {
 win.webContents.send("recibirTono", data);
 }); */
 
+let chordRequestPopupWindow;
+
 ipcMain.on("openRequestNoteCreationWindow", () => {
   //dialog.showErrorBox("HOla", "fua que error")
-  requestChordDurationWin = new BrowserWindow({
-    parent: win,
-    //titleBarStyle: 'hidden',
+  chordRequestPopupWindow = new BrowserWindow({
+    parent: mainWindow,
+    resizable: true, //Solo por tema debugging
     width: 300,
     height: 400,
-    resizable: true,
     modal: true,
     minimizable: false,
     maximizable: false,
     roundedCorners: true,
-    title: "Añadir nota",
+    title: "Añadir acorde",
+    //frame: false,
     webPreferences: {
       nodeIntegration: true,
       contextIsolation: false,
@@ -43,7 +43,8 @@ ipcMain.on("openRequestNoteCreationWindow", () => {
     }
   });
 
-  requestChordDurationWin.loadFile("chordDurationPopup.html");
+  //chordRequestPopupWindow.setMenu(null);
+  chordRequestPopupWindow.loadFile("chordDurationPopup.html");
 })
 
 /* ipcMain.on("saveThisArray", (event, array)=>{
@@ -54,11 +55,19 @@ ipcMain.on("openRequestNoteCreationWindow", () => {
 
 //Se invoca cuando desde el popup se obtiene el valor de duración del acorde
 ipcMain.on("receiveChordDuration", (event, chordDuration) => {
-  win.webContents.send('receiveChordDuration', chordDuration);
-  requestChordDurationWin.loadFile("chordIntervalsPopup.html");
+  mainWindow.webContents.send('receiveChordDuration', chordDuration);
+  chordRequestPopupWindow.loadFile("chordIntervalsPopup.html");
   //
 
 
-/*   //Por último cerramos la ventana
-  requestChordDurationWin.close(); */
+  /*   //Por último cerramos la ventana
+    requestChordDurationWin.close(); */
+});
+
+ipcMain.on("closeChordRequestWindow", () => {
+  chordRequestPopupWindow.close();
+});
+
+ipcMain.on("goToChordDurationPopup", () => {
+  chordRequestPopupWindow.loadFile("chordDurationPopup.html");
 })

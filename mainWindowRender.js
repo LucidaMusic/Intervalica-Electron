@@ -5,14 +5,6 @@ const ipcRenderer = require("electron").ipcRenderer;
 
 const chordDuration = null;
 
-let Interval = class {
-  constructor(name, fractionString, numericValue) {
-    this.name = name;
-    this.fractionString = fractionString;
-    this.numericValue = numericValue;
-  }
-}
-
 
 /* let Chord = class {
   constructor(alto, ancho) {
@@ -84,11 +76,6 @@ const playNewSound = (freq) => {
   return playExistingSound(generateAudioArrayFromNote(freq), 44100)
 }
 
-//Cuando se clica chordBox de Nuevo Acorde
-const openRequestNoteCreationWindow = () => {
-
-  ipcRenderer.send("openRequestNoteCreationWindow")
-}
 
 const deleteChordBox = () => {
 
@@ -97,10 +84,28 @@ const deleteChordBox = () => {
 
 
 //Interacciones sencillas de front
-document.getElementById("songControlsPanel__rythm").addEventListener("click", function(){
-  document.getElementById("bpmInput").focus();
-  
-});
+document
+  .getElementById("songControlsPanel__rythm")
+  .addEventListener("click", function () {
+    document.getElementById("bpmInput").focus();
+  });
+
+document
+  .getElementById("newChordButton")
+  .addEventListener("click", () => {
+    ipcRenderer.send("openRequestNoteCreationWindow")
+  });
+
+document
+  .getElementById("closeModalWindow")
+  .addEventListener("click", () => {
+    document.getElementById("modalWindow").style.display="none";
+  });
+document
+  .getElementById("modalWindow")
+  .addEventListener("click", () => {
+    document.getElementById("modalWindow").style.display="none";
+  });
 
 
 
