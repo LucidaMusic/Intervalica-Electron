@@ -1,8 +1,8 @@
-*{
+* {
     margin: 0;
 }
 
-body{
+body {
     padding: 0 4rem;
 }
 
@@ -11,44 +11,40 @@ h1 {
     margin: 1em;
 }
 
-button{
+button {
     cursor: pointer;
 }
 
-.errorText {
-    color: red;  /* No pongas los colores por defecto, metelos con hexadecimal */
-    /* Si te animas mete los colores en variables, y tiras del var() para usar el color en todos sitios */
-    font-size: small; /* Igual, ponlo exacto porque esto depende del navegador el que tenga por defecto */
-    display: none;
+.error-text {
+    color: rgb(252, 0, 0);
+    font-size: small;
 }
 
-#songControlsPanelContainer {
+#song-controls__container {
     display: flex;
     justify-content: space-evenly;
-    /* flex-wrap: wrap;  Esto solo vale para responsive */
     border: 2px solid black;
     padding: 1rem;
 }
 
-.songControlsPanel p{
+.song-controls-panel p {
     font-size: 22px;
     padding: 0.5rem 0;
     text-align: center;
 }
 
 
-.songControlsPanel__inputContainer{
+.song-controls__input-container {
     font-size: 3rem;
     width: 15rem;
     display: flex;
 }
 
-.songControlsPanel__inputContainer span{
+.song-controls__input-container span {
     margin: auto;
 }
 
-
-.songControlsPanel__inputContainer input{
+.song-controls__input-container input {
     display: flex;
     border: none;
     font-size: 3rem;
@@ -57,7 +53,7 @@ button{
 }
 
 
-#musicControlsBar {
+#music-controls-bar {
     margin-top: 4em;
     border: 2px solid black;
     display: flex;
@@ -65,11 +61,11 @@ button{
     position: relative;
 }
 
-#musicControlsBar__playerButtons {
+#player-buttons-container {
     display: flex;
 }
 
-#volumeInput{
+#volume-input {
     margin: auto 0;
     display: flex;
     position: absolute;
@@ -79,27 +75,27 @@ button{
     cursor: pointer;
 }
 
-.musicControlButton{
+.music-controls-bar__button {
     width: 50px;
     height: 50px;
 }
 
 
-#chordBar {
+#chord-bar {
     display: flex;
     overflow-x: scroll;
     scrollbar-gutter: stable;
     border: 1px solid #000;
 }
 
-.chordBox {
+.chord-box {
     min-width: 200px;
     height: 300px;
     background-color: rgb(233, 232, 232);
     border: 1px solid #000;
 }
 
-.modalWindow{
+.modal-background {
     position: absolute;
     top: 0;
     bottom: 0;
@@ -108,14 +104,36 @@ button{
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 100vw;
-    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.3);
 }
 
-.modalWindow_pContainer{
+.modal-window {
+    position: relative;
     background-color: white;
     border: 52px thin #000;
-    box-shadow:  0px 0px 20px black;
+    box-shadow: 0px 0px 20px black;
     padding: 2em;
-    z-index: 20;
+}
+
+.no-display {
+    display: none;
+}
+
+#page-navigation-buttons-container {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+}
+
+.modal-input {
+    display: inine;
+    border: none;
+    width: 4.5em;
+    background-color: transparent;
+}
+
+.close-modal-button {
+    position: absolute;
+    right: 20px;
+    top: 20px;
 }

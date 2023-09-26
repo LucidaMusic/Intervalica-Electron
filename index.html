@@ -6,84 +6,95 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title> Intervalica </title>
     <link rel="stylesheet" href="styles/indexStyle.css">
-    <link rel="stylesheet" href="styles/popupStyle.css">
 </head>
 
 <body>
     <h1> Generador de acordes</h1>
-    <div id="songControlsPanelContainer">
-        <div id="songControlsPanel__rythm" class="songControlsPanel">
+    <div id="song-controls__container">
+        <div id="song-controls-rythm" class="song-controls-panel">
             <p>Pulsos por minuto (BPM)</p>
-            <div class="songControlsPanel__inputContainer">
+            <div class="song-controls__input-container">
                 <span> 𝅘𝅥 = </span>
-                <input type="number" maxlength="3" value="120">
-                <!-- Esto que has hecho con los contenditable deberia estar penado jajaja -->
-                <!-- <p id="bpmInput" contenteditable="true">120</p> -->
+                <input id="bpm-input" type="number" maxlength="4" value="120">
             </div>
         </div>
-        <div id="songControlsPanel__tonal" class="songControlsPanel">
+        <div id="song-controls-tonal" class="song-controls-panel">
             <p>Frecuencia primera tónica (Hz)</p>
-            <div class="songControlsPanel__inputContainer">
+            <div class="song-controls__input-container">
                 <span> 1ª𝅘𝅥 = </span>
-                <input type="number" maxlength="4" value="440">
-                <!-- <p id="keyInput" contenteditable="true">440</p> -->
+                <input id="freq-input" type="number" maxlength="4" value="440">
             </div>
         </div>
     </div>
-    <div id="musicControlsBar">
-
-        <div id="musicControlsBar__playerButtons">
-            <button id="playButton" class="musicControlButton"><img src="img/musicControlsImages/play.png"
+    <div id="music-controls-bar">
+        <div id="player-buttons-container">
+            <button id="play-button" class="music-controls-bar__button"><img src="img/musicControlsImages/play.png"
                     alt="Reproducir/Pausar"></button>
-            <button id="stopButton" class="musicControlButton"><img src="img/musicControlsImages/stop.png"
+            <button id="stop-button" class="music-controls-bar__button"><img src="img/musicControlsImages/stop.png"
                     alt="Parar"></button>
         </div>
-
-        <input id="volumeInput" type="range" value="100" min="0" max="100">
+        <input id="volume-input" type="range" value="100" min="0" max="100">
     </div>
-
-    <div id="chordBar">
+    <div id="chord-bar">
         <!--Pa los "acordes"-->
-        <div class="chordBox">PRUEBA ACORDE</div>
-        <div class="chordBox">PRUEBA ACORDE</div>
-        <div class="chordBox">PRUEBA ACORDE</div>
-        <div class="chordBox">PRUEBA ACORDE</div>
-        <div class="chordBox">PRUEBA ACORDE</div>
-        <div class="chordBox">PRUEBA ACORDE</div>
-        <div class="chordBox">PRUEBA ACORDE</div>
-        <div class="chordBox">PRUEBA ACORDE</div>
-        <div class="chordBox">PRUEBA ACORDE</div>
-        <div class="chordBox">PRUEBA ACORDE</div>
-        <div class="chordBox">PRUEBA ACORDE</div>
-        <div class="chordBox">PRUEBA ACORDE</div>
-
-        <button id="newChordButton" class="chordBox">Nuevo tono (+)</button>
+        <div class="chord-box">PRUEBA ACORDE</div>
+        <div class="chord-box">PRUEBA ACORDE</div>
+        <div class="chord-box">PRUEBA ACORDE</div>
+        <div class="chord-box">PRUEBA ACORDE</div>
+        <div class="chord-box">PRUEBA ACORDE</div>
+        <div class="chord-box">PRUEBA ACORDE</div>
+        <div class="chord-box">PRUEBA ACORDE</div>
+        <div class="chord-box">PRUEBA ACORDE</div>
+        <div class="chord-box">PRUEBA ACORDE</div>
+        <div class="chord-box">PRUEBA ACORDE</div>
+        <div class="chord-box">PRUEBA ACORDE</div>
+        <div class="chord-box">PRUEBA ACORDE</div>
+        <button id="new-chord-button" class="chord-box">Nuevo tono (+)</button>
     </div>
 
+    <!-- Modal -->
 
-    <div id="modalWindow" class="modalWindow">
-        <div class="modalWindow_pContainer" style="width: 300px; height: 300px;">
+    <div id="modal-background" class="modal-background no-display">
+
+        <div id="chord-duration-modal" class="modal-window no-display" style="width: 300px; height: 300px;">
+            <span class="fa-solid fa-xmark fa-lg button close-modal-button"></span>
             <h3>Introduce duración del acorde</h3>
-            <label for="chordDurationInput">Duración (pulsos): </label>
-            <input autofocus type="number" id="chordDurationInput" placeholder="Ej: 1.5">
-            <button id="submitButton" type="submit">Continuar</button>
-            <p class="error_text">El valor indicado ha de ser mayor que cero. </p>
+            <label for="chord-duration-input">Duración (pulsos): </label>
+            <input class="modal-input" autofocus type="number" id="chord-duration-input" placeholder="Ej: 1.5">
+            <button id="continue-button" type="submit">Continuar</button>
+            <p id="duration-error-text" class="error-text no-display">El valor indicado ha de ser mayor que cero. </p>
             <!--Botones adelante (un boton Cancelar no parece necesario))-->
-            <div id="pageNavigationButtons">
-                <button id="closeWindowButton" onclick="closeWindow()">Cerrar</button>
-                <button id="go-to-next-page-button">Siguiente</button>
+            <div id="page-navigation-buttons-container">
+                <button id="close-duration-modal-button" class="close-modal">Cerrar</button>
+                <button id="go-to-intervals-modal-button">Siguiente</button>
             </div>
-
-            <!--             <p> Hola espero que esto funcione y lo puedas leer porque si no jamás encontraré el amor de mi vida y mi
-                vida será continuo sufrimiento y arrepentimiento Lorem, ipsum dolor sit amet consectetur adipisicing
-                elit. Culpa illo qui totam laudantium doloremque. Quidem placeat corporis pariatur ratione laborum porro
-                error facilis ullam impedit qui eaque, mollitia provident dolorem!</p>
-                <button id="closeModalWindow">CIERRAME</button> -->
         </div>
+
+        <div id="chord-intervals-modal" class="modal-window no-display" style="width: 300px; height: 300px;">
+            <span class="fa-solid fa-xmark fa-lg button close-modal-button"></span>
+            <h3>Introduce intervalos del acorde</h3>
+            <!--Tipo de modo-->
+            <select name="Modo">
+                <option value=[1.25, 1.5] selected>Mayor</option>
+                <option value=[1.2, 1.5]>Menor</option>
+            </select>
+            <!--Posibles extensiones, incluyendo personalizados-->
+            <select name="Extensiones">
+                <option value=null selected>Ninguna</option>
+                <option value=1.75>Séptima de dominante</option>
+                <option value=1.0666666>Séptima mayor</option>
+            </select>
+            <!--Botones adelante y atrás-->
+            <div id="page-navigation-buttons-container">
+                <button id="go-back-to-intervals-modal-button">Anterior</button>
+                <button id="go-to-octavation-modal-button">Siguiente</button>
+            </div>
+        </div>
+
     </div>
 
-    <script src="mainWindowRender.js"></script>
-    <script type="module" src="tools/soundMotor.js"></script>
+    <script src="indexRender.js"></script>
+    <script src="https://kit.fontawesome.com/968b72db55.js" crossorigin="anonymous"></script>
 </body>
 
 </html>
