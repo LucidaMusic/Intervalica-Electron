@@ -1,18 +1,20 @@
-/* class Chord {
-  constructor(duration, lastRootInterval, intervalsList) {
-    this.duration = duration;
-    this.lastRootInterval = lastRootInterval;
-    this.intervalsList = intervalsList;
-  }
-
-
-} */
-
 module.exports = class Chord {
-  constructor(duration) {
-    this.duration = duration;
-  }
+  constructor(duration, mode) {
+    let _duration = duration;
+    let _mode = mode;
 
-  get duration() { return this._duration }
-  set duration(value) { this._duration = value }
+    this.getduration = function () {
+      return _duration;
+    };
+    this.setduration = function (newduration) {
+      _duration = newduration;
+    };
+
+    this.getmode = function () {
+      return _mode;
+    };
+    this.setmode = function (newmode) {
+      _mode = newmode;
+    };
+  }
 }

@@ -2,22 +2,21 @@ const { createNoteObject } = require('./tools/objectCreator.js');
 const { playExistingSound, generateAudioArrayFromNote } = require("./tools/soundMotor.js")
 //const {Chord}=require("./objects/Chord.js")
 const Chord = require("./objects/Chord.js");
-const { Intervals, findIntervalByName } = require('./objects/Intervals.js');
-
-
-//import {Chord} from "./objects/Chord.js";
+const { Interval, findIntervalByName } = require('./objects/Intervals.js');
+const { Mode, findModeByName } = require('./objects/Modes.js');
 
 const ipcRenderer = require("electron").ipcRenderer;
 
 let chord = new Chord();
 
-//Meto los valores de los intervalos en el select
-let select = document.getElementById('mode-select');
 
-//Cosas raras
-// Importa el enum desde el archivo enum.js
 
-console.log(findIntervalByName("Tercera menor").getstringValue());
+
+
+
+
+//Ejemplo de obtener valores de intervalos
+//console.log(findIntervalByName("Tercera menor").getstringValue());
 // Ejemplo de uso
 
 
@@ -40,17 +39,7 @@ console.log(findIntervalByName("Tercera menor").getstringValue());
   ipcRenderer.send("saveThisArray", generateAudioArrayFromNote(freq));
 }); */
 
-/* ipcRenderer.on("recibirTono", (event, data) => {
-  playSound(data, 44100);
-}); */
-
-
-/* ipcRenderer.on("receiveChordDuration", (event, duration) => {
-  this.chordDuration = duration;
-  console.log(this.chordDuration);
-})
-
-const updateFirstTonicFreq = () => {
+/* const updateFirstTonicFreq = () => {
   //Comprobamos validación de freq de primera tónica (la de BPM no es necesaria a la hora de añadir el acorde)
   let firstTonicFreqValue = document.getElementById("firstRootFreqInput").value
   if (!firstTonicFreqValue) {  //Que no esté vacío
@@ -61,7 +50,7 @@ const updateFirstTonicFreq = () => {
   document.getElementById("firstTonicFreqInputErrorMessage").style.display = "none";
   //Si es válido, recargamos los chordBox
   //TODO
-} */
+}  */
 
 /* const generarTono = () => {
   let freq = document.querySelector("#firstRootFreqInput").value
@@ -87,14 +76,7 @@ const updateFirstTonicFreq = () => {
 /* const playNewSound = (freq) => {
   return playExistingSound(generateAudioArrayFromNote(freq), 44100)
 }
-
-
-const deleteChordBox = () => {
-
-} */
-
-
-
+*/
 //Interacciones sencillas de front
 //_____________________________
 document
@@ -106,6 +88,7 @@ document
 document
   .getElementById("new-chord-button")
   .addEventListener("click", () => {
+    document.getElementById("chord-duration-input").value = null;
     chord = new Chord();
     //Abrir popup de duración
     document.getElementById("modal-background").classList.remove("no-display");
@@ -166,6 +149,15 @@ document.getElementById("go-back-to-intervals-modal-button")
     document.getElementById("chord-duration-input").value = chord.duration;
   });
 
+document.getElementById("go-to-octavation-modal-button")
+  .addEventListener("click", () => {
+    let modeSelectorValue = document.getElementById('mode-select').value;
+    chord.setmode(findModeByName(modeSelectorValue));
+
+    console.log(chord.getmode().getname())
+    //Añadir acorde a cancion y crear el chordBox
+  })
+
 
 //Esta función se encarga de validar el campo de duración introducido manualmente por el usuario
 //Desde aqui se muestran los mensajes de error
@@ -180,6 +172,8 @@ function validateDuration() {
     return true;
   }
 }
+
+
 
 
 
