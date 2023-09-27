@@ -12,14 +12,14 @@
     <h1> Generador de acordes</h1>
     <div id="song-controls__container">
         <div id="song-controls-rythm" class="song-controls-panel">
-            <p>Pulsos por minuto (BPM)</p>
+            <label>Pulsos por minuto (BPM)</label>
             <div class="song-controls__input-container">
                 <span> 𝅘𝅥 = </span>
                 <input id="bpm-input" type="number" maxlength="4" value="120">
             </div>
         </div>
         <div id="song-controls-tonal" class="song-controls-panel">
-            <p>Frecuencia primera tónica (Hz)</p>
+            <label>Frecuencia primera tónica (Hz)</label>
             <div class="song-controls__input-container">
                 <span> 1ª𝅘𝅥 = </span>
                 <input id="freq-input" type="number" maxlength="4" value="440">
@@ -75,8 +75,8 @@
             <h3>Introduce intervalos del acorde</h3>
             <!--Tipo de modo-->
             <select id="mode-select" name="Modo">
-                <option value=[1.25, 1.5] selected>Mayor</option>
-                <option value=[1.2, 1.5]>Menor</option>
+                <option value="Mayor" selected>Mayor</option>
+                <option value="Menor">Menor</option>
             </select>
             <!--Posibles extensiones, incluyendo personalizados-->
             <select name="Extensiones">

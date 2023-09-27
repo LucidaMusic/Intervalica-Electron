@@ -9,6 +9,6 @@
   "author": "Lucida",
   "license": "ISC",
   "devDependencies": {
-    "electron": "^26.1.0"
+    "electron": "^26.2.1"
   }
 }
