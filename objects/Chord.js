@@ -11,8 +11,6 @@
 module.exports = class Chord {
   constructor(duration) {
     this.duration = duration;
-
-    console.log("HE sido creado!!")
   }
 
   get duration() { return this._duration }

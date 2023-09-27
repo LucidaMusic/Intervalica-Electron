@@ -1,7 +1,9 @@
 const { createNoteObject } = require('./tools/objectCreator.js');
 const { playExistingSound, generateAudioArrayFromNote } = require("./tools/soundMotor.js")
 //const {Chord}=require("./objects/Chord.js")
-var Chord = require("./objects/Chord.js");
+const Chord = require("./objects/Chord.js");
+const { Intervals, findIntervalByName } = require('./objects/Intervals.js');
+
 
 //import {Chord} from "./objects/Chord.js";
 
@@ -9,20 +11,26 @@ const ipcRenderer = require("electron").ipcRenderer;
 
 let chord = new Chord();
 
+//Meto los valores de los intervalos en el select
+let select = document.getElementById('mode-select');
 
-/* let Chord = class {
-  constructor(alto, ancho) {
-    //Intervalo respecto acorde anterior
-    intervalPreviousTonic
-    //Lista de intervalos aplicados
+//Cosas raras
+// Importa el enum desde el archivo enum.js
+
+console.log(findIntervalByName("Tercera menor").getstringValue());
+// Ejemplo de uso
 
 
-    this.alto = alto;
-    this.ancho = ancho;
-  }
-}; */
-/* 
-var inPreparationChord = new Chord */
+/* for (var i = min; i<=max; i++){
+    var opt = document.createElement('option');
+    opt.value = i;
+    opt.innerHTML = i;
+    select.appendChild(opt);
+} */
+
+
+
+
 
 /* ipcRenderer.on("nuevoAcorde", (event, freq) => {
   //Crear elemento grafico e insertarlo
@@ -98,6 +106,7 @@ document
 document
   .getElementById("new-chord-button")
   .addEventListener("click", () => {
+    chord = new Chord();
     //Abrir popup de duración
     document.getElementById("modal-background").classList.remove("no-display");
     document.getElementById("chord-duration-modal").classList.remove("no-display");
@@ -126,7 +135,6 @@ document.querySelectorAll(".close-modal-button")
       document.getElementById("modal-background").classList.add("no-display");
       document.getElementById("chord-duration-modal").classList.add("no-display");
       document.getElementById("chord-intervals-modal").classList.add("no-display");
-      chord = new Chord();
     })
   );
 
