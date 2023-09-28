@@ -1,0 +1,194 @@
+* {
+    margin: 0;
+}
+
+body {
+    padding: 0 4rem;
+}
+
+h1 {
+    text-align: center;
+    margin: 1em;
+}
+
+button {
+    cursor: pointer;
+}
+
+.error-text {
+    color: rgb(252, 0, 0);
+    font-size: small;
+}
+
+#song-controls__container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    border: 2px solid black;
+    padding: 1rem;
+}
+
+.song-controls-panel{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.song-controls-panel label {
+    font-size: 22px;
+    padding: 0.5rem 0;
+    text-align: center;
+}
+
+.song-controls-panel span{
+    margin-right: 0.25em;
+}
+
+
+.song-controls__input-container {
+    font-size: 3rem;
+    width: 15rem;
+    display: flex;
+    align-items: flex-end;
+}
+
+.song-controls__input-container span {
+    margin: auto;
+}
+
+.song-controls__input-container input {
+    display: flex;
+    border: none;
+    font-size: 3rem;
+    width: 7rem;
+    background-color: transparent;
+}
+
+
+#music-controls-bar {
+    margin-top: 4em;
+    border: 2px solid black;
+    display: flex;
+    justify-content: center;
+    position: relative;
+}
+
+#player-buttons-container {
+    display: flex;
+}
+
+#volume-input {
+    margin: auto 0;
+    display: flex;
+    position: absolute;
+    right: 0;
+    height: 100%;
+    margin: auto 1rem;
+    cursor: pointer;
+}
+
+.music-controls-bar__button {
+    width: 50px;
+    height: 50px;
+}
+
+
+#chord-bar {
+    display: flex;
+    overflow-x: scroll;
+    scrollbar-gutter: stable;
+    border: 1px solid #000;
+}
+
+.chord-box {
+    min-width: 200px;
+    height: 300px;
+    background-color: rgb(233, 232, 232);
+    border: 1px solid #000;
+}
+
+.modal-background {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(0, 0, 0, 0.3);
+    margin: auto;
+    width: auto;
+    height: auto;
+    border: 0;
+}
+
+.modal-window {
+    position: relative;
+    background-color: white;
+    box-shadow: 0px 0px 20px black;
+    padding: 2em;
+    max-width: 650px; 
+    max-height: 400px;
+}
+
+.no-display {
+    display: none;
+}
+
+#page-navigation-buttons-container {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    margin-top: 20px;
+}
+
+.modal-input {
+    display: inline;
+    border: none;
+    width: 4.5em;
+    background-color: transparent;
+}
+
+.close-modal-button {
+    position: absolute;
+    right: 20px;
+    top: 20px;
+}
+
+
+figure {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 1px  solid black; 
+    min-width: 6rem;
+}
+
+figure > span {
+    font-family: MusiSync;
+    font-size: 48px ;
+}
+
+dialog ul {
+    display: flex;
+    flex-direction: row;
+    overflow: auto;
+    list-style: none;
+    gap: 1em;
+    justify-content: center; 
+    padding: 0;
+}
+
+.close-modal-button{
+    border: none;
+    background:transparent
+}
+
+
+@font-face {
+    font-family: "MusiSync";
+    src: url("MusiSync.eot?") format("eot"), url("MusiSync.woff") format("woff"), url("MusiSync.ttf") format("truetype"), url("MusiSync.svg#MusiSync") format("svg");
+    font-weight: normal;
+    font-style: normal;
+}
