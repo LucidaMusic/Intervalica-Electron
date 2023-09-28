@@ -54,11 +54,44 @@
 
     <!-- Modal -->
 
-    <div id="modal-background" class="modal-background no-display">
+    <dialog id="modal-background" class="modal-background ">
 
-        <div id="chord-duration-modal" class="modal-window no-display" style="width: 300px; height: 300px;">
-            <span class="fa-solid fa-xmark fa-lg button close-modal-button"></span>
+        <div id="chord-duration-modal" class="modal-window ">
+            <button class="fa-solid fa-xmark fa-lg close-modal-button"></button>
             <h3>Introduce duración del acorde</h3>
+            <ul>
+                <li>
+                    <figure>
+                        <span>♬</span>
+                        <figcaption>Semicorchea</figcaption>
+                    </figure>
+                </li>
+                <li>
+                    <figure>
+                        <span>♪</span>
+                        <figcaption>Corchea</figcaption>
+                    </figure>
+                </li>
+                <li>
+                    <figure>
+                        <span>♩</span>
+                        <figcaption>Negra</figcaption>
+                    </figure>
+                </li>
+                <li>
+                    <figure>
+                        <span>♩</span>
+                        <figcaption>Blanca</figcaption>
+                    </figure>
+                </li>
+                <li>
+                    <figure>
+                        <span>&#119;</span>
+                        <figcaption>Redonda</figcaption>
+                    </figure>
+                </li>
+
+            </ul>
             <label for="chord-duration-input">Duración (pulsos): </label>
             <input class="modal-input" autofocus type="number" id="chord-duration-input" placeholder="Ej: 1.5">
             <button id="continue-button" type="submit">Continuar</button>
@@ -91,7 +124,7 @@
             </div>
         </div>
 
-    </div>
+    </dialog>
 
     <script src="indexRender.js"></script>
     <script src="https://kit.fontawesome.com/968b72db55.js" crossorigin="anonymous"></script>
