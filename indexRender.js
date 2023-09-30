@@ -89,29 +89,15 @@ document
   .getElementById("new-chord-button")
   .addEventListener("click", () => {
     document.getElementById("chord-duration-input").value = null;
+    document.getElementById("duration-error-text").classList.add("no-display")
     chord = new Chord();
     //Abrir popup de duración
     document.getElementById("modal-background").classList.remove("no-display");
     document.getElementById("chord-duration-modal").classList.remove("no-display");
   });
 
-//Duration modal
-document
-  .getElementById("chord-duration-input")
-  .addEventListener("blur", () => {
-    validateDuration();
-  });
 
-//El botón cerrar en el modal de duración es equivalente a las crucecitas
-document
-  .getElementById("close-duration-modal-button")
-  .addEventListener("click", () => {
-    //Cerrar modal container
-    document.getElementById("modal-background").classList.add("no-display");
-    document.getElementById("chord-duration-modal").classList.add("no-display");
-  });
-
-//Crucecitas de cerrar modal hay más de uno pero todos deben hacer lo mismo
+//Crucecitas de cerrar modal hay más de uno pero todos deben hacer lo mismo. Se queda aqui por ser comun a todos los dialogos
 document.querySelectorAll(".close-modal-button")
   .forEach(element =>
     element.addEventListener("click", () => {
@@ -122,21 +108,7 @@ document.querySelectorAll(".close-modal-button")
   );
 
 
-//Ambos botones tienen el mismo comportamiento, avanzar a Modal de Intervalos
-[document.getElementById("go-to-intervals-modal-button"),
-document.getElementById("continue-button")]
-  .forEach(element =>
-    element.addEventListener("click", () => {
-      if (validateDuration()) {
-        let chordDuration = document.getElementById("chord-duration-input").value;
-        chord.duration = chordDuration;
-        //Cerrar modal de duración
-        document.getElementById("chord-duration-modal").classList.add("no-display");
-        //Abrir modal de intervalos
-        document.getElementById("chord-intervals-modal").classList.remove("no-display");
-      }
-    })
-  );
+
 
 //Intervals modal
 document.getElementById("go-back-to-intervals-modal-button")
@@ -159,19 +131,7 @@ document.getElementById("go-to-octavation-modal-button")
   })
 
 
-//Esta función se encarga de validar el campo de duración introducido manualmente por el usuario
-//Desde aqui se muestran los mensajes de error
-function validateDuration() {
-  let chordDurationValue = document.getElementById("chord-duration-input").value;
 
-  if (Number.isNaN(chordDurationValue) || chordDurationValue <= 0) {
-    document.querySelector("#duration-error-text").classList.remove("no-display");
-    return false;
-  } else {
-    document.querySelector("#duration-error-text").classList.add("no-display");
-    return true;
-  }
-}
 
 
 

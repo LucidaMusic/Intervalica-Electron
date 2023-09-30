@@ -1,3 +1,9 @@
+:root {
+    --color-primario: #93a0ff;
+    --color-secundario: #7c8bff;
+    --color-fondo: #f2f2f2;
+}
+
 * {
     margin: 0;
 }
@@ -11,8 +17,21 @@ h1 {
     margin: 1em;
 }
 
-button {
+button,
+[role=button] {
     cursor: pointer;
+}
+
+.decorated-button {
+    background-color: var(--color-primario);
+    text-transform: uppercase;
+    padding: 0.5em;
+    color: white;
+    border: 0;
+}
+
+.decorated-button:hover {
+    background-color: var(--color-secundario);
 }
 
 .error-text {
@@ -28,7 +47,7 @@ button {
     padding: 1rem;
 }
 
-.song-controls-panel{
+.song-controls-panel {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -40,7 +59,7 @@ button {
     text-align: center;
 }
 
-.song-controls-panel span{
+.song-controls-panel span {
     margin-right: 0.25em;
 }
 
@@ -50,10 +69,6 @@ button {
     width: 15rem;
     display: flex;
     align-items: flex-end;
-}
-
-.song-controls__input-container span {
-    margin: auto;
 }
 
 .song-controls__input-container input {
@@ -128,8 +143,9 @@ button {
     background-color: white;
     box-shadow: 0px 0px 20px black;
     padding: 2em;
-    max-width: 650px; 
+    max-width: 650px;
     max-height: 400px;
+    min-height: 235px;
 }
 
 .no-display {
@@ -138,9 +154,7 @@ button {
 
 #page-navigation-buttons-container {
     position: absolute;
-    bottom: 20px;
-    left: 20px;
-    margin-top: 20px;
+    bottom: 2em;
 }
 
 .modal-input {
@@ -152,8 +166,12 @@ button {
 
 .close-modal-button {
     position: absolute;
-    right: 20px;
-    top: 20px;
+    right: 2em;
+    /* top: 20px; */
+    border: 0;
+    background: transparent;
+    width: 0;
+    height: 0;
 }
 
 
@@ -161,13 +179,37 @@ figure {
     display: flex;
     flex-direction: column;
     align-items: center;
-    border: 1px  solid black; 
+    border: 1px solid black;
     min-width: 6rem;
 }
 
-figure > span {
+figure:not(.selected):hover {
+
+    border: 1px solid var(--color-secundario);
+    color: var(--color-secundario);
+}
+
+figure:not(.selected):hover>figcaption {
+    background-color: var(--color-secundario);
+    color: white;
+}
+
+.selected {
+    background-color: var(--color-primario);
+    color: white;
+
+}
+
+figcaption {
+    font-style: italic;
+    display: flex;
+    width: 100%;
+    justify-content: center;
+}
+
+.musical-characters {
     font-family: MusiSync;
-    font-size: 48px ;
+    font-size: 48px;
 }
 
 dialog ul {
@@ -176,19 +218,17 @@ dialog ul {
     overflow: auto;
     list-style: none;
     gap: 1em;
-    justify-content: center; 
+    justify-content: center;
     padding: 0;
-}
-
-.close-modal-button{
-    border: none;
-    background:transparent
+    margin-bottom: 1em;
+    margin-top: 1em;
+    align-items: center;
 }
 
 
 @font-face {
     font-family: "MusiSync";
-    src: url("MusiSync.eot?") format("eot"), url("MusiSync.woff") format("woff"), url("MusiSync.ttf") format("truetype"), url("MusiSync.svg#MusiSync") format("svg");
+    src: url("../fonts/musisync/MusiSync.eot?") format("eot"), url("../fonts/musisync/MusiSync.woff") format("woff"), url("../fonts/musisync/MusiSync.ttf") format("truetype"), url("../fonts/musisync/MusiSync.svg#MusiSync") format("svg");
     font-weight: normal;
     font-style: normal;
 }

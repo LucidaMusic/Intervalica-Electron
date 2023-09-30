@@ -14,15 +14,18 @@
         <div id="song-controls-rythm" class="song-controls-panel">
             <label>Pulsos por minuto (BPM)</label>
             <div class="song-controls__input-container">
-                <span> 𝅘𝅥 = </span>
-                <input id="bpm-input" type="number" maxlength="4" value="120">
+                <span class="musical-characters"> &#113;</span>
+                <span> = </span>
+                <input id="bpm-input" type="number" value="120">
             </div>
         </div>
         <div id="song-controls-tonal" class="song-controls-panel">
             <label>Frecuencia primera tónica (Hz)</label>
             <div class="song-controls__input-container">
-                <span> 1ª𝅘𝅥 = </span>
-                <input id="freq-input" type="number" maxlength="4" value="440">
+                <span>1ª</span>
+                <span class="musical-characters"> &#113;</span>
+                <span> = </span>
+                <input id="freq-input" type="number" value="440">
             </div>
         </div>
     </div>
@@ -61,45 +64,45 @@
             <h3>Introduce duración del acorde</h3>
             <ul>
                 <li>
-                    <figure>
-                        <span>♬</span>
+                    <figure id="semiquaver-duration-option" duration="0.25" role="button">
+                        <span class="musical-characters">&#115;</span>
                         <figcaption>Semicorchea</figcaption>
                     </figure>
                 </li>
                 <li>
-                    <figure>
-                        <span>♪</span>
+                    <figure id="quaver-duration-option" duration="0.5" role="button">
+                        <span class="musical-characters">&#101;</span>
                         <figcaption>Corchea</figcaption>
                     </figure>
                 </li>
                 <li>
-                    <figure>
-                        <span>♩</span>
+                    <figure id="crotchet-duration-option" duration="1" role="button" class="selected">
+                        <span class="musical-characters">&#113;</span>
                         <figcaption>Negra</figcaption>
                     </figure>
                 </li>
                 <li>
-                    <figure>
-                        <span>♩</span>
+                    <figure id="minim-duration-option" duration="2" role="button">
+                        <span class="musical-characters">&#104;</span>
                         <figcaption>Blanca</figcaption>
                     </figure>
                 </li>
                 <li>
-                    <figure>
-                        <span>&#119;</span>
+                    <figure id="semibreve-duration-option" duration="4" role="button">
+                        <span class="musical-characters">&#119;</span>
                         <figcaption>Redonda</figcaption>
                     </figure>
                 </li>
-
             </ul>
-            <label for="chord-duration-input">Duración (pulsos): </label>
+            <label for=" chord-duration-input">Duración (pulsos): </label>
             <input class="modal-input" autofocus type="number" id="chord-duration-input" placeholder="Ej: 1.5">
-            <button id="continue-button" type="submit">Continuar</button>
-            <p id="duration-error-text" class="error-text no-display">El valor indicado ha de ser mayor que cero. </p>
+            <button id="continue-button" type="submit" class="decorated-button">Continuar</button>
+            <p id="duration-error-text" class="error-text no-display">El valor indicado ha de ser mayor
+                que cero. </p>
             <!--Botones adelante (un boton Cancelar no parece necesario))-->
             <div id="page-navigation-buttons-container">
-                <button id="close-duration-modal-button" class="close-modal">Cerrar</button>
-                <button id="go-to-intervals-modal-button">Siguiente</button>
+                <button id="close-duration-modal-button" class="decorated-button">Cerrar</button>
+                <button id="go-to-intervals-modal-button" class="decorated-button">Siguiente</button>
             </div>
         </div>
 
@@ -127,6 +130,7 @@
     </dialog>
 
     <script src="indexRender.js"></script>
+    <script src="chordDurationPopupRender.js"></script>
     <script src="https://kit.fontawesome.com/968b72db55.js" crossorigin="anonymous"></script>
 </body>
 
