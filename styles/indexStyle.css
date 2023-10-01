@@ -152,7 +152,7 @@ button,
     display: none;
 }
 
-#page-navigation-buttons-container {
+.page-navigation-buttons-container {
     position: absolute;
     bottom: 2em;
 }

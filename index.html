@@ -57,9 +57,17 @@
 
     <!-- Modal -->
 
-    <dialog id="modal-background" class="modal-background ">
+    <dialog id="modal-background" class="modal-background no-display">
+        <div id="previous-freq-modal" class="modal-window no-display">
+            <button class="fa-solid fa-xmark fa-lg close-modal-button"></button>
+            <h3>¿Sobre que nota se ha de formar el acorde?</h3>
+            <div class="page-navigation-buttons-container">
+                <button id="close-duration-modal-button" class="decorated-button">Cerrar</button>
+                <button id="go-to-intervals-modal-button" class="decorated-button">Siguiente</button>
+            </div>
+        </div>
 
-        <div id="chord-duration-modal" class="modal-window ">
+        <div id="chord-duration-modal" class="modal-window no-display">
             <button class="fa-solid fa-xmark fa-lg close-modal-button"></button>
             <h3>Introduce duración del acorde</h3>
             <ul>
@@ -94,13 +102,13 @@
                     </figure>
                 </li>
             </ul>
-            <label for=" chord-duration-input">Duración (pulsos): </label>
+            <label for="chord-duration-input">Duración (pulsos): </label>
             <input class="modal-input" autofocus type="number" id="chord-duration-input" value="1" placeholder="Ej: 1.5">
             <button id="continue-button" type="submit" class="decorated-button">Continuar</button>
             <p id="duration-error-text" class="error-text no-display">El valor indicado ha de ser mayor
                 que cero. </p>
             <!--Botones adelante (un boton Cancelar no parece necesario))-->
-            <div id="page-navigation-buttons-container">
+            <div class="page-navigation-buttons-container">
                 <button id="close-duration-modal-button" class="decorated-button">Cerrar</button>
                 <button id="go-to-intervals-modal-button" class="decorated-button">Siguiente</button>
             </div>
@@ -121,16 +129,14 @@
                 <option value=1.0666666>Séptima mayor</option>
             </select>
             <!--Botones adelante y atrás-->
-            <div id="page-navigation-buttons-container">
+            <div class="page-navigation-buttons-container">
                 <button id="go-back-to-intervals-modal-button">Anterior</button>
                 <button id="go-to-octavation-modal-button">Siguiente</button>
             </div>
         </div>
 
     </dialog>
-
     <script src="indexRender.js"></script>
-    <script src="chordDurationPopupRender.js"></script>
     <script src="https://kit.fontawesome.com/968b72db55.js" crossorigin="anonymous"></script>
 </body>
 

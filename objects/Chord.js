@@ -1,20 +1,35 @@
 module.exports = class Chord {
-  constructor(duration, mode) {
+  constructor(duration, mode, contextualizedFreqs) {
     let _duration = duration;
     let _mode = mode;
+    let _contextualizedFreqs = contextualizedFreqs;
 
-    this.getduration = function () {
+    this.getDuration = function () {
       return _duration;
     };
-    this.setduration = function (newduration) {
+
+    this.setDuration = function (newduration) {
       _duration = newduration;
     };
 
-    this.getmode = function () {
+    this.getMode = function () {
       return _mode;
     };
-    this.setmode = function (newmode) {
+
+    this.setMode = function (newmode) {
       _mode = newmode;
     };
+
+    this.getContextualizedFreqs = function () {
+      return _contextualizedFreqs;
+    };
+
+    this.setContextualizedFreqs = function (newcontextualizedFreqs) {
+      _contextualizedFreqs = newcontextualizedFreqs;
+    };
+
+    function contextualize(freq){
+      
+    }
   }
-}
+};
