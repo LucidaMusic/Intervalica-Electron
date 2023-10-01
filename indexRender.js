@@ -2,6 +2,7 @@
 
 //const { createNoteObject } = require("./tools/objectCreator.js");
 //const { playExistingSound, generateAudioArrayFromNote } = require("./tools/soundMotor.js")
+
 const Chord = require("./objects/Chord.js");
 //const { Interval, findIntervalByName } = require("./objects/Intervals.js");
 const { findModeByName } = require("./objects/Modes.js");
@@ -86,27 +87,28 @@ document
     document.getElementById("bpmInput").focus();
   });
 
+//Todos los modales y el fondo
 const modalBackground = document.getElementById("modal-background");
 const previousFreqModal = document.getElementById("previous-freq-modal");
-const durationModal = document.getElementById("chord-duration-modal");
+const previousIntervalModal = document.getElementById("previous-interval-modal");
+const chordDurationModal = document.getElementById("chord-duration-modal");
+const chordIntervalsModal = document.getElementById("chord-intervals-modal");
+const octavationModal = document.getElementById("octavation-modal");
 
 document
   .getElementById("new-chord-button")
   .addEventListener("click", () => {
-    modalBackground.classList.remove("no-display");
-
     if (song.length == 0) {
-      document.getElementById("chord-duration-input").value = null;
-      document.getElementById("duration-error-text").classList.add("no-display");
+
       inPreparationChord = new Chord();
       //Abrir popup de duración
       /*     document.getElementById("modal-background").classList.remove("no-display");
           document.getElementById("chord-duration-modal").classList.remove("no-display");
        */
-      durationModal.classList.remove("no-display");
 
+      showDialog(chordDurationModal);
     } else {
-      previousFreqModal.classList.remove("no-display");
+      showDialog(previousFreqModal);
     }
   });
 
@@ -115,17 +117,15 @@ document
 document.querySelectorAll(".close-modal-button")
   .forEach(element =>
     element.addEventListener("click", () => {
-      document.getElementById("modal-background").classList.add("no-display");
-      document.getElementById("chord-duration-modal").classList.add("no-display");
-      document.getElementById("chord-intervals-modal").classList.add("no-display");
+      hideAllDialogs();
     })
   );
 
 //____________________________Duration modal_________________________________________
-let chordDuration = document.getElementById("chord-duration-input");
+let durationInput = document.getElementById("chord-duration-input");
 
 //Adding action on Enter key
-chordDuration.addEventListener("keydown", function (event) {
+durationInput.addEventListener("keydown", function (event) {
   // If the user presses the "Enter" key on the keyboard
   if (event.key === "Enter") {
     // Cancel the default action, if needed
@@ -135,7 +135,6 @@ chordDuration.addEventListener("keydown", function (event) {
   }
 });
 
-let durationInput = document.getElementById("chord-duration-input");
 let continueButton = document.getElementById("continue-button");
 
 ["semiquaver-duration-option",
@@ -156,43 +155,12 @@ let continueButton = document.getElementById("continue-button");
       });
   });
 
-//El botón cerrar en el modal de duración es equivalente a las crucecitas
-document
-  .getElementById("close-duration-modal-button")
-  .addEventListener("click", () => {
-    //Cerrar modal container
-    document.getElementById("modal-background").classList.add("no-display");
-    document.getElementById("chord-duration-modal").classList.add("no-display");
-  });
-
-//Ambos botones tienen el mismo comportamiento, avanzar a Modal de Intervalos
-[document.getElementById("go-to-intervals-modal-button"), document.getElementById("continue-button")]
-  .forEach(element =>
-    element.addEventListener("click", () => {
-      if (validateDuration()) {
-        let chordDuration = document.getElementById("chord-duration-input").value;
-        inPreparationChord.setDuration(chordDuration);
-        //Cerrar modal de duración
-        document.getElementById("chord-duration-modal").classList.add("no-display");
-        //Abrir modal de intervalos
-        document.getElementById("chord-intervals-modal").classList.remove("no-display");
-      }
-    })
-  );
 
 
 //____________________________Intervals modal_________________________________________
-document.getElementById("go-back-to-intervals-modal-button")
-  .addEventListener("click", () => {
-    //Cerrar modal de duración
-    document.getElementById("chord-duration-modal").classList.remove("no-display");
-    //Abrir modal de intervalos
-    document.getElementById("chord-intervals-modal").classList.add("no-display");
-    //Recargar valores que había establecido
-    document.getElementById("chord-duration-input").value = inPreparationChord.duration;
-  });
 
-document.getElementById("go-to-octavation-modal-button")
+
+document.getElementById("finish-chord-creation-button")
   .addEventListener("click", () => {
     let modeSelectorValue = document.getElementById("mode-select").value;
     inPreparationChord.setMode(findModeByName(modeSelectorValue));
@@ -203,22 +171,73 @@ document.getElementById("go-to-octavation-modal-button")
     song.push(inPreparationChord);
   });
 
+// ______________________________Comun dialogs_______________________________________
 
+//Esto da la funcionalidad a los botones de desplazarse a otra pagina
+document.querySelectorAll("button[goTo]")
+  .forEach(element => {
+    element
+      .addEventListener("click", () => {
+        console.log(element.getAttribute("goTo"));
+        hideAllDialogs();
+        let whereToGo = element.getAttribute("goTo");
+        switch (whereToGo) {
+          case "close":
+            break;
+          case "previous-freq-modal":
+            showDialog(previousFreqModal);
+            break;
+          case "previous-interval-modal":
+            console.log("Pensaba")
+            showDialog(previousIntervalModal);
+            break;
+          case "chord-duration-modal":
+            showDialog(chordDurationModal);
+            break;
+          case "chord-intervals-modal":
+            showDialog(chordIntervalsModal);
+            break;
+          case "octavation-modal":
+            showDialog(octavationModal);
+            break;
+        }
+      });
+  });
+
+
+const durationErrorText = document.getElementById("duration-error-text");
 
 //Esta función se encarga de validar el campo de duración introducido manualmente por el usuario
 //Desde aqui se muestran los mensajes de error
 function validateDuration() {
-  let chordDurationValue = document.getElementById("chord-duration-input").value;
+  let chordDurationValue = durationInput.value;
 
   if (Number.isNaN(chordDurationValue) || chordDurationValue <= 0) {
-    document.querySelector("#duration-error-text").classList.remove("no-display");
+    durationErrorText.classList.remove("no-display");
     return false;
   } else {
-    document.querySelector("#duration-error-text").classList.add("no-display");
+    durationErrorText.classList.add("no-display");
     return true;
   }
 }
 
+function hideAllDialogs() {
+  [modalBackground,
+    previousFreqModal,
+    previousIntervalModal,
+    chordDurationModal, durationErrorText,
+    chordIntervalsModal,
+    octavationModal].forEach(dialog => dialog.classList.add("no-display"))
+  resetModalValues();
+}
 
+function showDialog(dialog) {
+  modalBackground.classList.remove("no-display");
+  dialog.classList.remove("no-display");
+}
 
+function resetModalValues() {
+  durationInput.value = null;
+
+}
 

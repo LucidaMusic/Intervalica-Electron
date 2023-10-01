@@ -57,13 +57,23 @@
 
     <!-- Modal -->
 
-    <dialog id="modal-background" class="modal-background no-display">
-        <div id="previous-freq-modal" class="modal-window no-display">
+    <dialog id="modal-background" class="modal-background">
+
+        <div id="previous-freq-modal" class="modal-window">
             <button class="fa-solid fa-xmark fa-lg close-modal-button"></button>
             <h3>¿Sobre que nota se ha de formar el acorde?</h3>
             <div class="page-navigation-buttons-container">
-                <button id="close-duration-modal-button" class="decorated-button">Cerrar</button>
-                <button id="go-to-intervals-modal-button" class="decorated-button">Siguiente</button>
+                <button class="decorated-button" goTo="close">Cerrar</button>
+                <button class="decorated-button" goTo="previous-interval-modal">Siguiente</button>
+            </div>
+        </div>
+
+        <div id="previous-interval-modal" class="modal-window no-display">
+            <button class="fa-solid fa-xmark fa-lg close-modal-button"></button>
+            <h3>¿Que intervalo existe entre la nueva tónica y la frecuencia elegida?</h3>
+            <div class="page-navigation-buttons-container">
+                <button class="decorated-button" goTo="previous-freq-modal">Cerrar</button>
+                <button class="decorated-button" goTo="chord-duration-modal">Siguiente</button>
             </div>
         </div>
 
@@ -103,14 +113,15 @@
                 </li>
             </ul>
             <label for="chord-duration-input">Duración (pulsos): </label>
-            <input class="modal-input" autofocus type="number" id="chord-duration-input" value="1" placeholder="Ej: 1.5">
+            <input class="modal-input" autofocus type="number" id="chord-duration-input" value="1"
+                placeholder="Ej: 1.5">
             <button id="continue-button" type="submit" class="decorated-button">Continuar</button>
             <p id="duration-error-text" class="error-text no-display">El valor indicado ha de ser mayor
                 que cero. </p>
             <!--Botones adelante (un boton Cancelar no parece necesario))-->
             <div class="page-navigation-buttons-container">
-                <button id="close-duration-modal-button" class="decorated-button">Cerrar</button>
-                <button id="go-to-intervals-modal-button" class="decorated-button">Siguiente</button>
+                <button class="decorated-button" goTo="previous-interval-modal">Anterior</button>
+                <button class="decorated-button" goTo="chord-intervals-modal">Siguiente</button>
             </div>
         </div>
 
@@ -130,8 +141,20 @@
             </select>
             <!--Botones adelante y atrás-->
             <div class="page-navigation-buttons-container">
-                <button id="go-back-to-intervals-modal-button">Anterior</button>
-                <button id="go-to-octavation-modal-button">Siguiente</button>
+                <button class="decorated-button" goTo="chord-duration-modal">Anterior</button>
+                <button class="decorated-button" goTo="octavation-modal">Siguiente</button>
+            </div>
+        </div>
+
+
+        <div id="octavation-modal" class="modal-window no-display" style="width: 300px; height: 300px;">
+            <span class="fa-solid fa-xmark fa-lg button close-modal-button"></span>
+            <h3>Elige la octavación del acorde</h3>
+
+            <!--Botones adelante y atrás-->
+            <div class="page-navigation-buttons-container">
+                <button class="decorated-button" goTo="chord-intervals-modal">Anterior</button>
+                <button id="finish-chord-creation-button" class="decorated-button" goTo="close">Finalizar</button>
             </div>
         </div>
 
