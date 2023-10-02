@@ -2,6 +2,7 @@
     --color-primario: #93a0ff;
     --color-secundario: #7c8bff;
     --color-fondo: #f2f2f2;
+    --color-chord-view-line-hovered: #93a0ff;
 }
 
 * {
@@ -223,6 +224,58 @@ dialog ul {
     margin-top: 1em;
     align-items: center;
 }
+
+.chord-view{
+    border: 1px solid black;
+}
+
+.chord-view-line-container{
+    font-size: 2em;
+    position: absolute;
+    right: 0;
+    left: 0;
+    display: flex;
+    cursor: pointer;
+    transition-delay: 0s;
+    align-items: center;
+    transform: translateY(-50%);
+}
+
+.chord-view-line-container:hover{
+    color: var(--color-chord-view-line-hovered);
+}
+.chord-view-line-container:hover div{
+    background-color: var(--color-chord-view-line-hovered);
+}
+
+.chord-view-line-number{
+    margin-right: 0.5em;
+    margin-left: 0.5em;
+}
+
+.chord-view-line{
+    background-color: blue;
+    width: 100%;
+    height: 0.25em;
+}
+
+.chord-view-container{
+    display: flex;
+    flex-direction: column;
+}
+
+.previous-freq-modal-mainContent{
+    display: flex;
+    align-items: center;
+}
+
+#previous-freq-input{
+    margin: 1em;
+    width: 4em;
+    font-size: 2em;
+}
+
+
 
 
 @font-face {

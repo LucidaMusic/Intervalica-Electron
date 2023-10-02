@@ -4,28 +4,28 @@ function constructor(name, stringValue, numberValue) {
   let _stringValue = stringValue;
   let _numberValue = numberValue;
 
-  this.getname = function () {
+  this.getName = function () {
     return _name;
   };
 
-  this.setname = function (newname) {
-    _name = newname;
+  this.setName = function (newName) {
+    _name = newName;
   };
 
-  this.getstringValue = function () {
+  this.getStringValue = function () {
     return _stringValue;
   };
 
-  this.setstringValue = function (newstringValue) {
-    _stringValue = newstringValue;
+  this.setStringValue = function (newStringValue) {
+    _stringValue = newStringValue;
   };
 
-  this.getnumberValue = function () {
+  this.getNumberValue = function () {
     return _numberValue;
   };
 
-  this.setnumberValue = function (newnumberValue) {
-    _numberValue = newnumberValue;
+  this.setNumberValue = function (newNumberValue) {
+    _numberValue = newNumberValue;
   };
 }
 

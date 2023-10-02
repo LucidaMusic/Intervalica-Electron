@@ -57,11 +57,19 @@
 
     <!-- Modal -->
 
-    <dialog id="modal-background" class="modal-background">
+    <dialog id="modal-background" class="modal-background no-display">
 
-        <div id="previous-freq-modal" class="modal-window">
+        <div id="previous-freq-modal" class="modal-window no-display" style="min-height: 800px;">
             <button class="fa-solid fa-xmark fa-lg close-modal-button"></button>
-            <h3>¿Sobre que nota se ha de formar el acorde?</h3>
+            <h3>¿Sobre que nota se va a construir el acorde?</h3>
+            <p>Seleccione la nota del acorde anterior sobre la cual se va a construir el acorde.</p>
+            <div class="previous-freq-modal-mainContent">
+                <div class="chord-view-container">
+                    <span>Acorde anterior: </span>
+                    <div class="chord-view note-unblur-on-hover" style="width: 300px; height: 500px; position: relative;"></div>
+                </div>
+                <input type="number" id="previous-freq-input" >
+            </div>
             <div class="page-navigation-buttons-container">
                 <button class="decorated-button" goTo="close">Cerrar</button>
                 <button class="decorated-button" goTo="previous-interval-modal">Siguiente</button>
@@ -72,7 +80,7 @@
             <button class="fa-solid fa-xmark fa-lg close-modal-button"></button>
             <h3>¿Que intervalo existe entre la nueva tónica y la frecuencia elegida?</h3>
             <div class="page-navigation-buttons-container">
-                <button class="decorated-button" goTo="previous-freq-modal">Cerrar</button>
+                <button class="decorated-button" goTo="previous-freq-modal">Anterior</button>
                 <button class="decorated-button" goTo="chord-duration-modal">Siguiente</button>
             </div>
         </div>
