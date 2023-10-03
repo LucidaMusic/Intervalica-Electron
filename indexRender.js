@@ -16,59 +16,79 @@ testingAlreadyCreatedChord.setContextualizedFreqs([330, 440, 550, 660, 880]);
 testingAlreadyCreatedChord.setPreviousInterval(Interval.JUST_FIFTH);
 song.push(testingAlreadyCreatedChord);
 
-//Esta variable se necesita porque se reutiliza cada vez que se pide un acorde nuevo
-let inPreparationChord = new Chord();
-let previousFreq;
+//Variables para que tengan alcance global 
+let inPreparationChord,
+previousFreq;
 
-
+//Variables configuración usuario
+let relativeToSong=0; //a la hora de dibujar las líneas del canvas
+let relativeToChord=1;
 
 
 //___________________________Main page________________________________
+const firstFreqInput=document.getElementById("freq-input")
+//Crear nuevo acorde
 document
   .getElementById("new-chord-button")
   .addEventListener("click", () => {
+//Preparamos el acorde a añadir
+  inPreparationChord = new Chord();
+  
     if (song.length == 0) {
-      inPreparationChord = new Chord();
+      
       //Ya conozco previous freq y previous interval asi que los establezco
-
+       previousFreq=firstFreqInput.value
+       inPreparationChord.setPreviousInterval(Intervals.UNISON)
       //Abrir popup de duración
       showDialog(chordDurationModal);
 
     } else {
-      showDialog(previousFreqModal);
-      //Calculamos nota máxima y minima sobre las que queremos pintar
-      let chordA = song[0];
+      showDialog(previousFreqModal); //PONER AL FINAL NO?
+       //Preparamos la vista del dialogo
+      let chordA = song[0]; //Cambiar por previousChord
       console.log(chordA.getContextualizedFreqs());
 
+      //Calculamos nota máxima y minima sobre las que queremos pintar
       //Datos de entrada
-      let song_min_freq = 330;
-      let song_max_freq = 880;
+  //    let song_min_freq = 330; //Cambiar por 
+      if(relativeToSong){
+      let maxFreqValue=maxValue(song)
+      let minFreqValue=minValue(song)
+      }else{ //Default is relative to chord
+      let maxFreqValue=maxValue(previousChord.getContextualizedFreqs())
+      let minFreqValue=minValue(previousChord)
+      }
+   //   let minValue=
+   //   let song_max_freq = 880;
 
       //Dado que necesito mas espacio
+      //Esto se puede calcular teniendo en cuenta el tamaño de las letras
       song_max_freq *= 1.2;
       song_min_freq *= 0.8;
 
-      //Establecemos valores que sirven para calcular punto y de las lineas
-      let min_f = Math.log(song_min_freq) / Math.log(10);
+      //Establecemos valores que sirven para calcular punto y de las lineas en escala logarítmica 
+      let min_f = Math.log(song_min_freq) / Math.log(10); //Cambiar por algo mejor?
       let max_f = Math.log(song_max_freq) / Math.log(10);
       let range = max_f - min_f;
 
-      let chordFreqs = chordA.getContextualizedFreqs();
+      let chordFreqs = chordA.getContextualizedFreqs(); //seguramente deba estar declaradl antes 
 
       //Hacemos que las barras tengan la funcionalidad de ser seleccionadas y su numero mostrado aparte
       const canvasInModal = document.querySelector(".chord-view");
       const freqInput = document.getElementById("previous-freq-input");
 
+      //Esto tiene que estar aqui??? Deberia ir después
       canvasInModal.addEventListener("click", function (event) {
         const chordViewLineContainer = event.target.closest(".chord-view-line-container");
         if (chordViewLineContainer) {
           // Obtener el texto dentro del <span>
           const previousFreqDesiredValue = chordViewLineContainer.querySelector(".chord-view-line-number").textContent;
 
-          // Mostramos el valor seleccionado
+          // Mostramos el valor clickado
           freqInput.value = previousFreqDesiredValue;
 
-          //Aádir todos los blurred
+          //Aádir todos los blurred por si ya había seleccionado uno
+          //se podría cambiar solo al que toca???
           canvasInModal.querySelectorAll(".chord-view-line-container")
             .forEach(element => element.classList.add("blurred"));
 
@@ -114,7 +134,7 @@ document
       //mayor y menor de la canción, en función a la frecuencia
       function canvas_calculateFreqBarYPosition(frequency, height) {
         position_px = (Math.log(frequency) / Math.log(10) - min_f) / range * height;
-        //Supongo
+        //Necesito invertir?? es absolute si no es top es bottom
         position_px = height - position_px;
         return position_px;
       }
