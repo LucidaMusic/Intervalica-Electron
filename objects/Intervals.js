@@ -1,45 +1,58 @@
 // Función que actúa como constructor
-function constructor(name, stringValue, numberValue) {
-  let _name = name;
-  let _stringValue = stringValue;
-  let _numberValue = numberValue;
+class Interval {
+  constructor(name, stringValue, numberValue) {
 
-  this.getName = function () {
-    return _name;
-  };
+    let _name = name;
+    let _stringValue = stringValue;
+    let _numberValue = numberValue;
 
-  this.setName = function (newName) {
-    _name = newName;
-  };
+    this.getName = function () {
+      return _name;
+    };
 
-  this.getStringValue = function () {
-    return _stringValue;
-  };
+    this.setName = function (newName) {
+      _name = newName;
+    };
 
-  this.setStringValue = function (newStringValue) {
-    _stringValue = newStringValue;
-  };
+    this.getStringValue = function () {
+      return _stringValue;
+    };
 
-  this.getNumberValue = function () {
-    return _numberValue;
-  };
+    this.setStringValue = function (newStringValue) {
+      _stringValue = newStringValue;
+    };
 
-  this.setNumberValue = function (newNumberValue) {
-    _numberValue = newNumberValue;
-  };
+    this.getNumberValue = function () {
+      return _numberValue;
+    };
+
+    this.setNumberValue = function (newNumberValue) {
+      _numberValue = newNumberValue;
+    };
+  }
 }
 
-const Interval = {
-  MAJOR_THIRD: new constructor('Tercera mayor', '5/4', 5 / 4),
-  MINOR_THIRD: new constructor('Tercera menor', '6/5', 6 / 5),
-  JUST_FIFTH: new constructor('Quinta justa', '3/2', 3 / 2)
+const Intervals = {
+  UNISON: new Interval('Unísono', '1', 1),
+  MINOR_SECOND: new Interval('Segunda menor', '16/15', 16 / 15),
+  MAJOR_SECOND: new Interval('Segunda mayor', '9/8', 9 / 8),
+  MINOR_THIRD: new Interval('Tercera menor', '6/5', 6 / 5),
+  MAJOR_THIRD: new Interval('Tercera mayor', '5/4', 5 / 4),
+  PERFECT_FOURTH: new Interval('Cuarta justa', '4/3', 4 / 3),
+  TRITONE: new Interval('Tritono', '45/32', 45 / 32),
+  PERFECT_FIFTH: new Interval('Quinta justa', '3/2', 3 / 2),
+  MINOR_SIXTH: new Interval('Sexta menor', '8/5', 8 / 5),
+  MAJOR_SIXTH: new Interval('Sexta mayor', '5/3', 5 / 3),
+  MINOR_SEVENTH: new Interval('Séptima menor', '16/9', 16 / 9),
+  DOMINANT_SEVENTH: new Interval('Séptima de dominante', '7/4', 7 / 4),
+  MAJOR_SEVENTH: new Interval('Séptima mayor', '15/8', 15 / 8),
 };
 
-function findIntervalByName(param1Value) {
-  for (const key in Interval) {
-    if (Interval.hasOwnProperty(key)) {
-      const enumValue = Interval[key];
-      if (enumValue.getname() === param1Value) {
+function findIntervalByName(intervalName) {
+  for (const key in Intervals) {
+    if (Intervals.hasOwnProperty(key)) {
+      const enumValue = Intervals[key];
+      if (enumValue.getName() === intervalName) {
         return enumValue;
       }
     }

@@ -2,7 +2,7 @@
     --color-primario: #93a0ff;
     --color-secundario: #7c8bff;
     --color-fondo: #f2f2f2;
-    --color-chord-view-line-hovered: #93a0ff;
+    --color-chord-view-line-blurred: #93a0ff;
 }
 
 * {
@@ -106,8 +106,13 @@ button,
 .music-controls-bar__button {
     width: 50px;
     height: 50px;
+    border: none;
+    background-color: transparent;
 }
 
+.music-controls-bar__button:hover {
+    border: 1px solid black;
+}
 
 #chord-bar {
     display: flex;
@@ -168,7 +173,6 @@ button,
 .close-modal-button {
     position: absolute;
     right: 2em;
-    /* top: 20px; */
     border: 0;
     background: transparent;
     width: 0;
@@ -225,11 +229,11 @@ dialog ul {
     align-items: center;
 }
 
-.chord-view{
+.chord-view {
     border: 1px solid black;
 }
 
-.chord-view-line-container{
+.chord-view-line-container {
     font-size: 2em;
     position: absolute;
     right: 0;
@@ -241,40 +245,100 @@ dialog ul {
     transform: translateY(-50%);
 }
 
-.chord-view-line-container:hover{
-    color: var(--color-chord-view-line-hovered);
-}
-.chord-view-line-container:hover div{
-    background-color: var(--color-chord-view-line-hovered);
+/* .chord-view-line-container:hover span, */
+.chord-view-line-container span {
+    color: black;
 }
 
-.chord-view-line-number{
+.chord-view-line-container.blurred:hover span {
+    color: black;
+}
+
+/* .chord-view-line-container:hover div, */
+.chord-view-line-container div {
+    background-color: blue;
+}
+
+.chord-view-line-container.blurred:hover div {
+    background-color: blue;
+}
+
+
+/* .chord-view-line-container span {
+    color: black;
+}
+ */
+/* .chord-view-line-container div {
+    background-color: blue;
+} */
+
+.chord-view-line-container.blurred span {
+    color: var(--color-chord-view-line-blurred);
+}
+
+.chord-view-line-container.blurred div {
+    background-color: var(--color-chord-view-line-blurred);
+}
+
+.chord-view-line-number {
+    color: inherit;
     margin-right: 0.5em;
     margin-left: 0.5em;
 }
 
-.chord-view-line{
-    background-color: blue;
+.chord-view-line {
+    background-color: var(--color-chord-view-line-blurred);
     width: 100%;
     height: 0.25em;
 }
 
-.chord-view-container{
+.chord-view-container {
     display: flex;
     flex-direction: column;
 }
 
-.previous-freq-modal-mainContent{
+.previous-freq-modal-mainContent {
     display: flex;
     align-items: center;
 }
 
-#previous-freq-input{
+#previous-freq-input {
     margin: 1em;
     width: 4em;
     font-size: 2em;
 }
 
+.text-unselectable {
+    user-select: none;
+}
+
+.previous-interval-previsualization-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 1em;
+}
+
+.new-freq,
+.previous-freq {
+    font-size: 3em;
+    margin: 0.25em;
+}
+
+.diagonal-arrow {
+    width: auto;
+}
+
+.arrow-and-fraction-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.arrow,
+.interval-fraction-value{
+    font-size: 1.5em;
+}
 
 
 

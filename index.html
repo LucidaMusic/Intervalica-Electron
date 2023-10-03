@@ -60,33 +60,68 @@
     <dialog id="modal-background" class="modal-background no-display">
 
         <div id="previous-freq-modal" class="modal-window no-display" style="min-height: 800px;">
-            <button class="fa-solid fa-xmark fa-lg close-modal-button"></button>
+            <button class="fa-solid fa-xmark fa-lg close-modal-button" go-to="close"></button>
             <h3>¿Sobre que nota se va a construir el acorde?</h3>
-            <p>Seleccione la nota del acorde anterior sobre la cual se va a construir el acorde.</p>
             <div class="previous-freq-modal-mainContent">
                 <div class="chord-view-container">
                     <span>Acorde anterior: </span>
-                    <div class="chord-view note-unblur-on-hover" style="width: 300px; height: 500px; position: relative;"></div>
+                    <div class="chord-view note-unblur-on-hover text-unselectable"
+                        style="width: 300px; height: 500px; position: relative;"></div>
                 </div>
-                <input type="number" id="previous-freq-input" >
+                <div>
+                    <p>Haz click en las líneas y números del recuadro para seleccionar la nota del acorde anterior sobre
+                        la cual deseas construir el nuevo acorde.</p>
+                    <input type="number" id="previous-freq-input">
+                </div>
+
             </div>
             <div class="page-navigation-buttons-container">
-                <button class="decorated-button" goTo="close">Cerrar</button>
-                <button class="decorated-button" goTo="previous-interval-modal">Siguiente</button>
+                <button class="decorated-button" go-to="close">Cerrar</button>
+                <button id="set-previous-freq" class="decorated-button" go-to="previous-interval-modal">Siguiente</button>
             </div>
         </div>
 
         <div id="previous-interval-modal" class="modal-window no-display">
-            <button class="fa-solid fa-xmark fa-lg close-modal-button"></button>
-            <h3>¿Que intervalo existe entre la nueva tónica y la frecuencia elegida?</h3>
+            <button class="fa-solid fa-xmark fa-lg close-modal-button" go-to="close"></button>
+            <h3>¿Que intervalo existe entre la frecuencia elegida y la nueva tónica?</h3>
+            <select id="previous-freq-select">
+                <option value="Unísono">Unísono</option>
+                <option value="Segunda menor">Segunda menor</option>
+                <option value="Segunda mayor">Segunda mayor</option>
+                <option value="Tercera menor">Tercera menor</option>
+                <option value="Tercera mayor">Tercera mayor</option>
+                <option value="Cuarta justa">Cuarta justa</option>
+                <option value="Tritono">Tritono</option>
+                <option value="Quinta justa">Quinta justa</option>
+                <option value="Sexta menor">Sexta menor</option>
+                <option value="Sexta mayor">Sexta mayor</option>
+                <option value="Séptima menor">Séptima menor</option>
+                <option value="Séptima de dominante">Séptima de dominante</option>
+                <option value="Séptima mayor">Séptima mayor</option>
+            </select>
+
+            <div class="previous-interval-previsualization-container"> 
+                <div>
+                    <span id="previous-freq" class="previous-freq"></span>
+                </div>
+                <div class="arrow-and-fraction-container">
+                    <span id="interval-fraction-value" class="interval-fraction-value">(1)</span>
+                    <span class="arrow">&rarr;</span>
+                </div>
+                <div>
+                    <span id="new-freq" class="new-freq"></span>
+                </div>
+            </div>
+
             <div class="page-navigation-buttons-container">
-                <button class="decorated-button" goTo="previous-freq-modal">Anterior</button>
-                <button class="decorated-button" goTo="chord-duration-modal">Siguiente</button>
+                <button class="decorated-button" go-to="previous-freq-modal">Anterior</button>
+                <button id="set-previous-interval-button" class="decorated-button"
+                    go-to="chord-duration-modal">Siguiente</button>
             </div>
         </div>
 
         <div id="chord-duration-modal" class="modal-window no-display">
-            <button class="fa-solid fa-xmark fa-lg close-modal-button"></button>
+            <button class="fa-solid fa-xmark fa-lg close-modal-button" go-to="close"></button>
             <h3>Introduce duración del acorde</h3>
             <ul>
                 <li>
@@ -128,13 +163,13 @@
                 que cero. </p>
             <!--Botones adelante (un boton Cancelar no parece necesario))-->
             <div class="page-navigation-buttons-container">
-                <button class="decorated-button" goTo="previous-interval-modal">Anterior</button>
-                <button class="decorated-button" goTo="chord-intervals-modal">Siguiente</button>
+                <button class="decorated-button" go-to="previous-interval-modal">Anterior</button>
+                <button class="decorated-button" go-to="chord-intervals-modal">Siguiente</button>
             </div>
         </div>
 
         <div id="chord-intervals-modal" class="modal-window no-display" style="width: 300px; height: 300px;">
-            <span class="fa-solid fa-xmark fa-lg button close-modal-button"></span>
+            <button class="fa-solid fa-xmark fa-lg button close-modal-button" go-to="close"></button>
             <h3>Introduce intervalos del acorde</h3>
             <!--Tipo de modo-->
             <select id="mode-select" name="Modo">
@@ -149,20 +184,20 @@
             </select>
             <!--Botones adelante y atrás-->
             <div class="page-navigation-buttons-container">
-                <button class="decorated-button" goTo="chord-duration-modal">Anterior</button>
-                <button class="decorated-button" goTo="octavation-modal">Siguiente</button>
+                <button class="decorated-button" go-to="chord-duration-modal">Anterior</button>
+                <button class="decorated-button" go-to="octavation-modal">Siguiente</button>
             </div>
         </div>
 
 
         <div id="octavation-modal" class="modal-window no-display" style="width: 300px; height: 300px;">
-            <span class="fa-solid fa-xmark fa-lg button close-modal-button"></span>
+            <button class="fa-solid fa-xmark fa-lg button close-modal-button" go-to="close"></button>
             <h3>Elige la octavación del acorde</h3>
 
             <!--Botones adelante y atrás-->
             <div class="page-navigation-buttons-container">
-                <button class="decorated-button" goTo="chord-intervals-modal">Anterior</button>
-                <button id="finish-chord-creation-button" class="decorated-button" goTo="close">Finalizar</button>
+                <button class="decorated-button" go-to="chord-intervals-modal">Anterior</button>
+                <button id="finish-chord-creation-button" class="decorated-button" go-to="close">Finalizar</button>
             </div>
         </div>
 
