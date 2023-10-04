@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title> Intervalica </title>
     <link rel="stylesheet" href="styles/indexStyle.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
 
 <body>
@@ -31,9 +32,9 @@
     </div>
     <div id="music-controls-bar">
         <div id="player-buttons-container">
-            <button id="play-button" class="music-controls-bar__button"><img src="img/musicControlsImages/play.png"
+            <button id="play-button" class="music-controls-bar__button"><img src="icons/play/1x/baseline_play_arrow_black_24dp.png"
                     alt="Reproducir/Pausar"></button>
-            <button id="stop-button" class="music-controls-bar__button"><img src="img/musicControlsImages/stop.png"
+            <button id="stop-button" class="music-controls-bar__button"><img src="icons/stop/1x/baseline_stop_black_24dp.png"
                     alt="Parar"></button>
         </div>
         <input id="volume-input" type="range" value="100" min="0" max="100">
@@ -60,7 +61,9 @@
     <dialog id="modal-background" class="modal-background no-display">
 
         <div id="previous-freq-modal" class="modal-window no-display" style="min-height: 800px;">
-            <button class="fa-solid fa-xmark fa-lg close-modal-button" go-to="close"></button>
+            <button class="close-modal-button" go-to="close">
+                <img src="icons/close/1x/outline_close_black_24dp.png" alt="Cerrar">
+            </button>
             <h3>¿Sobre que nota se va a construir el acorde?</h3>
             <div class="previous-freq-modal-mainContent">
                 <div class="chord-view-container">
@@ -88,7 +91,9 @@
         </div>
 
         <div id="previous-interval-modal" class="modal-window no-display">
-            <button class="fa-solid fa-xmark fa-lg close-modal-button" go-to="close"></button>
+            <button class="close-modal-button" go-to="close">
+                <img src="icons/close/1x/outline_close_black_24dp.png" alt="Cerrar">
+            </button>
             <h3>¿Que intervalo existe entre la frecuencia elegida y la nueva tónica?</h3>
 
             <p>
@@ -131,7 +136,9 @@
         </div>
 
         <div id="chord-duration-modal" class="modal-window no-display">
-            <button class="fa-solid fa-xmark fa-lg close-modal-button" go-to="close"></button>
+            <button class="close-modal-button" go-to="close">
+                <img src="icons/close/1x/outline_close_black_24dp.png" alt="Cerrar">
+            </button>
             <h3>Introduce duración del acorde</h3>
             <ul>
                 <li>
@@ -173,12 +180,15 @@
             <!--Botones adelante (un boton Cancelar no parece necesario))-->
             <div class="page-navigation-buttons-container">
                 <button class="decorated-button" go-to="previous-interval-modal">Anterior</button>
-                <button id="set-duration-button" class="decorated-button" go-to="chord-intervals-modal">Siguiente</button>
+                <button id="set-duration-button" class="decorated-button"
+                    go-to="chord-intervals-modal">Siguiente</button>
             </div>
         </div>
 
         <div id="chord-intervals-modal" class="modal-window no-display" style="width: 300px; height: 300px;">
-            <button class="fa-solid fa-xmark fa-lg button close-modal-button" go-to="close"></button>
+            <button class="close-modal-button" go-to="close">
+                <img src="icons/close/1x/outline_close_black_24dp.png" alt="Cerrar">
+            </button>
             <h3>Introduce intervalos del acorde</h3>
             <!--Tipo de modo-->
             <select id="mode-select" name="Modo">
@@ -200,7 +210,9 @@
 
 
         <div id="octavation-modal" class="modal-window no-display" style="width: 300px; height: 300px;">
-            <button class="fa-solid fa-xmark fa-lg button close-modal-button" go-to="close"></button>
+            <button class="close-modal-button" go-to="close">
+                <img src="icons/close/1x/outline_close_black_24dp.png" alt="Cerrar">
+            </button>
             <h3>Elige la octavación del acorde</h3>
 
             <!--Botones adelante y atrás-->
@@ -212,7 +224,6 @@
 
     </dialog>
     <script src="indexRender.js"></script>
-    <script src="https://kit.fontawesome.com/968b72db55.js" crossorigin="anonymous"></script>
 </body>
 
 </html>

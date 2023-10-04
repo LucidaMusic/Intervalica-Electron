@@ -68,13 +68,11 @@ button,
 
 .song-controls__input-container {
     font-size: 3rem;
-    width: 15rem;
     display: flex;
     align-items: flex-end;
 }
 
 .song-controls__input-container input {
-    display: flex;
     border: none;
     font-size: 3rem;
     width: 7rem;
@@ -92,7 +90,13 @@ button,
 
 #player-buttons-container {
     display: flex;
+    gap: 1em;
 }
+
+#player-buttons-container > img{
+    height: 1.5em;
+}
+
 
 #volume-input {
     margin: auto 0;
@@ -105,10 +109,9 @@ button,
 }
 
 .music-controls-bar__button {
-    width: 50px;
-    height: 50px;
     border: none;
     background-color: transparent;
+    padding: 0;
 }
 
 .music-controls-bar__button:hover {
@@ -174,10 +177,9 @@ button,
 .close-modal-button {
     position: absolute;
     right: 2em;
+    top: 2em;
     border: 0;
     background: transparent;
-    width: 0;
-    height: 0;
 }
 
 
