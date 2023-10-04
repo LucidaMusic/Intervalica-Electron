@@ -168,13 +168,12 @@
             <label for="chord-duration-input">Duración (pulsos): </label>
             <input class="modal-input" autofocus type="number" id="chord-duration-input" value="1"
                 placeholder="Ej: 1.5">
-            <button id="continue-button" type="submit" class="decorated-button">Continuar</button>
             <p id="duration-error-text" class="error-text no-display">El valor indicado ha de ser mayor
                 que cero. </p>
             <!--Botones adelante (un boton Cancelar no parece necesario))-->
             <div class="page-navigation-buttons-container">
                 <button class="decorated-button" go-to="previous-interval-modal">Anterior</button>
-                <button class="decorated-button" go-to="chord-intervals-modal">Siguiente</button>
+                <button id="set-duration-button" class="decorated-button" go-to="chord-intervals-modal">Siguiente</button>
             </div>
         </div>
 
