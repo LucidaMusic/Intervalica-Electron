@@ -18,66 +18,106 @@ song.push(testingAlreadyCreatedChord);
 
 //Variables para que tengan alcance global 
 let inPreparationChord,
-previousFreq;
+  previousFreq;
 
 //Variables configuración usuario
-let relativeToSong=0; //a la hora de dibujar las líneas del canvas
-let relativeToChord=1;
+let relativeToSong = 0; //a la hora de dibujar las líneas del canvas
+let relativeToChord = 1;
+
+const MAXIMUM_FREQ_POSSIBLE = 8000;
+const MINIMUM_FREQ_POSSIBLE = 20;
 
 
 //___________________________Main page________________________________
-const firstFreqInput=document.getElementById("freq-input")
+const firstFreqInput = document.getElementById("freq-input")
 //Crear nuevo acorde
 document
   .getElementById("new-chord-button")
   .addEventListener("click", () => {
-//Preparamos el acorde a añadir
-  inPreparationChord = new Chord();
-  
+    //Preparamos el acorde a añadir
+    inPreparationChord = new Chord();
+
     if (song.length == 0) {
-      
+
       //Ya conozco previous freq y previous interval asi que los establezco
-       previousFreq=firstFreqInput.value
-       inPreparationChord.setPreviousInterval(Intervals.UNISON)
+      previousFreq = firstFreqInput.value
+      inPreparationChord.setPreviousInterval(Intervals.UNISON)
       //Abrir popup de duración
       showDialog(chordDurationModal);
 
     } else {
-      showDialog(previousFreqModal); //PONER AL FINAL NO?
-       //Preparamos la vista del dialogo
-      let chordA = song[0]; //Cambiar por previousChord
-      console.log(chordA.getContextualizedFreqs());
+
+      let previousChord = song[song.length - 1];
 
       //Calculamos nota máxima y minima sobre las que queremos pintar
       //Datos de entrada
-  //    let song_min_freq = 330; //Cambiar por 
-      if(relativeToSong){
-      let maxFreqValue=maxValue(song)
-      let minFreqValue=minValue(song)
-      }else{ //Default is relative to chord
-      let maxFreqValue=maxValue(previousChord.getContextualizedFreqs())
-      let minFreqValue=minValue(previousChord)
+
+      let previousChordFreqs = previousChord.getContextualizedFreqs();
+
+      let maxFreqValue, minFreqValue;
+
+      if (relativeToSong) {
+        let allNotesFromSong = [].concat(...song);
+
+        maxFreqValue = Math.max(...allNotesFromSong);
+        minFreqValue = Math.min(...allNotesFromSong);
+      } else {      //Default is relative to chord
+
+
+        maxFreqValue = Math.max(...previousChordFreqs);
+        minFreqValue = Math.min(...previousChordFreqs);
       }
-   //   let minValue=
-   //   let song_max_freq = 880;
 
       //Dado que necesito mas espacio
       //Esto se puede calcular teniendo en cuenta el tamaño de las letras
-      song_max_freq *= 1.2;
-      song_min_freq *= 0.8;
+      maxFreqValue *= 1.2;
+      minFreqValue *= 0.8;
 
       //Establecemos valores que sirven para calcular punto y de las lineas en escala logarítmica 
-      let min_f = Math.log(song_min_freq) / Math.log(10); //Cambiar por algo mejor?
-      let max_f = Math.log(song_max_freq) / Math.log(10);
-      let range = max_f - min_f;
+      let minLogFreq = Math.log(minFreqValue) / Math.log(10); //Cambiar por algo mejor?
+      let maxLogFreq = Math.log(maxFreqValue) / Math.log(10);
+      let logRange = maxLogFreq - minLogFreq;
 
-      let chordFreqs = chordA.getContextualizedFreqs(); //seguramente deba estar declaradl antes 
+
+
+
+      const canvasInModal = document.querySelector(".chord-view");
+
+      //Para cada nota en el acorde
+      for (let i = 0; i < previousChordFreqs.length; i++) {
+        //Leemos el valor de la frecuencia
+        let chordFreq = previousChordFreqs[i];
+
+        //Calculamos posición en Y para la barra y el texto
+        let height = 500;
+        let yPosition = canvas_calculateFreqBarYPosition(chordFreq, height);
+
+        //Dinujamos linea
+        let line = document.createElement("div");
+        line.classList.add("chord-view-line");
+
+        //Dibujamos numero
+        let number = document.createElement("span");
+        number.classList.add("chord-view-line-number");
+        number.innerHTML = chordFreq;
+
+
+        //Dibujamos parent
+        let lineParent = document.createElement("div");
+
+        lineParent.appendChild(number);
+        lineParent.appendChild(line);
+
+        lineParent.style.top = yPosition + "px";
+        lineParent.classList.add("chord-view-line-container");
+        lineParent.classList.add("blurred");
+
+        canvasInModal.appendChild(lineParent);
+      }
 
       //Hacemos que las barras tengan la funcionalidad de ser seleccionadas y su numero mostrado aparte
-      const canvasInModal = document.querySelector(".chord-view");
       const freqInput = document.getElementById("previous-freq-input");
 
-      //Esto tiene que estar aqui??? Deberia ir después
       canvasInModal.addEventListener("click", function (event) {
         const chordViewLineContainer = event.target.closest(".chord-view-line-container");
         if (chordViewLineContainer) {
@@ -97,48 +137,16 @@ document
         }
       });
 
-      let height = 500;
-
-      //Para cada nota en el acorde
-      for (let i = 0; i < chordFreqs.length; i++) {
-        //Leemos el valor de la frecuencia
-        let chordFreq = chordFreqs[i];
-
-        //Calculamos posición en Y para la barra y el texto
-        let yPosition = canvas_calculateFreqBarYPosition(chordFreq, height);
-
-        //Dinujamos linea
-        let line = document.createElement("div");
-        line.classList.add("chord-view-line");
-
-        //Dibujamos numero
-        let number = document.createElement("span");
-        number.innerHTML = chordFreq;
-
-        number.classList.add("chord-view-line-number");
-
-        //Dibujamos parent
-        let lineParent = document.createElement("div");
-        lineParent.appendChild(number);
-        lineParent.appendChild(line);
-
-        lineParent.style.top = yPosition + "px";
-        lineParent.classList.add("chord-view-line-container");
-        lineParent.classList.add("blurred");
-
-        canvasInModal.appendChild(lineParent);
-      }
-
+      showDialog(previousFreqModal);
 
       //Encuentra cual sería la posición Y de la barra y texto de una nota teniendo en cuenta la frecuencia 
       //mayor y menor de la canción, en función a la frecuencia
       function canvas_calculateFreqBarYPosition(frequency, height) {
-        position_px = (Math.log(frequency) / Math.log(10) - min_f) / range * height;
+        position_px = (Math.log(frequency) / Math.log(10) - minLogFreq) / logRange * height;
         //Necesito invertir?? es absolute si no es top es bottom
         position_px = height - position_px;
         return position_px;
       }
-
     }
   });
 
@@ -156,6 +164,7 @@ const octavationModal = document.getElementById("octavation-modal");
 
 //____________________________Previous Freq Modal
 const previousFreqInput = document.getElementById("previous-freq-input");
+const previousFreqErrorText = document.getElementById("previous-freq-error-text");
 //const setPreviousFreqButton = document.getElementById("set-previous-freq");
 
 
@@ -164,25 +173,27 @@ const previousFreqInput = document.getElementById("previous-freq-input");
 const previousFreqSpan = document.getElementById("previous-freq");
 const newFreqSpan = document.getElementById("new-freq");
 const intervalFractionValueSpan = document.getElementById("interval-fraction-value");
+const previousFreqSelect = document.getElementById("previous-freq-select");
 
+// Actualizar la previsualizacion cuando se elige una opcion en el selector de intervalos
+previousFreqSelect.addEventListener('change', function () {
+  // Obtén el valor de la opción seleccionada
+  let selectedInterval = findIntervalByName(previousFreqSelect.value);
 
+  intervalFractionValueSpan.innerHTML = "(" + selectedInterval.getStringValue() + ")";
+  newFreqSpan.innerHTML = previousFreq * selectedInterval.getNumberValue();
+});
+
+//Esto no deberia ir donde la logica de goTo?
 document.getElementById("set-previous-interval-button")
   .addEventListener("click", () => {
-    const previousInterval = findIntervalByName(document.getElementById("previous-freq-select").value);
+    const previousInterval = findIntervalByName(previousFreqSelect.value);
     inPreparationChord.setPreviousInterval(previousInterval);
     console.log(inPreparationChord.getPreviousInterval().getNumberValue());
   })
 
-var previousFreqSelect = document.getElementById('previous-freq-select');
 
-// Agrega un event listener para el evento 'change'
-previousFreqSelect.addEventListener('change', function () {
-  // Obtén el valor de la opción seleccionada
-  var selectedValue = select.value;
 
-  // Realiza alguna acción basada en la opción seleccionada
-  console.log('Opción seleccionada:', selectedValue);
-});
 
 //____________________________Duration modal_________________________________________
 let durationInput = document.getElementById("chord-duration-input");
@@ -238,34 +249,44 @@ document.getElementById("finish-chord-creation-button")
 // ______________________________Comun dialogs_______________________________________
 
 //Esto da la funcionalidad a los botones de desplazarse a otra pagina
+//Antes de desplazarnos establecemos los datos introducidos. Es la manera de guardarlos
 document.querySelectorAll("[go-to]")
   .forEach(element => {
     element
       .addEventListener("click", () => {
-        hideAllDialogs();
+
 
         let whereToGo = element.getAttribute("go-to");
         switch (whereToGo) {
           case "close":
+            hideAllDialogs();
+            resetModalValues();
             break;
           case "previous-freq-modal":
+            hideAllDialogs();
             showDialog(previousFreqModal);
             break;
           case "previous-interval-modal":
-            if (validatePreviousFreq()) {
-              previousFreq = previousFreqInput.value;
+            let previousFreqValue = previousFreqInput.value
+            if (validatePreviousFreq(previousFreqValue)) {
+              previousFreq = previousFreqValue;
               previousFreqSpan.innerHTML = previousFreq;
               newFreqSpan.innerHTML = previousFreq;
+              console.log("A punto")
+              hideAllDialogs();
               showDialog(previousIntervalModal);
             }
             break;
           case "chord-duration-modal":
+            hideAllDialogs();
             showDialog(chordDurationModal);
             break;
           case "chord-intervals-modal":
+            hideAllDialogs();
             showDialog(chordIntervalsModal);
             break;
           case "octavation-modal":
+            hideAllDialogs();
             showDialog(octavationModal);
             break;
         }
@@ -275,8 +296,19 @@ document.querySelectorAll("[go-to]")
 
 const durationErrorText = document.getElementById("duration-error-text");
 
-function validatePreviousFreq() {
-  return true;
+function validatePreviousFreq(previousFreqValue) {
+  if (previousFreqValue < MINIMUM_FREQ_POSSIBLE) {
+    previousFreqErrorText.innerHTML = `El valor introducido es demasiado bajo. Utiliza frecuencias por encima de ${MINIMUM_FREQ_POSSIBLE}`
+    showErrorText(previousFreqErrorText);
+    return false;
+  } else if (previousFreqValue > MAXIMUM_FREQ_POSSIBLE) {
+    previousFreqErrorText.innerHTML = `El valor introducido es demasiado alto. Utiliza frecuencias por debajo de ${MAXIMUM_FREQ_POSSIBLE}`
+    showErrorText(previousFreqErrorText);
+    return false;
+  } else {
+    hideErrorText(previousFreqErrorText);
+    return true;
+  }
 }
 
 //Esta función se encarga de validar el campo de duración introducido manualmente por el usuario
@@ -298,7 +330,6 @@ function hideAllDialogs() {
     chordDurationModal, durationErrorText,
     chordIntervalsModal,
     octavationModal].forEach(dialog => dialog.classList.add("no-display"));
-  resetModalValues();
 }
 
 function showDialog(dialog) {
@@ -308,6 +339,14 @@ function showDialog(dialog) {
 
 function resetModalValues() {
   durationInput.value = null;
+}
+
+function showErrorText(errorText) {
+  errorText.classList.remove("transparent-text");
+}
+
+function hideErrorText(errorText) {
+  errorText.classList.add("transparent-text");
 }
 
 

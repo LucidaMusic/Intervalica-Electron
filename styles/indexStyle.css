@@ -323,6 +323,10 @@ dialog ul {
 .previous-freq {
     font-size: 3em;
     margin: 0.25em;
+    max-width: 5em;
+    display: block;
+    text-overflow: ellipsis;
+    overflow: hidden;
 }
 
 .diagonal-arrow {
@@ -340,6 +344,16 @@ dialog ul {
     font-size: 1.5em;
 }
 
+
+.previous-freq-text-and-input-container{
+    display: flex;
+    flex-direction: column;
+    padding: 3em;
+}
+
+.transparent-text{
+    color: transparent;
+}
 
 
 @font-face {

@@ -68,22 +68,32 @@
                     <div class="chord-view note-unblur-on-hover text-unselectable"
                         style="width: 300px; height: 500px; position: relative;"></div>
                 </div>
-                <div>
+                <div class="previous-freq-text-and-input-container">
                     <p>Haz click en las líneas y números del recuadro para seleccionar la nota del acorde anterior sobre
-                        la cual deseas construir el nuevo acorde.</p>
+                        la cual deseas construir el nuevo acorde.
+                        <br>
+                        <br>
+                        También puedes indicar tú mismo un valor personalizado.
+                    </p>
                     <input type="number" id="previous-freq-input">
+                    <p id="previous-freq-error-text" class="error-text transparent"></p>
                 </div>
 
             </div>
             <div class="page-navigation-buttons-container">
                 <button class="decorated-button" go-to="close">Cerrar</button>
-                <button id="set-previous-freq" class="decorated-button" go-to="previous-interval-modal">Siguiente</button>
+                <button id="set-previous-freq" class="decorated-button"
+                    go-to="previous-interval-modal">Siguiente</button>
             </div>
         </div>
 
         <div id="previous-interval-modal" class="modal-window no-display">
             <button class="fa-solid fa-xmark fa-lg close-modal-button" go-to="close"></button>
             <h3>¿Que intervalo existe entre la frecuencia elegida y la nueva tónica?</h3>
+
+            <p>
+                Elige el intervalo que habrá entre la tónica del nuevo acorde y la nota elegida del acorde anterior.
+            </p>
             <select id="previous-freq-select">
                 <option value="Unísono">Unísono</option>
                 <option value="Segunda menor">Segunda menor</option>
@@ -100,7 +110,7 @@
                 <option value="Séptima mayor">Séptima mayor</option>
             </select>
 
-            <div class="previous-interval-previsualization-container"> 
+            <div class="previous-interval-previsualization-container">
                 <div>
                     <span id="previous-freq" class="previous-freq"></span>
                 </div>
