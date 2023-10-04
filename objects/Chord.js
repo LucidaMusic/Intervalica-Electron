@@ -1,10 +1,21 @@
 module.exports = class Chord {
-  constructor(name, duration, mode, previousInterval, contextualizedFreqs) {
+  constructor(name, duration, mode, extensions, previousInterval, contextualizedFreqs) {
     let _name = name;
     let _duration = duration;
     let _mode = mode;
+    let _extensions = extensions;
     let _previousInterval = previousInterval;
     let _contextualizedFreqs = contextualizedFreqs;
+
+    this.toString = function () {
+      return `Chord Details:
+      Name: ${_name}
+      Previous Interval: ${_previousInterval.getName()}
+      Duration: ${_duration}
+      Mode: ${_mode.getName()}
+      Extensions: ${_extensions}
+      Contextualized Frequencies: ${_contextualizedFreqs}`;
+    };
 
     this.getName = function () {
       return _name;
@@ -45,9 +56,5 @@ module.exports = class Chord {
     this.setContextualizedFreqs = function (newContextualizedFreqs) {
       _contextualizedFreqs = newContextualizedFreqs;
     };
-
-    function contextualize(freq){
-      
-    }
   }
 };

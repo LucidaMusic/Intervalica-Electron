@@ -3,6 +3,7 @@
     --color-secundario: #7c8bff;
     --color-fondo: #f2f2f2;
     --color-chord-view-line-blurred: #93a0ff;
+    --color-disabled-button: #d2d2d2;
 }
 
 * {
@@ -31,7 +32,7 @@ button,
     border: 0;
 }
 
-.decorated-button:hover {
+.decorated-button:not(:disabled):hover {
     background-color: var(--color-secundario);
 }
 
@@ -184,22 +185,17 @@ figure {
     display: flex;
     flex-direction: column;
     align-items: center;
-    border: 1px solid black;
+    border: 1px solid transparent;
     min-width: 6rem;
 }
 
 figure:not(.selected):hover {
-    border: 1px solid var(--color-secundario);
-    color: var(--color-secundario);
-}
-
-figure:not(.selected):hover>figcaption {
-    background-color: var(--color-secundario);
-    color: white;
+    background-color: var(--color-primario);
+     color: white; 
 }
 
 .selected {
-    background-color: var(--color-primario);
+    background-color: var(--color-secundario);
     color: white;
 
 }
@@ -221,7 +217,6 @@ dialog ul {
     flex-direction: row;
     overflow: auto;
     list-style: none;
-    gap: 1em;
     justify-content: center;
     padding: 0;
     margin-bottom: 1em;
@@ -242,10 +237,9 @@ dialog ul {
     cursor: pointer;
     transition-delay: 0s;
     align-items: center;
-    transform: translateY(-50%);
+    transform: translateY(50%);
 }
 
-/* .chord-view-line-container:hover span, */
 .chord-view-line-container span {
     color: black;
 }
@@ -254,7 +248,6 @@ dialog ul {
     color: black;
 }
 
-/* .chord-view-line-container:hover div, */
 .chord-view-line-container div {
     background-color: blue;
 }
@@ -262,15 +255,6 @@ dialog ul {
 .chord-view-line-container.blurred:hover div {
     background-color: blue;
 }
-
-
-/* .chord-view-line-container span {
-    color: black;
-}
- */
-/* .chord-view-line-container div {
-    background-color: blue;
-} */
 
 .chord-view-line-container.blurred span {
     color: var(--color-chord-view-line-blurred);
@@ -323,6 +307,10 @@ dialog ul {
 .previous-freq {
     font-size: 3em;
     margin: 0.25em;
+    max-width: 5em;
+    display: block;
+    text-overflow: ellipsis;
+    overflow: hidden;
 }
 
 .diagonal-arrow {
@@ -336,11 +324,24 @@ dialog ul {
 }
 
 .arrow,
-.interval-fraction-value{
+.interval-fraction-value {
     font-size: 1.5em;
 }
 
+.previous-freq-text-and-input-container {
+    display: flex;
+    flex-direction: column;
+    padding: 3em;
+}
 
+.transparent-text {
+    color: transparent;
+}
+
+button:disabled{
+    background-color: var(--color-disabled-button);
+    cursor: not-allowed;
+}
 
 @font-face {
     font-family: "MusiSync";
