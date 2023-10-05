@@ -71,7 +71,7 @@
                     <div class="chord-view note-unblur-on-hover text-unselectable"
                         style="width: 300px; height: 500px; position: relative;">
                     </div>
-                    <span id="previous-chord-name" >Nombre de acorde anterior</span>
+                    <span id="previous-chord-name">Nombre de acorde anterior</span>
                 </div>
                 <div class="previous-freq-text-and-input-container">
                     <p>Haz click en las líneas y números del recuadro para seleccionar la nota del acorde anterior sobre
@@ -80,7 +80,11 @@
                         <br>
                         También puedes indicar tú mismo un valor personalizado.
                     </p>
-                    <input type="number" id="previous-freq-input">
+                    <div id="set-previous-freq-and-button-container">
+                        <input type="number" id="previous-freq-input">
+                        <button id="set-previous-freq-quick" class="decorated-button"
+                            data-go-to="previous-interval-modal">Siguiente</button>
+                    </div>
                     <p id="previous-freq-error-text" class="error-text transparent"></p>
                 </div>
             </div>
@@ -101,24 +105,24 @@
                 Elige el intervalo que habrá entre la tónica del nuevo acorde y la nota elegida del acorde anterior.
             </p>
             <select id="previous-freq-select">
-                <option value="Unísono">Unísono</option>
+                <option data-value="Unísono">Unísono</option>
                 <optgroup label="Segunda">
-                    <option value="Segunda menor">Menor</option>
-                    <option value="Segunda mayor">Mayor</option>
+                    <option data-value="Segunda menor">Menor</option>
+                    <option data-value="Segunda mayor">Mayor</option>
                 </optgroup>
                 <optgroup label="Tercera">
-                    <option value="Tercera menor">Menor</option>
-                    <option value="Tercera mayor">Mayor</option>
+                    <option data-value="Tercera menor">Menor</option>
+                    <option data-value="Tercera mayor">Mayor</option>
 
                 </optgroup>
-                <option value="Cuarta justa">Cuarta justa</option>
-                <option value="Tritono">Tritono</option>
-                <option value="Quinta justa">Quinta justa</option>
-                <option value="Sexta menor">Sexta menor</option>
-                <option value="Sexta mayor">Sexta mayor</option>
-                <option value="Séptima menor">Séptima menor</option>
-                <option value="Séptima de dominante">Séptima de dominante</option>
-                <option value="Séptima mayor">Séptima mayor</option>
+                <option data-value="Cuarta justa">Cuarta justa</option>
+                <option data-value="Tritono">Tritono</option>
+                <option data-value="Quinta justa">Quinta justa</option>
+                <option data-value="Sexta menor">Sexta menor</option>
+                <option data-value="Sexta mayor">Sexta mayor</option>
+                <option data-value="Séptima menor">Séptima menor</option>
+                <option data-value="Séptima de dominante">Séptima de dominante</option>
+                <option data-value="Séptima mayor">Séptima mayor</option>
             </select>
 
             <div class="previous-interval-previsualization-container">
@@ -146,38 +150,29 @@
                 <img src="icons/close/1x/outline_close_black_24dp.png" alt="Cerrar">
             </button>
             <h3>Introduce duración del acorde</h3>
-            <ul>
-                <li>
-                    <figure id="semiquaver-duration-option" data-duration="0.25" role="button">
-                        <span class="musical-characters">&#115;</span>
-                        <figcaption class="italic-text">Semicorchea</figcaption>
-                    </figure>
-                </li>
-                <li>
-                    <figure id="quaver-duration-option" data-duration="0.5" role="button">
-                        <span class="musical-characters">&#101;</span>
-                        <figcaption class="italic-text">Corchea</figcaption>
-                    </figure>
-                </li>
-                <li>
-                    <figure id="crotchet-duration-option" data-duration="1" role="button" class="selected">
-                        <span class="musical-characters">&#113;</span>
-                        <figcaption class="italic-text">Negra</figcaption>
-                    </figure>
-                </li>
-                <li>
-                    <figure id="minim-duration-option" data-duration="2" role="button">
-                        <span class="musical-characters">&#104;</span>
-                        <figcaption class="italic-text">Blanca</figcaption>
-                    </figure>
-                </li>
-                <li>
-                    <figure id="semibreve-duration-option" data-duration="4" role="button">
-                        <span class="musical-characters">&#119;</span>
-                        <figcaption class="italic-text">Redonda</figcaption>
-                    </figure>
-                </li>
-            </ul>
+            <div class="ul text-unselectable">
+                <figure id="semiquaver-duration-option" data-value="0.25" class="duration pointer-cursor">
+                    <span class="musical-characters">&#115;</span>
+                    <figcaption class="italic-text">Semicorchea</figcaption>
+                </figure>
+                <figure id="quaver-duration-option" data-value="0.5" class="duration pointer-cursor">
+                    <span class="musical-characters">&#101;</span>
+                    <figcaption class="italic-text">Corchea</figcaption>
+                </figure>
+                <figure id="crotchet-duration-option" data-value="1" class="duration pointer-cursor selected">
+                    <span class="musical-characters">&#113;</span>
+                    <figcaption class="italic-text">Negra</figcaption>
+                </figure>
+                <figure id="minim-duration-option" data-value="2" class="duration pointer-cursor">
+                    <span class="musical-characters">&#104;</span>
+                    <figcaption class="italic-text">Blanca</figcaption>
+                </figure>
+                <figure id="semibreve-duration-option" data-value="4" class="duration pointer-cursor">
+                    <span class="musical-characters">&#119;</span>
+                    <figcaption class="italic-text">Redonda</figcaption>
+                </figure>
+            </div>
+
             <label for="chord-duration-input">Duración (pulsos): </label>
             <input class="modal-input" autofocus type="number" id="chord-duration-input" value="1"
                 placeholder="Ej: 1.5">
@@ -197,35 +192,30 @@
             </button>
             <h3>Introduce intervalos del acorde</h3>
             <!--Tipo de modo-->
-            <ul id="mode-ul">
-                <li>
-                    <figure id="diminished-mode-option" value="Disminuido" role="button">
+            <div>
+                <div id="mode-ul" class="ul text-unselectable">
+                    <figure id="diminished-mode-option" data-value="Disminuido" class="pointer-cursor">
                         <span class="non-musical-figure-characters">Dim</span>
                         <figcaption class="italic-text">Disminuido</figcaption>
                     </figure>
-                </li>
-                <li>
-                    <figure id="major-mode-option" value="Menor" role="button">
+                    <figure id="major-mode-option" data-value="Menor" class="pointer-cursor">
                         <span class="non-musical-figure-characters">m</span>
                         <figcaption class="italic-text">Menor</figcaption>
                     </figure>
-                </li>
-                <li>
-                    <figure id="major-mode-option" value="Mayor" role="button">
+                    <figure id="major-mode-option" data-value="Mayor" class="pointer-cursor">
                         <span class="non-musical-figure-characters">M</span>
                         <figcaption class="italic-text">Mayor</figcaption>
                     </figure>
-                </li>
-                <li>
-                    <figure id="augmented-mode-option" value="Aumentado" role="button">
+                    <figure id="augmented-mode-option" data-value="Aumentado" class="pointer-cursor">
                         <span class="non-musical-figure-characters">Aug</span>
                         <figcaption class="italic-text">Aumentado</figcaption>
                     </figure>
-                </li>
-                <div class="nuevo-contenido">
-                    <span class="italic-text">Ningún modo seleccionado</span>
+                    <div class="no-modes-container">
+                        <span class="italic-text">Ningún modo seleccionado</span>
+                    </div>    
                 </div>
-            </ul>
+            </div>
+
             <a id="action-input"><u id="action-input-name">No quiero elegir ningún modo</u></a>
             <br>
 

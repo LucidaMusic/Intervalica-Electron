@@ -29,7 +29,18 @@ const MINIMUM_FREQ_POSSIBLE = 20;
 
 
 //___________________________Main page________________________________
-const firstFreqInput = document.getElementById("freq-input")
+const HTML_firstFreqInput = document.getElementById("freq-input")
+
+
+HTML_firstFreqInput
+  .addEventListener("input", () => {
+    const inputValue = HTML_firstFreqInput.value;
+    if (inputValue.length >= 4) {
+      HTML_firstFreqInput.value = inputValue.slice(0, 4);
+    }
+  });
+
+
 //Crear nuevo acorde
 document
   .getElementById("new-chord-button")
@@ -40,7 +51,7 @@ document
     if (song.length == 0) {
 
       //Ya conozco previous freq y previous interval asi que los establezco
-      previousFreq = firstFreqInput.value
+      previousFreq = HTML_firstFreqInput.value
       inPreparationChord.setPreviousInterval(Intervals.UNISON)
       //Abrir popup de duración
       showDialog(HTML_chordDurationModal);
@@ -174,20 +185,36 @@ const HTML_octavationModal = document.getElementById("octavation-modal");
 const HTML_previousFreqInput = document.getElementById("previous-freq-input");
 const HTML_previousFreqErrorText = document.getElementById("previous-freq-error-text");
 const HTML_setPreviousFreqButton = document.getElementById("set-previous-freq");
+const HTML_setPreviousFreqButtonQuick = document.getElementById("set-previous-freq-quick");
 const HTML_previousChordName = document.getElementById("previous-chord-name");
 
 HTML_previousFreqInput.addEventListener("input", () => {
   validatePreviousFreq(HTML_previousFreqInput.value);
 });
 
-HTML_setPreviousFreqButton.addEventListener("click", () => {
-  let previousFreqValue = HTML_previousFreqInput.value
+[HTML_setPreviousFreqButton,
+  HTML_setPreviousFreqButtonQuick]
+  .forEach(element => {
+    element.addEventListener("click", () => {
+      let previousFreqValue = HTML_previousFreqInput.value
 
-  previousFreq = previousFreqValue;
-  HTML_previousFreqSpan.innerHTML = previousFreq;
+      previousFreq = previousFreqValue;
+      HTML_previousFreqSpan.innerHTML = previousFreq;
 
-  HTML_newFreqSpan.innerHTML = previousFreq;
-});
+      HTML_newFreqSpan.innerHTML = previousFreq;
+    });
+  })
+
+
+HTML_previousFreqInput
+  .addEventListener("input", () => {
+    const inputValue = HTML_previousFreqInput.value;
+    if (inputValue.length >= 4) {
+      HTML_previousFreqInput.value = inputValue.slice(0, 4);
+    }
+
+    validatePreviousFreq(HTML_previousFreqInput.value)
+  });
 
 
 //_____________________________Previous interval modal_____________________________
@@ -232,10 +259,13 @@ let HTML_setDurationButton = document.getElementById("set-duration-button");
   let figure = document.getElementById(id);
   figure
     .addEventListener("click", () => {
+
+      console.log(document.getElementById("semiquaver-duration-option").getAttribute("data-vañue"))
+
       //Cuidado! Ahora hay mas figures
-      document.querySelector("figure[class='selected']").classList.remove("selected");
+      document.querySelector("figure.duration.selected").classList.remove("selected");
       figure.classList.add("selected");
-      HTML_durationInput.value = figure.getAttribute("data-duration");
+      HTML_durationInput.value = figure.getAttribute("data-value");
       HTML_setDurationButton.focus();
       validateDuration();
     });
@@ -244,6 +274,7 @@ let HTML_setDurationButton = document.getElementById("set-duration-button");
 HTML_setDurationButton.addEventListener("click", () => {
   inPreparationChord.setDuration(HTML_durationInput.value)
 });
+
 
 
 
