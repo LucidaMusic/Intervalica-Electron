@@ -10,6 +10,7 @@ const song = new Array();
 
 //Temporalmente necesito que haya un acorde ya creado
 let testingAlreadyCreatedChord = new Chord();
+testingAlreadyCreatedChord.setName("Napolitano sobre C")
 testingAlreadyCreatedChord.setDuration(1);
 testingAlreadyCreatedChord.setMode(findModeByName("Menor"));
 testingAlreadyCreatedChord.setContextualizedFreqs([330, 440, 550, 660, 880]);
@@ -21,8 +22,7 @@ let inPreparationChord,
   previousFreq;
 
 //Variables configuración usuario
-let relativeToSong = 0; //a la hora de dibujar las líneas del canvas
-let relativeToChord = 1;
+let relativeToSong = 0; //a la hora de dibujar las líneas del canvas. Por defecto se hace relativo al acorde
 
 const MAXIMUM_FREQ_POSSIBLE = 8000;
 const MINIMUM_FREQ_POSSIBLE = 20;
@@ -43,11 +43,13 @@ document
       previousFreq = firstFreqInput.value
       inPreparationChord.setPreviousInterval(Intervals.UNISON)
       //Abrir popup de duración
-      showDialog(chordDurationModal);
+      showDialog(HTML_chordDurationModal);
 
     } else {
 
       let previousChord = song[song.length - 1];
+
+      HTML_previousChordName.innerHTML = previousChord.getName();
 
       //Calculamos nota máxima y minima sobre las que queremos pintar
       //Datos de entrada
@@ -138,15 +140,15 @@ document
 
       //Inicializamos el valor del input previous freq para evitar nulos
       //Por ahora hacemos así pero debería ser la tónica más grave (aun no hay distinción por tónica)
-      previousFreqInput.value = previousChordFreqs[0];
+      HTML_previousFreqInput.value = previousChordFreqs[0];
 
       // Dispara manualmente el evento 'input' después de cambiar el valor
-      previousFreqInput.dispatchEvent(new Event('input', {
+      HTML_previousFreqInput.dispatchEvent(new Event('input', {
         bubbles: true,
         cancelable: true,
       }));
 
-      showDialog(previousFreqModal);
+      showDialog(HTML_previousFreqModal);
 
       //Encuentra cual sería la posición Y de la barra y texto de una nota teniendo en cuenta la frecuencia 
       //mayor y menor de la canción, en función a la frecuencia
@@ -159,61 +161,53 @@ document
 
 //__________________________Variables HTML_______________________________________
 //Todos los modales y el fondo
-const modalBackground = document.getElementById("modal-background");
-const previousFreqModal = document.getElementById("previous-freq-modal");
-const previousIntervalModal = document.getElementById("previous-interval-modal");
-const chordDurationModal = document.getElementById("chord-duration-modal");
-const chordIntervalsModal = document.getElementById("chord-intervals-modal");
-const octavationModal = document.getElementById("octavation-modal");
+const HTML_modalBackground = document.getElementById("modal-background");
+const HTML_previousFreqModal = document.getElementById("previous-freq-modal");
+const HTML_previousIntervalModal = document.getElementById("previous-interval-modal");
+const HTML_chordDurationModal = document.getElementById("chord-duration-modal");
+const HTML_chordIntervalsModal = document.getElementById("chord-intervals-modal");
+const HTML_octavationModal = document.getElementById("octavation-modal");
 
 
 
 //____________________________Previous Freq Modal
-const previousFreqInput = document.getElementById("previous-freq-input");
-const previousFreqErrorText = document.getElementById("previous-freq-error-text");
-const setPreviousFreqButton = document.getElementById("set-previous-freq");
+const HTML_previousFreqInput = document.getElementById("previous-freq-input");
+const HTML_previousFreqErrorText = document.getElementById("previous-freq-error-text");
+const HTML_setPreviousFreqButton = document.getElementById("set-previous-freq");
+const HTML_previousChordName = document.getElementById("previous-chord-name");
 
-previousFreqInput.addEventListener("input", () => {
-  validatePreviousFreq(previousFreqInput.value);
+HTML_previousFreqInput.addEventListener("input", () => {
+  validatePreviousFreq(HTML_previousFreqInput.value);
 });
 
-setPreviousFreqButton.addEventListener("click", () => {
-  let previousFreqValue = previousFreqInput.value
+HTML_setPreviousFreqButton.addEventListener("click", () => {
+  let previousFreqValue = HTML_previousFreqInput.value
 
   previousFreq = previousFreqValue;
-  previousFreqSpan.innerHTML = previousFreq;
+  HTML_previousFreqSpan.innerHTML = previousFreq;
 
-  newFreqSpan.innerHTML = previousFreq;
+  HTML_newFreqSpan.innerHTML = previousFreq;
 });
 
 
 //_____________________________Previous interval modal_____________________________
-const previousFreqSpan = document.getElementById("previous-freq");
-const newFreqSpan = document.getElementById("new-freq");
-const intervalFractionValueSpan = document.getElementById("interval-fraction-value");
-const previousFreqSelect = document.getElementById("previous-freq-select");
+const HTML_previousFreqSpan = document.getElementById("previous-freq");
+const HTML_newFreqSpan = document.getElementById("new-freq");
+const HTML_intervalFractionValueSpan = document.getElementById("interval-fraction-value");
+const HTML_previousFreqSelect = document.getElementById("previous-freq-select");
 
 // Actualizar la previsualizacion cuando se elige una opcion en el selector de intervalos
-previousFreqSelect.addEventListener('change', function () {
+HTML_previousFreqSelect.addEventListener('change', function () {
   // Obtén el valor de la opción seleccionada
-  let selectedInterval = findIntervalByName(previousFreqSelect.value);
+  let selectedInterval = findIntervalByName(HTML_previousFreqSelect.value);
 
-  intervalFractionValueSpan.innerHTML = "(" + selectedInterval.getStringValue() + ")";
-  newFreqSpan.innerHTML = previousFreq * selectedInterval.getNumberValue();
+  HTML_intervalFractionValueSpan.innerHTML = "(" + selectedInterval.getStringValue() + ")";
+  HTML_newFreqSpan.innerHTML = previousFreq * selectedInterval.getNumberValue();
 });
-
-//Esto no deberia ir donde la logica de goTo?
-document.getElementById("set-previous-interval-button")
-  .addEventListener("click", () => {
-    const previousInterval = findIntervalByName(previousFreqSelect.value);
-    inPreparationChord.setPreviousInterval(previousInterval);
-  });
-
-
 
 
 //____________________________Duration modal_________________________________________
-let durationInput = document.getElementById("chord-duration-input");
+let HTML_durationInput = document.getElementById("chord-duration-input");
 
 //Si se pulsa Enter en el input, nos lleva a la siguiente pagina
 /* durationInput.addEventListener("keydown", function (event) {
@@ -226,7 +220,7 @@ let durationInput = document.getElementById("chord-duration-input");
   }
 }); */ //De momento prohíbo introducir valores personalizados
 
-let setDurationButton = document.getElementById("set-duration-button");
+let HTML_setDurationButton = document.getElementById("set-duration-button");
 
 //Cada figura musical. al clicarle, rellenará el campo con la duración asociada
 ["semiquaver-duration-option",
@@ -238,27 +232,42 @@ let setDurationButton = document.getElementById("set-duration-button");
   let figure = document.getElementById(id);
   figure
     .addEventListener("click", () => {
+      //Cuidado! Ahora hay mas figures
       document.querySelector("figure[class='selected']").classList.remove("selected");
       figure.classList.add("selected");
-      durationInput.value = figure.getAttribute("duration");
-      setDurationButton.focus();
+      HTML_durationInput.value = figure.getAttribute("data-duration");
+      HTML_setDurationButton.focus();
       validateDuration();
     });
 });
 
-setDurationButton.addEventListener("click", () => {
-  inPreparationChord.setDuration(durationInput.value)
+HTML_setDurationButton.addEventListener("click", () => {
+  inPreparationChord.setDuration(HTML_durationInput.value)
 });
 
 
 
-//____________________________Intervals modal_________________________________________
+//____________________________Intervals modal (Modo y extensiones)_________________________________________
+const HTML_noModesContainer = document.querySelector(".no-modes-container");
+const HTML_actionInput = document.getElementById("action-input");
+const HTML_actionInputName = document.getElementById("action-input-name");
 
+let noModes = false;
+
+HTML_actionInput.addEventListener("click", () => {
+  // Cambiar el estado de isMoved y actualizar el estilo
+  noModes = !noModes;
+  HTML_noModesContainer.style.transform = noModes ? "translateY(0)" : "translateY(100%)";
+  HTML_actionInputName.innerHTML = noModes ? "Sí quiero elegir un modo" : "No quiero elegir ningún modo"
+});
 
 //____________________________Octavation modal_________________________________________
 
 document.getElementById("finish-chord-creation-button")
   .addEventListener("click", () => {
+    //Deberia ser aqui donde seteo todos los parametros en inPreparationChord, dado que es posible que estemos haciendo mierdas para que no se guarde nada.
+    //Tampoco deberia ser necesario guardar los valores en otro sitio que no sea el propio HTML
+    //Se puede recuperar directamente desde ahi
     let modeSelectorValue = document.getElementById("mode-select").value;
     inPreparationChord.setMode(findModeByName(modeSelectorValue));
 
@@ -272,34 +281,29 @@ document.getElementById("finish-chord-creation-button")
 //Esto da la funcionalidad a los botones de desplazarse a otra pagina de manera general
 //Se supone que si puedo avanzar de pagina es porque los datos estan establecidos.
 //Para guardar datos o más funcionalidades se usan eventListeners especñificos para evitar problemas de simetria (ir a una pagina != volver a la misma pagina)
-document.querySelectorAll("[go-to]")
+document.querySelectorAll("[data-go-to]")
   .forEach(element => {
     element
       .addEventListener("click", () => {
-        switch (element.getAttribute("go-to")) {
+        hideShownDialogs();
+        switch (element.getAttribute("data-go-to")) {
           case "close":
-            hideShownDialogs();
             resetModalValues();
             break;
           case "previous-freq-modal":
-            hideShownDialogs();
-            showDialog(previousFreqModal);
+            showDialog(HTML_previousFreqModal);
             break;
           case "previous-interval-modal":
-            hideShownDialogs();
-            showDialog(previousIntervalModal);
+            showDialog(HTML_previousIntervalModal);
             break;
           case "chord-duration-modal":
-            hideShownDialogs();
-            showDialog(chordDurationModal);
+            showDialog(HTML_chordDurationModal);
             break;
           case "chord-intervals-modal":
-            hideShownDialogs();
-            showDialog(chordIntervalsModal);
+            showDialog(HTML_chordIntervalsModal);
             break;
           case "octavation-modal":
-            hideShownDialogs();
-            showDialog(octavationModal);
+            showDialog(HTML_octavationModal);
             break;
         }
       });
@@ -310,13 +314,13 @@ const durationErrorText = document.getElementById("duration-error-text");
 
 function validatePreviousFreq(previousFreqValue) {
   if (previousFreqValue < MINIMUM_FREQ_POSSIBLE) {
-    previousFreqErrorText.innerHTML = `El valor introducido es demasiado bajo. Utiliza frecuencias por encima de ${MINIMUM_FREQ_POSSIBLE}`
-    showErrorText(previousFreqErrorText, setPreviousFreqButton);
+    HTML_previousFreqErrorText.innerHTML = `El valor introducido es demasiado bajo. Utiliza frecuencias por encima de ${MINIMUM_FREQ_POSSIBLE}`
+    showErrorText(HTML_previousFreqErrorText, HTML_setPreviousFreqButton);
   } else if (previousFreqValue > MAXIMUM_FREQ_POSSIBLE) {
-    previousFreqErrorText.innerHTML = `El valor introducido es demasiado alto. Utiliza frecuencias por debajo de ${MAXIMUM_FREQ_POSSIBLE}`
-    showErrorText(previousFreqErrorText, setPreviousFreqButton);
+    HTML_previousFreqErrorText.innerHTML = `El valor introducido es demasiado alto. Utiliza frecuencias por debajo de ${MAXIMUM_FREQ_POSSIBLE}`
+    showErrorText(HTML_previousFreqErrorText, HTML_setPreviousFreqButton);
   } else {
-    hideErrorText(previousFreqErrorText, setPreviousFreqButton);
+    hideErrorText(HTML_previousFreqErrorText, HTML_setPreviousFreqButton);
     return true;
   }
   return false;
@@ -335,13 +339,13 @@ function validateDuration(durationValue) {
 }
 
 function hideShownDialogs() {
-  [modalBackground,
-    previousFreqModal,
-    previousIntervalModal,
-    chordDurationModal,
+  [HTML_modalBackground,
+    HTML_previousFreqModal,
+    HTML_previousIntervalModal,
+    HTML_chordDurationModal,
     durationErrorText,
-    chordIntervalsModal,
-    octavationModal]
+    HTML_chordIntervalsModal,
+    HTML_octavationModal]
     .forEach(dialog => {
       if (!dialog.classList.contains("no-display")) {
         dialog.classList.add("no-display");
@@ -350,13 +354,13 @@ function hideShownDialogs() {
 }
 
 function showDialog(dialog) {
-  modalBackground.classList.remove("no-display");
+  HTML_modalBackground.classList.remove("no-display");
   dialog.classList.remove("no-display");
 }
 
 function resetModalValues() {
-  previousFreqInput.value = null;
-  durationInput.value = null;
+  HTML_previousFreqInput.value = null;
+  HTML_durationInput.value = null;
 }
 
 function showErrorText(errorText, buttonToDisable) {

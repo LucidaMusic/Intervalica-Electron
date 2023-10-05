@@ -1,7 +1,7 @@
 :root {
     --color-primario: #93a0ff;
     --color-secundario: #7c8bff;
-    --color-fondo: #f2f2f2;
+    --color-background: #ffffff;
     --color-chord-view-line-blurred: #93a0ff;
     --color-disabled-button: #d2d2d2;
 }
@@ -153,9 +153,6 @@ button,
     background-color: white;
     box-shadow: 0px 0px 20px black;
     padding: 2em;
-    max-width: 650px;
-    max-height: 400px;
-    min-height: 235px;
 }
 
 .no-display {
@@ -163,8 +160,7 @@ button,
 }
 
 .page-navigation-buttons-container {
-    position: absolute;
-    bottom: 2em;
+    margin-top: 2em;
 }
 
 .modal-input {
@@ -211,6 +207,10 @@ figcaption {
 
 .musical-characters {
     font-family: MusiSync;
+    font-size: 48px;
+}
+
+.non-musical-figure-characters{
     font-size: 48px;
 }
 
@@ -343,6 +343,35 @@ dialog ul {
 button:disabled{
     background-color: var(--color-disabled-button);
     cursor: not-allowed;
+}
+
+#mode-ul{
+    position: relative;
+    overflow: hidden;
+}
+
+.no-modes-container{
+    background-color: var(--color-background);
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    transform: translateY(100%);
+    transition: transform 0.5s ease;
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#action-input-name{
+    cursor: pointer;
+}
+
+.italic-text{
+font-style: italic;
 }
 
 @font-face {
