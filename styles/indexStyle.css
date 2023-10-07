@@ -19,8 +19,7 @@ h1 {
     margin: 1em;
 }
 
-button,
-[role=button] {
+button{
     cursor: pointer;
 }
 
@@ -174,6 +173,9 @@ button,
     position: absolute;
     right: 2em;
     top: 2em;
+}
+
+.icon-button{
     border: 0;
     background: transparent;
 }
@@ -385,6 +387,12 @@ font-style: italic;
 
 .pointer-cursor{
     cursor: pointer;
+}
+
+#extensions-ul-and-buttons-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 @font-face {

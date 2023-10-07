@@ -1,7 +1,7 @@
 //const ipcRenderer = require("electron").ipcRenderer;
 
 const Chord = require("./objects/Chord.js");
-const { Interval, findIntervalByName } = require("./objects/Intervals.js");
+const { getIntervalById } = require("./objects/Intervals.js");
 //const { Interval } = require("./objects/Intervals.js");
 const { findModeByName } = require("./objects/Modes.js");
 
@@ -14,7 +14,7 @@ testingAlreadyCreatedChord.setName("Napolitano sobre C")
 testingAlreadyCreatedChord.setDuration(1);
 testingAlreadyCreatedChord.setMode(findModeByName("Menor"));
 testingAlreadyCreatedChord.setContextualizedFreqs([330, 440, 550, 660, 880]);
-testingAlreadyCreatedChord.setPreviousInterval(Interval.JUST_FIFTH);
+testingAlreadyCreatedChord.setPreviousInterval(getIntervalById("2m"));
 song.push(testingAlreadyCreatedChord);
 
 //Variables para que tengan alcance global 
@@ -26,6 +26,10 @@ let relativeToSong = 0; //a la hora de dibujar las líneas del canvas. Por defec
 
 const MAXIMUM_FREQ_POSSIBLE = 8000;
 const MINIMUM_FREQ_POSSIBLE = 20;
+
+const CSS_noDisplay = "no-display"; //Clase css para esconder elemento
+const CSS_selected = "selected"; //Clase css para seleccionar elemento
+
 
 
 //___________________________Main page________________________________
@@ -149,10 +153,6 @@ document
         }
       });
 
-      //Inicializamos el valor del input previous freq para evitar nulos
-      //Por ahora hacemos así pero debería ser la tónica más grave (aun no hay distinción por tónica)
-      HTML_previousFreqInput.value = previousChordFreqs[0];
-
       // Dispara manualmente el evento 'input' después de cambiar el valor
       HTML_previousFreqInput.dispatchEvent(new Event('input', {
         bubbles: true,
@@ -226,7 +226,7 @@ const HTML_previousFreqSelect = document.getElementById("previous-freq-select");
 // Actualizar la previsualizacion cuando se elige una opcion en el selector de intervalos
 HTML_previousFreqSelect.addEventListener('change', function () {
   // Obtén el valor de la opción seleccionada
-  let selectedInterval = findIntervalByName(HTML_previousFreqSelect.value);
+  let selectedInterval = getIntervalById(HTML_previousFreqSelect.options[HTML_previousFreqSelect.selectedIndex].getAttribute("data-value"));
 
   HTML_intervalFractionValueSpan.innerHTML = "(" + selectedInterval.getStringValue() + ")";
   HTML_newFreqSpan.innerHTML = previousFreq * selectedInterval.getNumberValue();
@@ -234,7 +234,8 @@ HTML_previousFreqSelect.addEventListener('change', function () {
 
 
 //____________________________Duration modal_________________________________________
-let HTML_durationInput = document.getElementById("chord-duration-input");
+const HTML_durationInput = document.getElementById("chord-duration-input");
+const HTML_durationUl = document.getElementById("duration-ul");
 
 //Si se pulsa Enter en el input, nos lleva a la siguiente pagina
 /* durationInput.addEventListener("keydown", function (event) {
@@ -250,26 +251,17 @@ let HTML_durationInput = document.getElementById("chord-duration-input");
 let HTML_setDurationButton = document.getElementById("set-duration-button");
 
 //Cada figura musical. al clicarle, rellenará el campo con la duración asociada
-["semiquaver-duration-option",
-  "quaver-duration-option",
-  "crotchet-duration-option",
-  "minim-duration-option",
-  "semibreve-duration-option"
-].forEach(id => {
-  let figure = document.getElementById(id);
-  figure
-    .addEventListener("click", () => {
-
-      console.log(document.getElementById("semiquaver-duration-option").getAttribute("data-vañue"))
-
-      //Cuidado! Ahora hay mas figures
-      document.querySelector("figure.duration.selected").classList.remove("selected");
-      figure.classList.add("selected");
-      HTML_durationInput.value = figure.getAttribute("data-value");
-      HTML_setDurationButton.focus();
-      validateDuration();
-    });
-});
+HTML_durationUl.querySelectorAll("figure")
+  .forEach(figure => {
+    figure
+      .addEventListener("click", () => {
+        unselectElement(HTML_durationUl.querySelector("figure." + CSS_selected))
+        selectElement(figure)
+        HTML_durationInput.value = figure.getAttribute("data-value");
+        HTML_setDurationButton.focus();
+        validateDuration();
+      });
+  });
 
 HTML_setDurationButton.addEventListener("click", () => {
   inPreparationChord.setDuration(HTML_durationInput.value)
@@ -279,9 +271,13 @@ HTML_setDurationButton.addEventListener("click", () => {
 
 
 //____________________________Intervals modal (Modo y extensiones)_________________________________________
+const HTML_modeUl = document.getElementById("mode-ul")
 const HTML_noModesContainer = document.querySelector(".no-modes-container");
 const HTML_actionInput = document.getElementById("action-input");
 const HTML_actionInputName = document.getElementById("action-input-name");
+const HTML_extensionsUl = document.getElementById("extensions-ul");
+const HTML_backToIntervalsParents = document.getElementById("return-to-intervals-parents-button");
+const HTML_addIntervalButton = document.getElementById("add-interval-button")
 
 let noModes = false;
 
@@ -291,6 +287,103 @@ HTML_actionInput.addEventListener("click", () => {
   HTML_noModesContainer.style.transform = noModes ? "translateY(0)" : "translateY(100%)";
   HTML_actionInputName.innerHTML = noModes ? "Sí quiero elegir un modo" : "No quiero elegir ningún modo"
 });
+
+//Los modos se seleccionan cuando son clicados
+//Se que son modos si son figures dentro de mode-ul
+HTML_modeUl
+  .querySelectorAll("figure")
+  .forEach(figure => {
+    figure
+      .addEventListener("click", () => {
+        unselectElement(HTML_modeUl.querySelector("figure." + CSS_selected))
+        selectElement(figure)
+        //HTML_durationInput.value = figure.getAttribute("data-value");
+        //HTML_setDurationButton.focus();
+        //validateDuration();
+      });
+  });
+
+//Los intervalos, cuando son clicados, muestran sus hijos
+HTML_extensionsUl.querySelectorAll(".parent")
+  .forEach(parent => {
+    parent
+      .addEventListener("click", () => {
+        //Esconder todos los padres
+        HTML_extensionsUl
+          .querySelectorAll(".parent")
+          .forEach(parent => hideElement(parent))
+
+        //Mostrar los hijos de ese padre concreto
+        let classOfChildToShow = parent.getAttribute("data-value");
+
+        HTML_extensionsUl
+          .querySelectorAll("." + classOfChildToShow)
+          .forEach(child => showElement(child))
+
+        //Mostrar boton para volver
+        showElement(HTML_backToIntervalsParents)
+      });
+  });
+
+//Los hijos, cuando son clicados, se seleccionan y muestran el botón añadir.
+HTML_extensionsUl
+  .querySelectorAll(".child")
+  .forEach(figure => {
+    figure
+      .addEventListener("click", () => {
+        //Deseleccionar si ya había algo seleccionado, dado que los intervalos son opcionales y no tienen un default claro. No tendria que haber mas de un selected
+        deselectPossiblySelectedChildInterval();
+        selectElement(figure)
+        showElement(HTML_addIntervalButton);
+      });
+  });
+
+
+//boton volver esconde los hijos, muestra los padres y se esconde a si mismo
+HTML_backToIntervalsParents.addEventListener("click", () => {
+  //Se entiende que si se había seleccionado algo antes, se descarta
+  deselectPossiblySelectedChildInterval();
+  //buscar todos los child que NO tengan no display y esconderlos
+  HTML_extensionsUl.querySelectorAll(".child:not(." + CSS_noDisplay + ")")
+    .forEach(element => hideElement(element))
+  //buscar todos los parents y mostrarlos
+  HTML_extensionsUl.querySelectorAll(".parent")
+    .forEach(element => showElement(element))
+    //Se esconde a sí mismo
+    hideElement(HTML_backToIntervalsParents)
+    //Esconde el boton añadir dado que estoy en parents
+    hideElement(HTML_addIntervalButton)
+})
+
+function deselectPossiblySelectedChildInterval() {
+  const selectedChildInterval = HTML_extensionsUl.querySelector(".child." + CSS_selected)
+  if (selectedChildInterval) {
+    unselectElement(selectedChildInterval)
+  }
+}
+
+
+//El boton + añade el intervalo
+HTML_addIntervalButton
+  .addEventListener("click", () => {
+    //busco los intervals child
+    const intervalId = HTML_extensionsUl.querySelector(".child.selected").getAttribute("data-value")
+    //   busco el que tenga la clase selected !Solo debe haber uno
+    //  cojo su data value
+    // busco el intervalo y lo pinto Deberia insertar objetos html
+
+    // Crear un elemento <p>
+    var HTML_chosenInterval = document.createElement("p");
+
+    // Establecer el texto dentro del párrafo
+    HTML_chosenInterval.textContent = getIntervalById(intervalId).getName();
+
+    // Agregar el párrafo al cuerpo del documento (u otro elemento, según tu necesidad)
+    HTML_chordIntervalsModal.appendChild(HTML_chosenInterval);
+
+    //   a la hora de recuperar el valor podria volver a leer los elementos para no tener que mantener una lista sincronizada de intervalos
+  });
+
 
 //____________________________Octavation modal_________________________________________
 
@@ -344,14 +437,17 @@ document.querySelectorAll("[data-go-to]")
 const durationErrorText = document.getElementById("duration-error-text");
 
 function validatePreviousFreq(previousFreqValue) {
-  if (previousFreqValue < MINIMUM_FREQ_POSSIBLE) {
+  if (previousFreqValue == "") {
+    HTML_previousFreqErrorText.innerHTML = "No hay valor introducido";
+    showErrorText(HTML_previousFreqErrorText, HTML_setPreviousFreqButton, HTML_setPreviousFreqButtonQuick);
+  } else if (previousFreqValue < MINIMUM_FREQ_POSSIBLE) {
     HTML_previousFreqErrorText.innerHTML = `El valor introducido es demasiado bajo. Utiliza frecuencias por encima de ${MINIMUM_FREQ_POSSIBLE}`
-    showErrorText(HTML_previousFreqErrorText, HTML_setPreviousFreqButton);
+    showErrorText(HTML_previousFreqErrorText, HTML_setPreviousFreqButton, HTML_setPreviousFreqButtonQuick);
   } else if (previousFreqValue > MAXIMUM_FREQ_POSSIBLE) {
     HTML_previousFreqErrorText.innerHTML = `El valor introducido es demasiado alto. Utiliza frecuencias por debajo de ${MAXIMUM_FREQ_POSSIBLE}`
-    showErrorText(HTML_previousFreqErrorText, HTML_setPreviousFreqButton);
+    showErrorText(HTML_previousFreqErrorText, HTML_setPreviousFreqButton, HTML_setPreviousFreqButtonQuick);
   } else {
-    hideErrorText(HTML_previousFreqErrorText, HTML_setPreviousFreqButton);
+    hideErrorText(HTML_previousFreqErrorText, HTML_setPreviousFreqButton, HTML_setPreviousFreqButtonQuick);
     return true;
   }
   return false;
@@ -361,10 +457,10 @@ function validatePreviousFreq(previousFreqValue) {
 //Desde aqui se muestran los mensajes de error
 function validateDuration(durationValue) {
   if (Number.isNaN(durationValue) || durationValue <= 0) {
-    durationErrorText.classList.remove("no-display");
+    showElement(durationErrorText)
     return false;
   } else {
-    durationErrorText.classList.add("no-display");
+    hideElement(durationErrorText)
     return true;
   }
 }
@@ -378,15 +474,23 @@ function hideShownDialogs() {
     HTML_chordIntervalsModal,
     HTML_octavationModal]
     .forEach(dialog => {
-      if (!dialog.classList.contains("no-display")) {
-        dialog.classList.add("no-display");
+      if (!dialog.classList.contains(CSS_noDisplay)) {
+        hideElement(dialog)
       }
     });
 }
 
 function showDialog(dialog) {
-  HTML_modalBackground.classList.remove("no-display");
-  dialog.classList.remove("no-display");
+  showElement(HTML_modalBackground)
+  showElement(dialog)
+}
+
+function showElement(element) {
+  element.classList.remove(CSS_noDisplay)
+}
+
+function hideElement(element) {
+  element.classList.add(CSS_noDisplay)
 }
 
 function resetModalValues() {
@@ -399,11 +503,31 @@ function showErrorText(errorText, buttonToDisable) {
   buttonToDisable.disabled = true;
 }
 
-function hideErrorText(errorText, buttonToEnable) {
-  errorText.classList.add("transparent-text");
-  buttonToEnable.disabled = false;
+function showErrorText(errorText, ...buttonsToDisable) {
+  errorText.classList.remove("transparent-text");
+  buttonsToDisable.forEach(button => button.disabled = true)
 }
 
+function hideErrorText(errorText, ...buttonToEnable) {
+  errorText.classList.add("transparent-text");
+  buttonToEnable.forEach(button => button.disabled = false);
+}
+
+function showElement(element) {
+  element.classList.remove(CSS_noDisplay)
+}
+
+function hideElement(element) {
+  element.classList.add(CSS_noDisplay)
+}
+
+function selectElement(element) {
+  element.classList.add(CSS_selected);
+}
+
+function unselectElement(element) {
+  element.classList.remove(CSS_selected);
+}
 
 
 

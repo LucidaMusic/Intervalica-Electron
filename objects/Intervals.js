@@ -1,10 +1,15 @@
 // Función que actúa como constructor
 class Interval {
-  constructor(name, stringValue, numberValue) {
+  constructor(id, name, stringValue, numberValue) {
 
+    let _id = id;
     let _name = name;
     let _stringValue = stringValue;
     let _numberValue = numberValue;
+
+    this.getId = function () {
+      return _id;
+    };
 
     this.getName = function () {
       return _name;
@@ -33,26 +38,26 @@ class Interval {
 }
 
 const Intervals = {
-  UNISON: new Interval('Unísono', '1', 1),
-  MINOR_SECOND: new Interval('Segunda menor', '16/15', 16 / 15),
-  MAJOR_SECOND: new Interval('Segunda mayor', '9/8', 9 / 8),
-  MINOR_THIRD: new Interval('Tercera menor', '6/5', 6 / 5),
-  MAJOR_THIRD: new Interval('Tercera mayor', '5/4', 5 / 4),
-  PERFECT_FOURTH: new Interval('Cuarta justa', '4/3', 4 / 3),
-  TRITONE: new Interval('Tritono', '45/32', 45 / 32),
-  PERFECT_FIFTH: new Interval('Quinta justa', '3/2', 3 / 2),
-  MINOR_SIXTH: new Interval('Sexta menor', '8/5', 8 / 5),
-  MAJOR_SIXTH: new Interval('Sexta mayor', '5/3', 5 / 3),
-  MINOR_SEVENTH: new Interval('Séptima menor', '16/9', 16 / 9),
-  DOMINANT_SEVENTH: new Interval('Séptima de dominante', '7/4', 7 / 4),
-  MAJOR_SEVENTH: new Interval('Séptima mayor', '15/8', 15 / 8),
+  UNISON: new Interval('1', 'Unísono', '1', 1),
+  MINOR_SECOND: new Interval('2m', 'Segunda menor', '16/15', 16 / 15),
+  MAJOR_SECOND: new Interval('2M', 'Segunda mayor', '9/8', 9 / 8),
+  MINOR_THIRD: new Interval('3m', 'Tercera menor', '6/5', 6 / 5),
+  MAJOR_THIRD: new Interval('3M', 'Tercera mayor', '5/4', 5 / 4),
+  PERFECT_FOURTH: new Interval('4P', 'Cuarta justa', '4/3', 4 / 3),
+  TRITONE: new Interval('4T', 'Tritono', '45/32', 45 / 32),
+  PERFECT_FIFTH: new Interval('5P', 'Quinta justa', '3/2', 3 / 2),
+  MINOR_SIXTH: new Interval('6m', 'Sexta menor', '8/5', 8 / 5),
+  MAJOR_SIXTH: new Interval('6M', 'Sexta mayor', '5/3', 5 / 3),
+  MINOR_SEVENTH: new Interval('7m', 'Séptima menor', '16/9', 16 / 9),
+  DOMINANT_SEVENTH: new Interval('7D', 'Séptima de dominante', '7/4', 7 / 4),
+  MAJOR_SEVENTH: new Interval('7M', 'Séptima mayor', '15/8', 15 / 8),
 };
 
-function findIntervalByName(intervalName) {
+function getIntervalById(intervalId) {
   for (const key in Intervals) {
     if (Intervals.hasOwnProperty(key)) {
       const enumValue = Intervals[key];
-      if (enumValue.getName() === intervalName) {
+      if (enumValue.getId() === intervalId) {
         return enumValue;
       }
     }
@@ -60,4 +65,4 @@ function findIntervalByName(intervalName) {
   return null;
 }
 
-module.exports = { Interval, findIntervalByName };
+module.exports = { Interval, getIntervalById };

@@ -42,17 +42,6 @@
     <div id="chord-bar">
         <!--Pa los "acordes"-->
         <div class="chord-box">PRUEBA ACORDE</div>
-        <div class="chord-box">PRUEBA ACORDE</div>
-        <div class="chord-box">PRUEBA ACORDE</div>
-        <div class="chord-box">PRUEBA ACORDE</div>
-        <div class="chord-box">PRUEBA ACORDE</div>
-        <div class="chord-box">PRUEBA ACORDE</div>
-        <div class="chord-box">PRUEBA ACORDE</div>
-        <div class="chord-box">PRUEBA ACORDE</div>
-        <div class="chord-box">PRUEBA ACORDE</div>
-        <div class="chord-box">PRUEBA ACORDE</div>
-        <div class="chord-box">PRUEBA ACORDE</div>
-        <div class="chord-box">PRUEBA ACORDE</div>
         <button id="new-chord-button" class="chord-box">Nuevo tono (+)</button>
     </div>
 
@@ -61,7 +50,7 @@
     <dialog id="modal-background" class="modal-background no-display">
 
         <div id="previous-freq-modal" class="modal-window no-display">
-            <button class="close-modal-button" data-go-to="close">
+            <button class="close-modal-button icon-button" data-go-to="close">
                 <img src="icons/close/1x/outline_close_black_24dp.png" alt="Cerrar">
             </button>
             <h3>¿Sobre que nota se va a construir el acorde?</h3>
@@ -96,7 +85,7 @@
         </div>
 
         <div id="previous-interval-modal" class="modal-window no-display">
-            <button class="close-modal-button" data-go-to="close">
+            <button class="close-modal-button icon-button" data-go-to="close">
                 <img src="icons/close/1x/outline_close_black_24dp.png" alt="Cerrar">
             </button>
             <h3>¿Que intervalo existe entre la frecuencia elegida y la nueva tónica?</h3>
@@ -107,22 +96,22 @@
             <select id="previous-freq-select">
                 <option data-value="Unísono">Unísono</option>
                 <optgroup label="Segunda">
-                    <option data-value="Segunda menor">Menor</option>
-                    <option data-value="Segunda mayor">Mayor</option>
+                    <option data-value="2m">Menor</option>
+                    <option data-value="2M">Mayor</option>
                 </optgroup>
                 <optgroup label="Tercera">
-                    <option data-value="Tercera menor">Menor</option>
-                    <option data-value="Tercera mayor">Mayor</option>
+                    <option data-value="3m">Menor</option>
+                    <option data-value="3M">Mayor</option>
 
                 </optgroup>
-                <option data-value="Cuarta justa">Cuarta justa</option>
-                <option data-value="Tritono">Tritono</option>
-                <option data-value="Quinta justa">Quinta justa</option>
-                <option data-value="Sexta menor">Sexta menor</option>
-                <option data-value="Sexta mayor">Sexta mayor</option>
-                <option data-value="Séptima menor">Séptima menor</option>
-                <option data-value="Séptima de dominante">Séptima de dominante</option>
-                <option data-value="Séptima mayor">Séptima mayor</option>
+                <option data-value="4P">Cuarta justa</option>
+                <option data-value="4T">Tritono</option>
+                <option data-value="5P">Quinta justa</option>
+                <option data-value="6m">Sexta menor</option>
+                <option data-value="6M">Sexta mayor</option>
+                <option data-value="7m">Séptima menor</option>
+                <option data-value="7D">Séptima de dominante</option>
+                <option data-value="7M">Séptima mayor</option>
             </select>
 
             <div class="previous-interval-previsualization-container">
@@ -146,11 +135,11 @@
         </div>
 
         <div id="chord-duration-modal" class="modal-window no-display">
-            <button class="close-modal-button" data-go-to="close">
+            <button class="close-modal-button icon-button" data-go-to="close">
                 <img src="icons/close/1x/outline_close_black_24dp.png" alt="Cerrar">
             </button>
             <h3>Introduce duración del acorde</h3>
-            <div class="ul text-unselectable">
+            <div id="duration-ul" class="ul text-unselectable">
                 <figure id="semiquaver-duration-option" data-value="0.25" class="duration pointer-cursor">
                     <span class="musical-characters">&#115;</span>
                     <figcaption class="italic-text">Semicorchea</figcaption>
@@ -187,32 +176,41 @@
         </div>
 
         <div id="chord-intervals-modal" class="modal-window no-display">
-            <button class="close-modal-button" data-go-to="close">
+            <button class="close-modal-button icon-button" data-go-to="close">
                 <img src="icons/close/1x/outline_close_black_24dp.png" alt="Cerrar">
             </button>
             <h3>Introduce intervalos del acorde</h3>
             <!--Tipo de modo-->
             <div>
                 <div id="mode-ul" class="ul text-unselectable">
-                    <figure id="diminished-mode-option" data-value="Disminuido" class="pointer-cursor">
+                    <figure id="diminished-mode-option" data-value="Disminuido" class="mode pointer-cursor">
                         <span class="non-musical-figure-characters">Dim</span>
                         <figcaption class="italic-text">Disminuido</figcaption>
                     </figure>
-                    <figure id="major-mode-option" data-value="Menor" class="pointer-cursor">
-                        <span class="non-musical-figure-characters">m</span>
-                        <figcaption class="italic-text">Menor</figcaption>
-                    </figure>
-                    <figure id="major-mode-option" data-value="Mayor" class="pointer-cursor">
-                        <span class="non-musical-figure-characters">M</span>
-                        <figcaption class="italic-text">Mayor</figcaption>
-                    </figure>
-                    <figure id="augmented-mode-option" data-value="Aumentado" class="pointer-cursor">
+                    <figure id="augmented-mode-option" data-value="Aumentado" class="mode pointer-cursor">
                         <span class="non-musical-figure-characters">Aug</span>
                         <figcaption class="italic-text">Aumentado</figcaption>
                     </figure>
+                    <figure id="minor-mode-option" data-value="Menor" class="mode pointer-cursor">
+                        <span class="non-musical-figure-characters">m</span>
+                        <figcaption class="italic-text">Menor</figcaption>
+                    </figure>
+                    <figure id="major-mode-option" data-value="Mayor" class="mode pointer-cursor selected">
+                        <span class="non-musical-figure-characters">M</span>
+                        <figcaption class="italic-text">Mayor</figcaption>
+                    </figure>
+                    <figure id="sus2-mode-option" data-value="sus2" class="mode pointer-cursor">
+                        <span class="non-musical-figure-characters">Sus2</span>
+                        <figcaption class="italic-text">Suspendido segunda</figcaption>
+                    </figure>
+                    <figure id="sus4-mode-option" data-value="sus4" class="mode pointer-cursor">
+                        <span class="non-musical-figure-characters">Sus4</span>
+                        <figcaption class="italic-text">Suspendido cuarta</figcaption>
+                    </figure>
+
                     <div class="no-modes-container">
                         <span class="italic-text">Ningún modo seleccionado</span>
-                    </div>    
+                    </div>
                 </div>
             </div>
 
@@ -220,7 +218,43 @@
             <br>
 
             <!--Posibles extensiones, incluyendo personalizados-->
-
+            <!--Tipo de modo-->
+            <div id="extensions-ul-and-buttons-container">
+                <button id="return-to-intervals-parents-button" class="icon-button no-display" alt="Atrás">
+                    <img src="icons/back/arrow_back_24.png">
+                </button>
+                <div id="extensions-ul" class="ul text-unselectable">
+                    <!-- Extensiones de segunda -->
+                    <figure id="second-extension-option-parent" data-value="seconds" class="parent mode pointer-cursor">
+                        <span class="non-musical-figure-characters">2ª</span>
+                        <figcaption class="italic-text">Segunda</figcaption>
+                    </figure>
+                    <figure data-value="2m" class="seconds child mode pointer-cursor no-display">
+                        <span class="non-musical-figure-characters">2ªm</span>
+                        <figcaption class="italic-text">Segunda menor</figcaption>
+                    </figure>
+                    <figure data-value="2M" class="seconds child mode pointer-cursor no-display">
+                        <span class="non-musical-figure-characters">2ªM</span>
+                        <figcaption class="italic-text">Segunda mayor</figcaption>
+                    </figure>
+                    <!-- Extensiones de sexta -->
+                    <figure id="sixths-extensions-option" data-value="sixths" class="parent mode pointer-cursor">
+                        <span class="non-musical-figure-characters">6ª</span>
+                        <figcaption class="italic-text">Sexta</figcaption>
+                    </figure>
+                    <figure data-value="6m" class="sixths child mode pointer-cursor no-display">
+                        <span class="non-musical-figure-characters">6ªm</span>
+                        <figcaption class="italic-text">Sexta menor</figcaption>
+                    </figure>
+                    <figure data-value="6M" class="sixths child mode pointer-cursor no-display">
+                        <span class="non-musical-figure-characters">6ªM</span>
+                        <figcaption class="italic-text">Sexta mayor</figcaption>
+                    </figure>
+                </div>
+                <button class="icon-button no-display" id="add-interval-button">
+                    <img src="icons/plus/add_circle24.png" alt="Cerrar">
+                </button>
+            </div>
             <!--Botones adelante y atrás-->
             <div class="page-navigation-buttons-container">
                 <button class="decorated-button" data-go-to="chord-duration-modal">Anterior</button>
@@ -230,7 +264,7 @@
 
 
         <div id="octavation-modal" class="modal-window no-display" style="width: 300px; height: 300px;">
-            <button class="close-modal-button" data-go-to="close">
+            <button class="close-modal-button icon-button" data-go-to="close">
                 <img src="icons/close/1x/outline_close_black_24dp.png" alt="Cerrar">
             </button>
             <h3>Elige la octavación del acorde</h3>
