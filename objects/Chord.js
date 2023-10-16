@@ -1,60 +1,61 @@
 module.exports = class Chord {
-  constructor(name, duration, mode, extensions, previousInterval, contextualizedFreqs) {
-    let _name = name;
-    let _duration = duration;
-    let _mode = mode;
-    let _extensions = extensions;
-    let _previousInterval = previousInterval;
-    let _contextualizedFreqs = contextualizedFreqs;
-
-    this.toString = function () {
-      return `Chord Details:
-      Name: ${_name}
-      Previous Interval: ${_previousInterval.getName()}
-      Duration: ${_duration}
-      Mode: ${_mode.getName()}
-      Extensions: ${_extensions}
-      Contextualized Frequencies: ${_contextualizedFreqs}`;
-    };
-
-    this.getName = function () {
-      return _name;
-    };
-
-    this.setName = function (newName) {
-      _name = newName;
-    };
-
-    this.getDuration = function () {
-      return _duration;
-    };
-
-    this.setDuration = function (newDuration) {
-      _duration = newDuration;
-    };
-
-    this.getMode = function () {
-      return _mode;
-    };
-
-    this.setMode = function (newMode) {
-      _mode = newMode;
-    };
-
-    this.getPreviousInterval = function () {
-      return _previousInterval;
-    };
-
-    this.setPreviousInterval = function (newPreviousInterval) {
-      _previousInterval = newPreviousInterval;
-    };
-
-    this.getContextualizedFreqs = function () {
-      return _contextualizedFreqs;
-    };
-
-    this.setContextualizedFreqs = function (newContextualizedFreqs) {
-      _contextualizedFreqs = newContextualizedFreqs;
-    };
+  constructor() {
+    this._name = null;
+    this._duration = null;
+    this._mode = null;
+    this._extensions = null;
+    this._previousInterval = null;
+    this._notes = [];
   }
-};
+
+  // Getters
+  get name() {
+    return this._name;
+  }
+
+  get duration() {
+    return this._duration;
+  }
+
+  get mode() {
+    return this._mode;
+  }
+
+  get extensions() {
+    return this._extensions;
+  }
+
+  get previousInterval() {
+    return this._previousInterval;
+  }
+
+  get notes() {
+    return this._notes;
+  }
+
+  // Setters
+  set name(name) {
+    this._name = name;
+  }
+
+  set duration(duration) {
+    this._duration = duration;
+  }
+
+  set mode(mode) {
+    this._mode = mode;
+  }
+
+  set extensions(extensions) {
+    this._extensions = extensions;
+  }
+
+  set previousInterval(previousInterval) {
+    this._previousInterval = previousInterval;
+  }
+
+  addNote(note) {
+    this._notes.push(note);
+  }
+}
+

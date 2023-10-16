@@ -63,18 +63,20 @@
                     <span id="previous-chord-name">Nombre de acorde anterior</span>
                 </div>
                 <div class="previous-freq-text-and-input-container">
-                    <p>Haz click en las líneas y números del recuadro para seleccionar la nota del acorde anterior sobre
-                        la cual deseas construir el nuevo acorde.
-                        <br>
-                        <br>
-                        También puedes indicar tú mismo un valor personalizado.
+                    <p>Haz click en las líneas y los números del recuadro para seleccionar la nota del acorde anterior
+                        sobre la cual deseas construir el nuevo acorde.
                     </p>
-                    <div id="set-previous-freq-and-button-container">
-                        <input type="number" id="previous-freq-input">
-                        <button id="set-previous-freq-quick" class="decorated-button"
-                            data-go-to="previous-interval-modal">Siguiente</button>
+                    <p>En el paso siguiente podrás indicar un intervalo a
+                        aplicar, por lo que lo común es elegir la tónica del acorde anterior como nota a partir.
+                    </p>
+                    <div>
+                        <div id="set-previous-freq-and-button-container">
+                            <span id="previous-freq-input"></span>
+                            <button id="set-previous-freq-quick" class="decorated-button"
+                                data-go-to="previous-interval-modal">Siguiente</button>
+                        </div>
+                        <p id="previous-freq-error-text" class="error-text transparent"></p>
                     </div>
-                    <p id="previous-freq-error-text" class="error-text transparent"></p>
                 </div>
             </div>
             <div class="page-navigation-buttons-container">

@@ -336,7 +336,8 @@ dialog .ul {
     display: flex;
     flex-direction: column;
     padding: 3em;
-    min-height: 306px;
+    width: 300px;
+    height: 500px;
     justify-content: space-evenly;
     max-width: 300px;
     align-items: center;

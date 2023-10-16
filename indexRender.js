@@ -1,21 +1,14 @@
 //const ipcRenderer = require("electron").ipcRenderer;
 
 const Chord = require("./objects/Chord.js");
-const { getIntervalById } = require("./objects/Intervals.js");
+const Note = require("./objects/Note.js");
+const { getIntervalById, Interval } = require("./objects/Intervals.js");
 //const { Interval } = require("./objects/Intervals.js");
 const { findModeByName } = require("./objects/Modes.js");
 
 //Lista de acordes que forman la canción
 const song = new Array();
 
-//Temporalmente necesito que haya un acorde ya creado
-let testingAlreadyCreatedChord = new Chord();
-testingAlreadyCreatedChord.setName("Napolitano sobre C")
-testingAlreadyCreatedChord.setDuration(1);
-testingAlreadyCreatedChord.setMode(findModeByName("Menor"));
-testingAlreadyCreatedChord.setContextualizedFreqs([330, 440, 550, 660, 880]);
-testingAlreadyCreatedChord.setPreviousInterval(getIntervalById("2m"));
-song.push(testingAlreadyCreatedChord);
 
 //Variables para que tengan alcance global 
 let inPreparationChord,
@@ -35,7 +28,7 @@ const CSS_selected = "selected"; //Clase css para seleccionar elemento
 //___________________________Main page________________________________
 const HTML_firstFreqInput = document.getElementById("freq-input")
 
-
+//Limitar 1tonica input a 4 caracteres (Decimales??)
 HTML_firstFreqInput
   .addEventListener("input", () => {
     const inputValue = HTML_firstFreqInput.value;
@@ -64,12 +57,13 @@ document
 
       let previousChord = song[song.length - 1];
 
-      HTML_previousChordName.innerHTML = previousChord.getName();
+      HTML_previousChordName.innerHTML = previousChord.name;
 
       //Calculamos nota máxima y minima sobre las que queremos pintar
-      //Datos de entrada
 
-      let previousChordFreqs = previousChord.getContextualizedFreqs();
+
+      let previousChordFreqs = previousChord.notes.map(note => note.freq);
+
 
       let maxFreqValue, minFreqValue;
 
@@ -97,9 +91,12 @@ document
       let height = 500; //Height real del canvas o contenedor
 
       //Para cada nota en el acorde
-      for (let i = 0; i < previousChordFreqs.length; i++) {
+      for (let i = 0; i < previousChord.notes.length; i++) {
+        //Leemos el objeto de nota
+        chordNote = previousChord.notes[i]
+
         //Leemos el valor de la frecuencia
-        let chordFreq = previousChordFreqs[i];
+        let chordFreq = chordNote.freq;
 
         //Calculamos posición en Y para la barra y el texto
         let yPosition = (Math.log(chordFreq) / Math.log(10) - minLogFreq) / logRange * height;
@@ -122,6 +119,9 @@ document
         lineParent.style.bottom = yPosition + "px";
         lineParent.classList.add("chord-view-line-container");
         lineParent.classList.add("blurred");
+
+        //Asignamos nota a objeto HTML
+        lineParent.setAttribute("data-note-id", chordNote.id)
 
         canvasInModal.appendChild(lineParent);
       }
@@ -188,14 +188,15 @@ const HTML_setPreviousFreqButton = document.getElementById("set-previous-freq");
 const HTML_setPreviousFreqButtonQuick = document.getElementById("set-previous-freq-quick");
 const HTML_previousChordName = document.getElementById("previous-chord-name");
 
-HTML_previousFreqInput.addEventListener("input", () => {
-  validatePreviousFreq(HTML_previousFreqInput.value);
-});
-
+//Acción botones siguiente
 [HTML_setPreviousFreqButton,
   HTML_setPreviousFreqButtonQuick]
   .forEach(element => {
     element.addEventListener("click", () => {
+      //Encontrar elemento seleccionado
+      //Coger su valor de data-note-id
+      //Buscar en el acorde anterior la nota con ese id
+      //Marcarle el definesNextChord a true
       let previousFreqValue = HTML_previousFreqInput.value
 
       previousFreq = previousFreqValue;
@@ -204,17 +205,6 @@ HTML_previousFreqInput.addEventListener("input", () => {
       HTML_newFreqSpan.innerHTML = previousFreq;
     });
   })
-
-
-HTML_previousFreqInput
-  .addEventListener("input", () => {
-    const inputValue = HTML_previousFreqInput.value;
-    if (inputValue.length >= 4) {
-      HTML_previousFreqInput.value = inputValue.slice(0, 4);
-    }
-
-    validatePreviousFreq(HTML_previousFreqInput.value)
-  });
 
 
 //_____________________________Previous interval modal_____________________________
@@ -236,17 +226,6 @@ HTML_previousFreqSelect.addEventListener('change', function () {
 //____________________________Duration modal_________________________________________
 const HTML_durationInput = document.getElementById("chord-duration-input");
 const HTML_durationUl = document.getElementById("duration-ul");
-
-//Si se pulsa Enter en el input, nos lleva a la siguiente pagina
-/* durationInput.addEventListener("keydown", function (event) {
-  // If the user presses the "Enter" key on the keyboard
-  if (event.key === "Enter") {
-    // Cancel the default action, if needed
-    event.preventDefault();
-    // Trigger the button element with a click
-    document.getElementById("submitButton").click();
-  }
-}); */ //De momento prohíbo introducir valores personalizados
 
 let HTML_setDurationButton = document.getElementById("set-duration-button");
 
@@ -349,10 +328,10 @@ HTML_backToIntervalsParents.addEventListener("click", () => {
   //buscar todos los parents y mostrarlos
   HTML_extensionsUl.querySelectorAll(".parent")
     .forEach(element => showElement(element))
-    //Se esconde a sí mismo
-    hideElement(HTML_backToIntervalsParents)
-    //Esconde el boton añadir dado que estoy en parents
-    hideElement(HTML_addIntervalButton)
+  //Se esconde a sí mismo
+  hideElement(HTML_backToIntervalsParents)
+  //Esconde el boton añadir dado que estoy en parents
+  hideElement(HTML_addIntervalButton)
 })
 
 function deselectPossiblySelectedChildInterval() {
@@ -529,6 +508,32 @@ function unselectElement(element) {
   element.classList.remove(CSS_selected);
 }
 
+let noteId = 0;
+function createNoteId() {
+  noteId += 1;
+  return noteId;
+}
+
+//Temporalmente necesito que haya un acorde ya creado
+let testingAlreadyCreatedChord = new Chord();
+testingAlreadyCreatedChord.name = "Napolitano sobre C";
+
+
+testingAlreadyCreatedChord.duration = 1;
+testingAlreadyCreatedChord.mode = findModeByName("Menor");
+testingAlreadyCreatedChord.previousInterval = getIntervalById("2m");
+let noteA = new Note(createNoteId(), 330, getIntervalById("5P").getNumberValue() * (Math.pow(2, -1)), false, false)
+let noteB = new Note(createNoteId(), 440, getIntervalById("5P").getNumberValue() * (Math.pow(2, -1)), false, false)
+let noteC = new Note(createNoteId(), 550, getIntervalById("5P").getNumberValue() * (Math.pow(2, -1)), false, false)
+let noteD = new Note(createNoteId(), 660, getIntervalById("5P").getNumberValue() * (Math.pow(2, -1)), false, false)
+let noteE = new Note(createNoteId(), 880, getIntervalById("5P").getNumberValue() * (Math.pow(2, -1)), false, false)
+testingAlreadyCreatedChord.addNote(noteA);
+testingAlreadyCreatedChord.addNote(noteB);
+testingAlreadyCreatedChord.addNote(noteC);
+testingAlreadyCreatedChord.addNote(noteD);
+testingAlreadyCreatedChord.addNote(noteE);
+
+song.push(testingAlreadyCreatedChord);
 
 
 //Ejemplo de obtener valores de intervalos
