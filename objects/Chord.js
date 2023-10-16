@@ -1,61 +1,61 @@
 module.exports = class Chord {
-  constructor() {
-    this._name = null;
-    this._duration = null;
-    this._mode = null;
-    this._extensions = null;
-    this._previousInterval = null;
-    this._notes = [];
-  }
+    constructor() {
+        this._name = null;
+        this._duration = null;
+        this._mode = null;
+        this._extensions = null;
+        this._previousInterval = null;
+        this._notes = [];
+    }
 
-  // Getters
-  get name() {
-    return this._name;
-  }
+    // Getters
+    get name() {
+        return this._name;
+    }
 
-  get duration() {
-    return this._duration;
-  }
+    get duration() {
+        return this._duration;
+    }
 
-  get mode() {
-    return this._mode;
-  }
+    get mode() {
+        return this._mode;
+    }
 
-  get extensions() {
-    return this._extensions;
-  }
+    get extensions() {
+        return this._extensions;
+    }
 
-  get previousInterval() {
-    return this._previousInterval;
-  }
+    get previousInterval() {
+        return this._previousInterval;
+    }
 
-  get notes() {
-    return this._notes;
-  }
+    get notes() {
+        return this._notes;
+    }
 
-  // Setters
-  set name(name) {
-    this._name = name;
-  }
+    // Setters
+    set name(name) {
+        this._name = name;
+    }
 
-  set duration(duration) {
-    this._duration = duration;
-  }
+    set duration(duration) {
+        this._duration = duration;
+    }
 
-  set mode(mode) {
-    this._mode = mode;
-  }
+    set mode(mode) {
+        this._mode = mode;
+    }
 
-  set extensions(extensions) {
-    this._extensions = extensions;
-  }
+    set extensions(extensions) {
+        this._extensions = extensions;
+    }
 
-  set previousInterval(previousInterval) {
-    this._previousInterval = previousInterval;
-  }
+    set previousInterval(previousInterval) {
+        this._previousInterval = previousInterval;
+    }
 
-  addNote(note) {
-    this._notes.push(note);
-  }
+    addNote(note) {
+        this._notes.push(note);
+    }
 }
 

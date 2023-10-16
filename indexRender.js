@@ -132,11 +132,14 @@ document
       canvasInModal.addEventListener("click", function (event) {
         const chordViewLineContainer = event.target.closest(".chord-view-line-container");
         if (chordViewLineContainer) {
-          // Obtener el texto dentro del <span>
-          const previousFreqDesiredValue = chordViewLineContainer.querySelector(".chord-view-line-number").textContent;
+          // Obtener valor de frecuencia
+          let noteId = chordViewLineContainer.getAttribute("data-note-id");
+          let selectedPreviousNote = song[song.length - 1].notes.find(note => note.id == noteId);
+          previousFreqDesiredValue = selectedPreviousNote.freq;
+          //const previousFreqDesiredValue = chordViewLineContainer.querySelector(".chord-view-line-number").textContent;
 
           // Mostramos el valor clickado
-          freqInput.value = previousFreqDesiredValue;
+          freqInput.innerHTML = previousFreqDesiredValue;
 
           // Dispara manualmente el evento 'input' después de cambiar el valor para que se ejecute la validacion
           freqInput.dispatchEvent(new Event('input', {
