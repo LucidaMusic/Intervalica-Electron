@@ -61,11 +61,12 @@ document
 
       //Calculamos nota máxima y minima sobre las que queremos pintar
 
+//Aqui empieza la funcion teniendo en cuenta que lo de abajo es pasar parametros. Habra que padar
 
       let previousChordFreqs = previousChord.notes.map(note => note.freq);
 
 
-      let maxFreqValue, minFreqValue;
+      let maxFreqValue, minFreqValue; //estos datos los podria tener ya actualizados de cada vez que se crea un acorde. Si las notas recién añadidas son mayores/menores a las que ya se conocia, se actualiza el recuento
 
       if (relativeToSong) {
         let allNotesFromSong = [].concat(...song);
@@ -86,7 +87,7 @@ document
       let minLogFreq = Math.log(minFreqValue) / Math.log(10);
       let logRange = (Math.log(maxFreqValue) / Math.log(10)) - minLogFreq;
 
-      const canvasInModal = document.querySelector(".chord-view");
+      const canvasInModal = document.querySelector(".chord-view"); //Esto no tendria que estar aqui, y de hecho debería ser parametro de entrada para saber donde pintar
 
       let height = 500; //Height real del canvas o contenedor
 
@@ -125,6 +126,8 @@ document
 
         canvasInModal.appendChild(lineParent);
       }
+
+//Aqui termina función?
 
       const freqInput = document.getElementById("previous-freq-input");
 
