@@ -137,87 +137,92 @@
         </div>
 
         <div id="chord-intervals-modal" class="modal-window no-display">
-            <div class="chord-view text-unselectable" style="width: 300px; height: 500px; position: relative;">
-            </div>
-
             <button class="close-modal-button icon-button" data-go-to="close">
                 <img src="icons/close/1x/outline_close_black_24dp.png" alt="Cerrar">
             </button>
             <h3>Introduce intervalos del acorde</h3>
-            <!--Tipo de modo-->
-            <div>
-                <div id="mode-ul" class="ul text-unselectable">
-                    <figure id="diminished-mode-option" data-value="Disminuido" class="mode pointer-cursor">
-                        <span class="non-musical-figure-characters">Dim</span>
-                        <figcaption class="italic-text">Disminuido</figcaption>
-                    </figure>
-                    <figure id="augmented-mode-option" data-value="Aumentado" class="mode pointer-cursor">
-                        <span class="non-musical-figure-characters">Aug</span>
-                        <figcaption class="italic-text">Aumentado</figcaption>
-                    </figure>
-                    <figure id="minor-mode-option" data-value="Menor" class="mode pointer-cursor">
-                        <span class="non-musical-figure-characters">m</span>
-                        <figcaption class="italic-text">Menor</figcaption>
-                    </figure>
-                    <figure id="major-mode-option" data-value="Mayor" class="mode pointer-cursor selected">
-                        <span class="non-musical-figure-characters">M</span>
-                        <figcaption class="italic-text">Mayor</figcaption>
-                    </figure>
-                    <figure id="sus2-mode-option" data-value="sus2" class="mode pointer-cursor">
-                        <span class="non-musical-figure-characters">Sus2</span>
-                        <figcaption class="italic-text">Suspendido segunda</figcaption>
-                    </figure>
-                    <figure id="sus4-mode-option" data-value="sus4" class="mode pointer-cursor">
-                        <span class="non-musical-figure-characters">Sus4</span>
-                        <figcaption class="italic-text">Suspendido cuarta</figcaption>
-                    </figure>
+            <div class="flex">
+                <div class="chord-view text-unselectable" style="width: 300px; height: 500px; position: relative;">
+                </div>
 
-                    <div class="no-modes-container">
-                        <span class="italic-text">Ningún modo seleccionado</span>
+                <!--Tipo de modo-->
+                <div class="flex mode-and-extensions-container">
+                    <div id="mode-ul" class="ul text-unselectable">
+                        <figure id="diminished-mode-option" data-value="Disminuido" class="mode pointer-cursor">
+                            <span class="non-musical-figure-characters">Dim</span>
+                            <figcaption class="italic-text">Disminuido</figcaption>
+                        </figure>
+                        <figure id="augmented-mode-option" data-value="Aumentado" class="mode pointer-cursor">
+                            <span class="non-musical-figure-characters">Aug</span>
+                            <figcaption class="italic-text">Aumentado</figcaption>
+                        </figure>
+                        <figure id="minor-mode-option" data-value="Menor" class="mode pointer-cursor">
+                            <span class="non-musical-figure-characters">m</span>
+                            <figcaption class="italic-text">Menor</figcaption>
+                        </figure>
+                        <figure id="major-mode-option" data-value="Mayor" class="mode pointer-cursor selected">
+                            <span class="non-musical-figure-characters">M</span>
+                            <figcaption class="italic-text">Mayor</figcaption>
+                        </figure>
+                        <figure id="sus2-mode-option" data-value="sus2" class="mode pointer-cursor">
+                            <span class="non-musical-figure-characters">Sus2</span>
+                            <figcaption class="italic-text">Suspendido segunda</figcaption>
+                        </figure>
+                        <figure id="sus4-mode-option" data-value="sus4" class="mode pointer-cursor">
+                            <span class="non-musical-figure-characters">Sus4</span>
+                            <figcaption class="italic-text">Suspendido cuarta</figcaption>
+                        </figure>
+
+                        <div class="no-modes-container">
+                            <span class="italic-text">Ningún modo seleccionado</span>
+                        </div>
+                    </div>
+
+
+                    <a id="action-input"><u id="action-input-name">No quiero elegir ningún modo</u></a>
+                    <br>
+
+                    <!--Posibles extensiones, incluyendo personalizados-->
+                    <!--Tipo de modo-->
+                    <div id="extensions-ul-and-buttons-container">
+                        <button id="return-to-intervals-parents-button" class="icon-button no-display" alt="Atrás">
+                            <img src="icons/back/arrow_back_24.png">
+                        </button>
+                        <div id="extensions-ul" class="ul text-unselectable">
+                            <!-- Extensiones de segunda -->
+                            <figure id="second-extension-option-parent" data-value="seconds"
+                                class="parent mode pointer-cursor">
+                                <span class="non-musical-figure-characters">2ª</span>
+                                <figcaption class="italic-text">Segunda</figcaption>
+                            </figure>
+                            <figure data-value="2m" class="seconds child mode pointer-cursor no-display">
+                                <span class="non-musical-figure-characters">2ªm</span>
+                                <figcaption class="italic-text">Segunda menor</figcaption>
+                            </figure>
+                            <figure data-value="2M" class="seconds child mode pointer-cursor no-display">
+                                <span class="non-musical-figure-characters">2ªM</span>
+                                <figcaption class="italic-text">Segunda mayor</figcaption>
+                            </figure>
+                            <!-- Extensiones de sexta -->
+                            <figure id="sixths-extensions-option" data-value="sixths"
+                                class="parent mode pointer-cursor">
+                                <span class="non-musical-figure-characters">6ª</span>
+                                <figcaption class="italic-text">Sexta</figcaption>
+                            </figure>
+                            <figure data-value="6m" class="sixths child mode pointer-cursor no-display">
+                                <span class="non-musical-figure-characters">6ªm</span>
+                                <figcaption class="italic-text">Sexta menor</figcaption>
+                            </figure>
+                            <figure data-value="6M" class="sixths child mode pointer-cursor no-display">
+                                <span class="non-musical-figure-characters">6ªM</span>
+                                <figcaption class="italic-text">Sexta mayor</figcaption>
+                            </figure>
+                        </div>
+                        <button class="icon-button no-display" id="add-interval-button">
+                            <img src="icons/plus/add_circle24.png" alt="Cerrar">
+                        </button>
                     </div>
                 </div>
-            </div>
-
-            <a id="action-input"><u id="action-input-name">No quiero elegir ningún modo</u></a>
-            <br>
-
-            <!--Posibles extensiones, incluyendo personalizados-->
-            <!--Tipo de modo-->
-            <div id="extensions-ul-and-buttons-container">
-                <button id="return-to-intervals-parents-button" class="icon-button no-display" alt="Atrás">
-                    <img src="icons/back/arrow_back_24.png">
-                </button>
-                <div id="extensions-ul" class="ul text-unselectable">
-                    <!-- Extensiones de segunda -->
-                    <figure id="second-extension-option-parent" data-value="seconds" class="parent mode pointer-cursor">
-                        <span class="non-musical-figure-characters">2ª</span>
-                        <figcaption class="italic-text">Segunda</figcaption>
-                    </figure>
-                    <figure data-value="2m" class="seconds child mode pointer-cursor no-display">
-                        <span class="non-musical-figure-characters">2ªm</span>
-                        <figcaption class="italic-text">Segunda menor</figcaption>
-                    </figure>
-                    <figure data-value="2M" class="seconds child mode pointer-cursor no-display">
-                        <span class="non-musical-figure-characters">2ªM</span>
-                        <figcaption class="italic-text">Segunda mayor</figcaption>
-                    </figure>
-                    <!-- Extensiones de sexta -->
-                    <figure id="sixths-extensions-option" data-value="sixths" class="parent mode pointer-cursor">
-                        <span class="non-musical-figure-characters">6ª</span>
-                        <figcaption class="italic-text">Sexta</figcaption>
-                    </figure>
-                    <figure data-value="6m" class="sixths child mode pointer-cursor no-display">
-                        <span class="non-musical-figure-characters">6ªm</span>
-                        <figcaption class="italic-text">Sexta menor</figcaption>
-                    </figure>
-                    <figure data-value="6M" class="sixths child mode pointer-cursor no-display">
-                        <span class="non-musical-figure-characters">6ªM</span>
-                        <figcaption class="italic-text">Sexta mayor</figcaption>
-                    </figure>
-                </div>
-                <button class="icon-button no-display" id="add-interval-button">
-                    <img src="icons/plus/add_circle24.png" alt="Cerrar">
-                </button>
             </div>
             <!--Botones adelante y atrás-->
             <div class="page-navigation-buttons-container">
@@ -237,7 +242,7 @@
             <div class="page-navigation-buttons-container">
                 <button class="decorated-button" data-go-to="chord-intervals-modal">Anterior</button>
                 <button id="set-octavation-button" class="decorated-button"
-                data-go-to="chord-duration-modal">Siguiente</button>
+                    data-go-to="chord-duration-modal">Siguiente</button>
             </div>
         </div>
 

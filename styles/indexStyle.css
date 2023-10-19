@@ -397,6 +397,15 @@ font-style: italic;
     align-items: center;
 }
 
+.flex{
+    display: flex;
+}
+
+.mode-and-extensions-container{
+    flex-direction: column;
+    justify-content: center;
+}
+
 @font-face {
     font-family: "MusiSync";
     src: url("../fonts/musisync/MusiSync.eot?") format("eot"), url("../fonts/musisync/MusiSync.woff") format("woff"), url("../fonts/musisync/MusiSync.ttf") format("truetype"), url("../fonts/musisync/MusiSync.svg#MusiSync") format("svg");
