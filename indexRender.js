@@ -96,12 +96,6 @@ document
       });
 
       showDialog(HTML_previousFreqModal);
-
-      //Encuentra cual sería la posición Y de la barra y texto de una nota teniendo en cuenta la frecuencia 
-      //mayor y menor de la canción, en función a la frecuencia
-      function canvas_calculateFreqBarYPosition(frequency, height) {
-        return (Math.log(frequency) / Math.log(10) - minLogFreq) / logRange * height;
-      }
     }
   });
 
