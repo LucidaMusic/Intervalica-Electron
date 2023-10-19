@@ -1,10 +1,9 @@
 module.exports = class Note {
-    constructor(id, freq, intervalFromRoot, isRoot, definesNextChordRoot) {
+    constructor(id, freq, intervalFromRoot, isRoot) {
         this._id = id;
         this._freq = freq;
         this._intervalFromRoot = intervalFromRoot;
         this._isRoot = isRoot;
-        this._definesNextChordRoot = definesNextChordRoot;
     }
 
     // Getters
@@ -24,10 +23,6 @@ module.exports = class Note {
         return this._isRoot;
     }
 
-    get definesNextChordRoot() {
-        return this._definesNextChordRoot;
-    }
-
     // Setters
     set id(newId) {
         this._id = newId;
@@ -43,9 +38,5 @@ module.exports = class Note {
 
     set isRoot(newIsRoot) {
         this._isRoot = newIsRoot;
-    }
-
-    set definesNextChordRoot(newDefinesNextChordRoot) {
-        this._definesNextChordRoot = newDefinesNextChordRoot;
     }
 };
