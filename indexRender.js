@@ -297,6 +297,7 @@ HTML_addIntervalButton
 //____________________________Duration modal_________________________________________
 const HTML_durationInput = document.getElementById("chord-duration-input");
 const HTML_durationUl = document.getElementById("duration-ul");
+const durationErrorText = document.getElementById("duration-error-text");
 
 let HTML_setDurationButton = document.getElementById("set-duration-button");
 
@@ -365,36 +366,6 @@ document.querySelectorAll("[data-go-to]")
   });
 
 
-const durationErrorText = document.getElementById("duration-error-text");
-
-/* function validatePreviousFreq(previousFreqValue) {
-  if (previousFreqValue == "") {
-    HTML_previousFreqErrorText.innerHTML = "No hay valor introducido";
-    showErrorText(HTML_previousFreqErrorText, HTML_setPreviousFreqButton, HTML_setPreviousFreqButtonQuick);
-  } else if (previousFreqValue < MINIMUM_FREQ_POSSIBLE) {
-    HTML_previousFreqErrorText.innerHTML = `El valor introducido es demasiado bajo. Utiliza frecuencias por encima de ${MINIMUM_FREQ_POSSIBLE}`
-    showErrorText(HTML_previousFreqErrorText, HTML_setPreviousFreqButton, HTML_setPreviousFreqButtonQuick);
-  } else if (previousFreqValue > MAXIMUM_FREQ_POSSIBLE) {
-    HTML_previousFreqErrorText.innerHTML = `El valor introducido es demasiado alto. Utiliza frecuencias por debajo de ${MAXIMUM_FREQ_POSSIBLE}`
-    showErrorText(HTML_previousFreqErrorText, HTML_setPreviousFreqButton, HTML_setPreviousFreqButtonQuick);
-  } else {
-    hideErrorText(HTML_previousFreqErrorText, HTML_setPreviousFreqButton, HTML_setPreviousFreqButtonQuick);
-    return true;
-  }
-  return false;
-} */
-
-//Esta función se encarga de validar el campo de duración introducido manualmente por el usuario
-//Desde aqui se muestran los mensajes de error
-function validateDuration(durationValue) {
-  if (Number.isNaN(durationValue) || durationValue <= 0) {
-    showElement(durationErrorText)
-    return false;
-  } else {
-    hideElement(durationErrorText)
-    return true;
-  }
-}
 
 function hideShownDialogs() {
   [HTML_modalBackground,
