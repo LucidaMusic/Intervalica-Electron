@@ -358,6 +358,12 @@ document.querySelectorAll("[data-go-to]")
           case "octavation-modal":
             showDialog(HTML_octavationModal);
             break;
+          case "finish-chord-creation":
+
+//Establecer en el acorde anterior que nota es la que define este
+//Establecer en el acorde en preparación elprevious interval
+//Establecer en el acorde el modo y ña lista de extensiones
+//
         }
       });
   });
