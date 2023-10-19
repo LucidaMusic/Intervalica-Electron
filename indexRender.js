@@ -15,6 +15,8 @@ let inPreparationChord;
 let previousFreqValue;
 let selectedInterval = Intervals.UNISON;
 let rootFreq;
+
+
 //Variables configuración usuario
 let relativeToSong = 0; //a la hora de dibujar las líneas del canvas. Por defecto se hace relativo al acorde
 
@@ -101,6 +103,7 @@ document
 
 
 //__________________________Variables HTML_______________________________________
+//Quiza esto en cada uno su sitio para luego poder sacarlos a otros js quizá 
 //Todos los modales y el fondo
 const HTML_modalBackground = document.getElementById("modal-background");
 const HTML_previousFreqModal = document.getElementById("previous-freq-modal");
