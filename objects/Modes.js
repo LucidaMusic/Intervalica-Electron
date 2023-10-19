@@ -1,4 +1,4 @@
-const { Interval } = require("./Intervals.js");
+const { Intervals } = require("./Intervals.js");
 
 function constructor(name, intervalsList) {
   let _name = name;
@@ -22,8 +22,8 @@ function constructor(name, intervalsList) {
 }
 
 const Mode = {
-  MAJOR: new constructor("Mayor", [Interval.MAJOR_THIRD, Interval.JUST_FIFTH]),
-  MINOR: new constructor("Menor", [Interval.MAJOR_THIRD, Interval.JUST_FIFTH])
+  MAJOR: new constructor("Mayor", [Intervals.MAJOR_THIRD, Intervals.JUST_FIFTH]),
+  MINOR: new constructor("Menor", [Intervals.MAJOR_THIRD, Intervals.JUST_FIFTH])
 };
 
 function findModeByName(name) {

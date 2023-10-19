@@ -290,7 +290,7 @@ dialog .ul {
     align-items: center;
 }
 
-#previous-freq-input {
+#previous-freq-span {
     width: 3em;
     font-size: 2em;
     text-align: center;
@@ -338,9 +338,10 @@ dialog .ul {
     padding: 3em;
     width: 300px;
     height: 500px;
-    justify-content: space-evenly;
+    justify-content: center;
     max-width: 300px;
     align-items: center;
+    gap: 4em;
 }
 
 .transparent-text {

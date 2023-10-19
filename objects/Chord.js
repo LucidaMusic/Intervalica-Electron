@@ -1,5 +1,6 @@
 module.exports = class Chord {
     constructor() {
+        this._id= null;
         this._name = null;
         this._duration = null;
         this._mode = null;

@@ -1,39 +1,40 @@
 // Función que actúa como constructor
 class Interval {
     constructor(id, name, stringValue, numberValue) {
+        this._id = id;
+        this._name = name;
+        this._stringValue = stringValue;
+        this._numberValue = numberValue;
+    }
 
-        let _id = id;
-        let _name = name;
-        let _stringValue = stringValue;
-        let _numberValue = numberValue;
+    // Getters
+    get id() {
+        return this._id;
+    }
 
-        this.getId = function () {
-            return _id;
-        };
+    get name() {
+        return this._name;
+    }
 
-        this.getName = function () {
-            return _name;
-        };
+    get stringValue() {
+        return this._stringValue;
+    }
 
-        this.setName = function (newName) {
-            _name = newName;
-        };
+    get numberValue() {
+        return this._numberValue;
+    }
 
-        this.getStringValue = function () {
-            return _stringValue;
-        };
+    // Setters
+    set name(newName) {
+        this._name = newName;
+    }
 
-        this.setStringValue = function (newStringValue) {
-            _stringValue = newStringValue;
-        };
+    set stringValue(newStringValue) {
+        this._stringValue = newStringValue;
+    }
 
-        this.getNumberValue = function () {
-            return _numberValue;
-        };
-
-        this.setNumberValue = function (newNumberValue) {
-            _numberValue = newNumberValue;
-        };
+    set numberValue(newNumberValue) {
+        this._numberValue = newNumberValue;
     }
 }
 
@@ -57,7 +58,7 @@ function getIntervalById(intervalId) {
     for (const key in Intervals) {
         if (Intervals.hasOwnProperty(key)) {
             const enumValue = Intervals[key];
-            if (enumValue.getId() === intervalId) {
+            if (enumValue.id === intervalId) {
                 return enumValue;
             }
         }
@@ -65,4 +66,4 @@ function getIntervalById(intervalId) {
     return null;
 }
 
-module.exports = { Interval, getIntervalById };
+module.exports = { Intervals, getIntervalById };
