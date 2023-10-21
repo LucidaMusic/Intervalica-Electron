@@ -14,7 +14,11 @@ HTML_setPreviousIntervalButton.addEventListener("click", () => {
     rootFreq = userSelectedPreviousFreqValue * selectedInterval.numberValue;
     //Reiniciar canvas
 
-    const context = HTML_canvasMode.getContext("2d");
+[...HTML_canvasMode.children]
+.forEach(child => {
+    HTML_canvasMode.removeChild(child);
+});
+
 
     // Limpia el contenido del canvas
     context.clearRect(0, 0, canvas.width, canvas.height);
