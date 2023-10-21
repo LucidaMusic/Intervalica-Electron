@@ -25,12 +25,11 @@ let frecuencias = [rootFreq]
 let selectedModeId= ?
 let selectedMode = findModeByid(selectedModeId)
 //cogemos sus intervalos
-let modeIntervalsFreqs=selectedMode.intervals.map(interval=>interval*rootFreq)
+let modeFreqs=selectedMode.intervals.map(interval=>interval*rootFreq)
 //a cada uno le cogemos su numberValue y lo multiplicamos por la rootFreq
 
 //Omitimos extensiones por ahora 
+let extensionsFreqs=[]
 
-    //Pintamos las frecuencias en el canvas
-
-    paintLinesOnCanvasModes([rootFreq], HTML_canvasMode)
+    //Pintamos las frecuencias en el canvas paintLinesOnCanvasModes([rootFreq, ...modeFreqs, ...extensionsFreqs], HTML_canvasMode)
 })
