@@ -10,7 +10,7 @@ HTML_firstFreqInput
 
 //Crear nuevo acorde
 document
-    .getElementById("new-chord-button")
+    .getElementById("new-chord-button") //reemplazar por variable
     .addEventListener("click", () => {
         //Preparamos el acorde a añadir
         inPreparationChord = new Chord();
