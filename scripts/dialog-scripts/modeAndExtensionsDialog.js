@@ -1,4 +1,4 @@
-HTML_actionInput.addEventListener("click", () => {
+HTML_actionInput.addEventListener("click", () => {//cambiar nombre a HTmLactionInput, HTML_modeToggle
     // Cambiar el estado de isMoved y actualizar el estilo
     noModes = !noModes;
     HTML_noModesContainer.style.transform = noModes ? "translateY(0)" : "translateY(100%)";
@@ -7,7 +7,7 @@ HTML_actionInput.addEventListener("click", () => {
 
 //Los modos se seleccionan cuando son clicados
 //Se que son modos si son figures dentro de mode-ul
-HTML_modeUl
+HTML_modeUl //Cambiar nombre? modeList(Container)?
     .querySelectorAll("figure")
     .forEach(figure => {
         figure
