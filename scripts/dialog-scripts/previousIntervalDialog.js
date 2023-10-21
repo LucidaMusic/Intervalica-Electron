@@ -19,10 +19,6 @@ HTML_setPreviousIntervalButton.addEventListener("click", () => {
     HTML_canvasMode.removeChild(child);
 });
 
-
-    // Limpia el contenido del canvas
-    context.clearRect(0, 0, canvas.width, canvas.height);
-
     //Pintamos el root freq en el canvas
     paintLinesOnCanvasModes([rootFreq], HTML_canvasMode)
 })
