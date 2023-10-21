@@ -36,7 +36,7 @@ const HTML_previousFreqErrorText = document.getElementById("previous-freq-error-
 const HTML_setPreviousFreqButton = document.getElementById("set-previous-freq");
 const HTML_setPreviousFreqButtonQuick = document.getElementById("set-previous-freq-quick");
 const HTML_previousChordName = document.getElementById("previous-chord-name");
-const HTML_canvasInModal = HTML_previousFreqModal.querySelector(".chord-view");
+const HTML_canvasInModal = HTML_previousFreqModal.querySelector(".chord-view"); //cambiar nombre canvasPrevFreq
 //Previous Interval
 const HTML_previousIntervalModal = document.getElementById("previous-interval-modal");
 const HTML_previousFreqSpan = document.getElementById("previous-freq");
