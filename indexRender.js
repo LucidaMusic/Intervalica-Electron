@@ -168,7 +168,7 @@ function createNoteId() {
     return noteId;
 }
 
-function paintLinesOnCanvas(chord, canvas) {
+function paintLinesOnCanvas(chord, canvas) { //cambiar rl nombre porque solo sirve oara canvasPrevFreq. Si estas funciones van a usar un canvas en concreto mejor ni pasarlo como parámetro 
     let maxFreqValue, minFreqValue; //estos datos los podria tener ya actualizados de cada vez que se crea un acorde. Si las notas recién añadidas son mayores/menores a las que ya se conocia, se actualiza el recuento
 
     if (relativeToSong) {
@@ -231,7 +231,7 @@ function paintLinesOnCanvas(chord, canvas) {
     }
 }
 
-function paintLinesOnCanvasModes(freqs, canvas) {
+function paintLinesOnCanvasModes(freqs, canvas) { //paintLinesOnModesAndExtensionsCanvas, lo mismo, para qué pasar canvas. Además mejor mover a su modulo
     let maxFreqValue, minFreqValue; //estos datos los podria tener ya actualizados de cada vez que se crea un acorde. Si las notas recién añadidas son mayores/menores a las que ya se conocia, se actualiza el recuento
 
     maxFreqValue = Math.max(...freqs);
