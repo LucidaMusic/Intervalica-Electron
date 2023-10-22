@@ -36,7 +36,7 @@ const HTML_previousFreqErrorText = document.getElementById("previous-freq-error-
 const HTML_setPreviousFreqButton = document.getElementById("set-previous-freq");
 const HTML_setPreviousFreqButtonQuick = document.getElementById("set-previous-freq-quick");
 const HTML_previousChordName = document.getElementById("previous-chord-name");
-const HTML_canvasInModal = HTML_previousFreqModal.querySelector(".chord-view");
+const HTML_canvasInModal = HTML_previousFreqModal.querySelector(".chord-view"); //cambiar nombre canvasPrevFreq
 //Previous Interval
 const HTML_previousIntervalModal = document.getElementById("previous-interval-modal");
 const HTML_previousFreqSpan = document.getElementById("previous-freq");
@@ -168,7 +168,7 @@ function createNoteId() {
     return noteId;
 }
 
-function paintLinesOnCanvas(chord, canvas) {
+function paintLinesOnCanvas(chord, canvas) { //cambiar rl nombre porque solo sirve oara canvasPrevFreq. Si estas funciones van a usar un canvas en concreto mejor ni pasarlo como parámetro 
     let maxFreqValue, minFreqValue; //estos datos los podria tener ya actualizados de cada vez que se crea un acorde. Si las notas recién añadidas son mayores/menores a las que ya se conocia, se actualiza el recuento
 
     if (relativeToSong) {
@@ -231,7 +231,7 @@ function paintLinesOnCanvas(chord, canvas) {
     }
 }
 
-function paintLinesOnCanvasModes(freqs, canvas) {
+function paintLinesOnCanvasModes(freqs, canvas) { //paintLinesOnModesAndExtensionsCanvas, lo mismo, para qué pasar canvas. Además mejor mover a su modulo
     let maxFreqValue, minFreqValue; //estos datos los podria tener ya actualizados de cada vez que se crea un acorde. Si las notas recién añadidas son mayores/menores a las que ya se conocia, se actualiza el recuento
 
     maxFreqValue = Math.max(...freqs);
