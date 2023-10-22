@@ -7,7 +7,6 @@ class Interval {
         this._numberValue = numberValue;
     }
 
-    // Getters
     get id() {
         return this._id;
     }
@@ -24,7 +23,6 @@ class Interval {
         return this._numberValue;
     }
 
-    // Setters
     set name(newName) {
         this._name = newName;
     }

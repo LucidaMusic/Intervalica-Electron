@@ -11,29 +11,5 @@ HTML_previousFreqSelect.addEventListener('change', () => {
 });
 
 HTML_setPreviousIntervalButton.addEventListener("click", () => {
-
-    //Reiniciar canvas mode
-[...HTML_canvasMode.children]
-.forEach(child => {
-    HTML_canvasMode.removeChild(child);
-});
-
-//cogemos el modo seleccionado
-let selectedModeId= HTML_modeUl.querySelector("figure." + CSS_selected).getAtributte("data-mode-id")
-let selectedMode = findModeByid(selectedModeId)
-
-//cogemos sus intervalos y a cada uno le cogemos su numberValue y lo multiplicamos por la rootFreq
-
-    rootFreq = userSelectedPreviousFreqValue * selectedInterval.numberValue;
-
-let modeFreqs = selectedMode.intervals
-.map(interval => interval.numberValue * rootFreq)
-
-
-//Omitimos extensiones por ahora 
-
-let extensionsFreqs=[]
-
-    //Pintamos las frecuencias en el canvas
- paintLinesOnCanvasModes([rootFreq, ...modeFreqs, ...extensionsFreqs], HTML_canvasMode)
+    updateModeCanvas();
 })

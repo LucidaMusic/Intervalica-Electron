@@ -1,41 +1,48 @@
 const { Intervals } = require("./Intervals.js");
 
-function constructor(name, intervalsList) {
-  let _name = name;
-  let _intervalsList = intervalsList;
+class Mode {
+    constructor(id, name, intervals) {
+        this._id = id;
+        this._name = name;
+        this._intervals = intervals;
+    }
 
-  this.getName = function () {
-    return _name;
-  };
+    get id() {
+        return this._id;
+    }
 
-  this.setName = function (newname) {
-    _name = newname;
-  };
+    get name() {
+        return this._name;
+    }
 
-  this.getIntervalsList = function () {
-    return _intervalsList;
-  };
+    get intervals() {
+        return this._intervals;
+    }
 
-  this.setIntervalsList = function (newintervalsList) {
-    _intervalsList = newintervalsList;
-  };
+    set id(id) {
+        this._id = id;
+    }
+
+    set name(name) {
+        this._name = name;
+    }
+
+    set intervals(intervals) {
+        this._intervals = intervals;
+    }
 }
 
-const Mode = {
-  MAJOR: new constructor("Mayor", [Intervals.MAJOR_THIRD, Intervals.JUST_FIFTH]),
-  MINOR: new constructor("Menor", [Intervals.MAJOR_THIRD, Intervals.JUST_FIFTH])
+const Modes = {
+    MAJOR: new Mode("M", "Mayor", [Intervals.MAJOR_THIRD, Intervals.PERFECT_FIFTH]),
+    MINOR: new Mode("m", "Menor", [Intervals.MINOR_THIRD, Intervals.PERFECT_FIFTH])
 };
 
-function findModeByName(name) {
-  for (const mode in Mode) {
-    if (Mode.hasOwnProperty(mode)) {
-      const enumValue = Mode[mode];
-      if (enumValue.getName() === name) {
-        return enumValue;
-      }
+function findModeById(id) {
+    for (const modeKey in Modes) {
+        if (Modes[modeKey].id === id) {
+            return Modes[modeKey];
+        }
     }
-  }
-  return null;
+    return null; // Retorna null si no se encuentra ningún modo con el ID especificado
 }
-
-module.exports = { Mode, findModeByName };
+module.exports = { Modes, findModeById};

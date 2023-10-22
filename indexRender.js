@@ -3,7 +3,7 @@
 const Chord = require("./objects/Chord.js");
 const Note = require("./objects/Note.js");
 const { getIntervalById, Intervals } = require("./objects/Intervals.js");
-const { findModeByName } = require("./objects/Modes.js");
+const { findModeById, Modes } = require("./objects/Modes.js");
 
 //Variables configuración usuario
 let relativeToSong = 0; //a la hora de dibujar las líneas del canvas. Por defecto se hace relativo al acorde
@@ -62,222 +62,247 @@ const HTML_canvasMode = HTML_chordIntervalsModal.querySelector(".chord-view");
 //Se supone que si puedo avanzar de pagina es porque los datos estan establecidos.
 //Para guardar datos o más funcionalidades se usan eventListeners especñificos para evitar problemas de simetria (ir a una pagina != volver a la misma pagina)
 document.querySelectorAll("[data-go-to]")
-    .forEach(element => {
-        element
-            .addEventListener("click", () => {
-                hideShownDialogs();
-                switch (element.getAttribute("data-go-to")) {
-                    case "close":
-                        resetModalValues();
-                        break;
-                    case "previous-freq-modal":
-                        showDialog(HTML_previousFreqModal);
-                        break;
-                    case "previous-interval-modal":
-                        showDialog(HTML_previousIntervalModal);
-                        break;
-                    case "chord-duration-modal":
-                        showDialog(HTML_chordDurationModal);
-                        break;
-                    case "chord-intervals-modal":
-                        showDialog(HTML_chordIntervalsModal);
-                        break;
-                    case "octavation-modal":
-                        showDialog(HTML_octavationModal);
-                        break;
-                    case "finish-chord-creation":
+  .forEach(element => {
+    element
+      .addEventListener("click", () => {
+        hideShownDialogs();
+        switch (element.getAttribute("data-go-to")) {
+          case "close":
+            resetModalValues();
+            break;
+          case "previous-freq-modal":
+            showDialog(HTML_previousFreqModal);
+            break;
+          case "previous-interval-modal":
+            showDialog(HTML_previousIntervalModal);
+            break;
+          case "chord-duration-modal":
+            showDialog(HTML_chordDurationModal);
+            break;
+          case "chord-intervals-modal":
+            showDialog(HTML_chordIntervalsModal);
+            break;
+          case "octavation-modal":
+            showDialog(HTML_octavationModal);
+            break;
+          case "finish-chord-creation":
 
-                    //Establecer en el acorde anterior que nota es la que define este
-                    //Establecer en el acorde en preparación elprevious interval
-                    //Establecer en el acorde el modo y ña lista de extensiones
-                    //
-                }
-            });
-    });
+          //Establecer en el acorde anterior que nota es la que define este
+          //Establecer en el acorde en preparación elprevious interval
+          //Establecer en el acorde el modo y ña lista de extensiones
+          //
+        }
+      });
+  });
 
 
 
 function hideShownDialogs() {
-    [HTML_modalBackground,
-        HTML_previousFreqModal,
-        HTML_previousIntervalModal,
-        HTML_chordDurationModal,
-        durationErrorText,
-        HTML_chordIntervalsModal,
-        HTML_octavationModal]
-        .forEach(dialog => {
-            if (!dialog.classList.contains(CSS_noDisplay)) {
-                hideElement(dialog)
-            }
-        });
+  [HTML_modalBackground,
+    HTML_previousFreqModal,
+    HTML_previousIntervalModal,
+    HTML_chordDurationModal,
+    durationErrorText,
+    HTML_chordIntervalsModal,
+    HTML_octavationModal]
+    .forEach(dialog => {
+      if (!dialog.classList.contains(CSS_noDisplay)) {
+        hideElement(dialog)
+      }
+    });
 }
 
 function showDialog(dialog) {
-    showElement(HTML_modalBackground)
-    showElement(dialog)
+  showElement(HTML_modalBackground)
+  showElement(dialog)
 }
 
 function showElement(element) {
-    element.classList.remove(CSS_noDisplay)
+  element.classList.remove(CSS_noDisplay)
 }
 
 function hideElement(element) {
-    element.classList.add(CSS_noDisplay)
+  element.classList.add(CSS_noDisplay)
 }
 
 function resetModalValues() {
-    //Previous Freq
-    HTML_clickedPreviousFreqSpan.innerHTML = null;
-    HTML_durationInput.value = null;
-    showErrorText(HTML_previousFreqErrorText, HTML_setPreviousFreqButtonQuick, HTML_setPreviousFreqButton)
-    //Previous Interval
-    selectedInterval = Intervals.UNISON;
-    HTML_previousFreqSelect.selectedIndex = 0;
+  //Previous Freq
+  HTML_clickedPreviousFreqSpan.innerHTML = null;
+  HTML_durationInput.value = null;
+  showErrorText(HTML_previousFreqErrorText, HTML_setPreviousFreqButtonQuick, HTML_setPreviousFreqButton)
+  //Previous Interval
+  selectedInterval = Intervals.UNISON;
+  HTML_previousFreqSelect.selectedIndex = 0;
 
 }
 
 function showErrorText(errorText, ...buttonToDisable) {
-    errorText.classList.remove("transparent-text");
-    buttonToDisable.forEach(button => button.disabled = true);
+  errorText.classList.remove("transparent-text");
+  buttonToDisable.forEach(button => button.disabled = true);
 }
 
 function hideErrorText(errorText, ...buttonToEnable) {
-    errorText.classList.add("transparent-text");
-    buttonToEnable.forEach(button => button.disabled = false);
+  errorText.classList.add("transparent-text");
+  buttonToEnable.forEach(button => button.disabled = false);
 }
 
 function showElement(element) {
-    element.classList.remove(CSS_noDisplay)
+  element.classList.remove(CSS_noDisplay)
 }
 
 function hideElement(element) {
-    element.classList.add(CSS_noDisplay)
+  element.classList.add(CSS_noDisplay)
 }
 
 function selectElement(element) {
-    element.classList.add(CSS_selected);
+  element.classList.add(CSS_selected);
 }
 
 function unselectElement(element) {
-    element.classList.remove(CSS_selected);
+  element.classList.remove(CSS_selected);
 }
 
 let noteId = 0;
 function createNoteId() {
-    noteId += 1;
-    return noteId;
+  noteId += 1;
+  return noteId;
 }
 
 function paintLinesOnCanvas(chord, canvas) { //cambiar rl nombre porque solo sirve oara canvasPrevFreq. Si estas funciones van a usar un canvas en concreto mejor ni pasarlo como parámetro 
-    let maxFreqValue, minFreqValue; //estos datos los podria tener ya actualizados de cada vez que se crea un acorde. Si las notas recién añadidas son mayores/menores a las que ya se conocia, se actualiza el recuento
+  let maxFreqValue, minFreqValue; //estos datos los podria tener ya actualizados de cada vez que se crea un acorde. Si las notas recién añadidas son mayores/menores a las que ya se conocia, se actualiza el recuento
 
-    if (relativeToSong) {
-        let allNotesFromSong = [].concat(...song);
+  if (relativeToSong) {
+    let allNotesFromSong = [].concat(...song);
 
-        maxFreqValue = Math.max(...allNotesFromSong);
-        minFreqValue = Math.min(...allNotesFromSong);
-    } else {      //Default is relative to chord
-        let chordFreqs = chord.notes.map(note => note.freq);
+    maxFreqValue = Math.max(...allNotesFromSong);
+    minFreqValue = Math.min(...allNotesFromSong);
+  } else {      //Default is relative to chord
+    let chordFreqs = chord.notes.map(note => note.freq);
 
-        maxFreqValue = Math.max(...chordFreqs);
-        minFreqValue = Math.min(...chordFreqs);
-    }
+    maxFreqValue = Math.max(...chordFreqs);
+    minFreqValue = Math.min(...chordFreqs);
+  }
 
-    //Dado que necesito mas espacio
-    //Esto se puede calcular teniendo en cuenta el tamaño de las letras
-    maxFreqValue *= 1.2;
-    minFreqValue *= 0.8;
+  //Dado que necesito mas espacio
+  //Esto se puede calcular teniendo en cuenta el tamaño de las letras
+  maxFreqValue *= 1.2;
+  minFreqValue *= 0.8;
 
-    //Establecemos valores que sirven para calcular punto y de las lineas en escala logarítmica 
-    let minLogFreq = Math.log(minFreqValue) / Math.log(10);
-    let logRange = (Math.log(maxFreqValue) / Math.log(10)) - minLogFreq;
+  //Establecemos valores que sirven para calcular punto y de las lineas en escala logarítmica 
+  let minLogFreq = Math.log(minFreqValue) / Math.log(10);
+  let logRange = (Math.log(maxFreqValue) / Math.log(10)) - minLogFreq;
 
-    let height = 500; //Height real del canvas o contenedor
+  let height = 500; //Height real del canvas o contenedor
 
-    //Para cada nota en el acorde
-    for (let i = 0; i < chord.notes.length; i++) {
-        //Leemos el objeto de nota
-        chordNote = chord.notes[i]
+  //Para cada nota en el acorde
+  for (let i = 0; i < chord.notes.length; i++) {
+    //Leemos el objeto de nota
+    chordNote = chord.notes[i]
 
-        //Leemos el valor de la frecuencia
-        let chordFreq = chordNote.freq;
+    //Leemos el valor de la frecuencia
+    let chordFreq = chordNote.freq;
 
-        //Calculamos posición en Y para la barra y el texto
-        let yPosition = (Math.log(chordFreq) / Math.log(10) - minLogFreq) / logRange * height;
+    //Calculamos posición en Y para la barra y el texto
+    let yPosition = (Math.log(chordFreq) / Math.log(10) - minLogFreq) / logRange * height;
 
-        //Dinujamos linea
-        let line = document.createElement("div");
-        line.classList.add("chord-view-line");
+    //Dinujamos linea
+    let line = document.createElement("div");
+    line.classList.add("chord-view-line");
 
-        //Dibujamos numero
-        let number = document.createElement("span");
-        number.classList.add("chord-view-line-number");
-        number.innerHTML = chordFreq;
+    //Dibujamos numero
+    let number = document.createElement("span");
+    number.classList.add("chord-view-line-number");
+    number.innerHTML = chordFreq;
 
-        //Dibujamos parent
-        let lineParent = document.createElement("div");
+    //Dibujamos parent
+    let lineParent = document.createElement("div");
 
-        lineParent.appendChild(number);
-        lineParent.appendChild(line);
+    lineParent.appendChild(number);
+    lineParent.appendChild(line);
 
-        lineParent.style.bottom = yPosition + "px";
-        lineParent.classList.add("chord-view-line-container");
-        lineParent.classList.add("blurred");
+    lineParent.style.bottom = yPosition + "px";
+    lineParent.classList.add("chord-view-line-container");
+    lineParent.classList.add("blurred");
 
-        //Asignamos nota a objeto HTML
-        lineParent.setAttribute("data-note-id", chordNote.id)
+    //Asignamos nota a objeto HTML
+    lineParent.setAttribute("data-note-id", chordNote.id)
 
-        canvas.appendChild(lineParent);
-    }
+    canvas.appendChild(lineParent);
+  }
 }
 
 function paintLinesOnCanvasModes(freqs, canvas) { //paintLinesOnModesAndExtensionsCanvas, lo mismo, para qué pasar canvas. Además mejor mover a su modulo
-    let maxFreqValue, minFreqValue; //estos datos los podria tener ya actualizados de cada vez que se crea un acorde. Si las notas recién añadidas son mayores/menores a las que ya se conocia, se actualiza el recuento
+  let maxFreqValue, minFreqValue; //estos datos los podria tener ya actualizados de cada vez que se crea un acorde. Si las notas recién añadidas son mayores/menores a las que ya se conocia, se actualiza el recuento
 
-    maxFreqValue = Math.max(...freqs);
-    minFreqValue = Math.min(...freqs);
+  maxFreqValue = Math.max(...freqs);
+  minFreqValue = Math.min(...freqs);
 
 
-    //Dado que necesito mas espacio
-    //Esto se puede calcular teniendo en cuenta el tamaño de las letras
-    maxFreqValue *= 1.2;
-    minFreqValue *= 0.8;
+  //Dado que necesito mas espacio
+  //Esto se puede calcular teniendo en cuenta el tamaño de las letras
+  maxFreqValue *= 1.2;
+  minFreqValue *= 0.8;
 
-    //Establecemos valores que sirven para calcular punto y de las lineas en escala logarítmica 
-    let minLogFreq = Math.log(minFreqValue) / Math.log(10);
-    let logRange = (Math.log(maxFreqValue) / Math.log(10)) - minLogFreq;
+  //Establecemos valores que sirven para calcular punto y de las lineas en escala logarítmica 
+  let minLogFreq = Math.log(minFreqValue) / Math.log(10);
+  let logRange = (Math.log(maxFreqValue) / Math.log(10)) - minLogFreq;
 
-    let height = 500; //Height real del canvas o contenedor
+  let height = 500; //Height real del canvas o contenedor
 
-    //Para cada nota en el acorde
-    for (let i = 0; i < freqs.length; i++) {
+  //Para cada nota en el acorde
+  for (let i = 0; i < freqs.length; i++) {
 
-        //Leemos el valor de la frecuencia
-        let chordFreq = freqs[i];
+    //Leemos el valor de la frecuencia
+    let chordFreq = freqs[i];
 
-        //Calculamos posición en Y para la barra y el texto
-        let yPosition = (Math.log(chordFreq) / Math.log(10) - minLogFreq) / logRange * height;
+    //Calculamos posición en Y para la barra y el texto
+    let yPosition = (Math.log(chordFreq) / Math.log(10) - minLogFreq) / logRange * height;
 
-        //Dinujamos linea
-        let line = document.createElement("div");
-        line.classList.add("chord-view-line");
+    //Dinujamos linea
+    let line = document.createElement("div");
+    line.classList.add("chord-view-line");
 
-        //Dibujamos numero
-        let number = document.createElement("span");
-        number.classList.add("chord-view-line-number");
-        number.innerHTML = chordFreq;
+    //Dibujamos numero
+    let number = document.createElement("span");
+    number.classList.add("chord-view-line-number");
+    number.innerHTML = chordFreq;
 
-        //Dibujamos parent
-        let lineParent = document.createElement("div");
+    //Dibujamos parent
+    let lineParent = document.createElement("div");
 
-        lineParent.appendChild(number);
-        lineParent.appendChild(line);
+    lineParent.appendChild(number);
+    lineParent.appendChild(line);
 
-        lineParent.style.bottom = yPosition + "px";
-        lineParent.classList.add("chord-view-line-container");
+    lineParent.style.bottom = yPosition + "px";
+    lineParent.classList.add("chord-view-line-container");
 
-        canvas.appendChild(lineParent);
-    }
+    canvas.appendChild(lineParent);
+  }
+}
+
+function updateModeCanvas() {
+  //Reiniciar canvas mode
+  [...HTML_canvasMode.children]
+    .forEach(child => {
+      HTML_canvasMode.removeChild(child);
+    });
+
+  //cogemos el modo seleccionado
+  let selectedModeId = HTML_modeUl.querySelector("figure." + CSS_selected).getAttribute("data-mode-id")
+  let selectedMode = findModeById(selectedModeId)
+
+  //Calculamos rootFreq
+  rootFreq = userSelectedPreviousFreqValue * selectedInterval.numberValue;
+
+  //cogemos sus intervalos y a cada uno le cogemos su numberValue y lo multiplicamos por la rootFreq
+  let modeFreqs = selectedMode.intervals
+    .map(interval => interval.numberValue * rootFreq)
+
+  //Omitimos extensiones por ahora 
+  let extensionsFreqs = []
+
+  //Pintamos las frecuencias en el canvas
+  paintLinesOnCanvasModes([rootFreq, ...modeFreqs, ...extensionsFreqs], HTML_canvasMode)
 }
 
 
@@ -287,7 +312,7 @@ testingAlreadyCreatedChord.name = "Napolitano sobre C";
 
 
 testingAlreadyCreatedChord.duration = 1;
-testingAlreadyCreatedChord.mode = findModeByName("Menor");
+testingAlreadyCreatedChord.mode = findModeById("m");
 testingAlreadyCreatedChord.previousInterval = getIntervalById("2m");
 let noteA = new Note(createNoteId(), 330, getIntervalById("5P").numberValue * (Math.pow(2, -1)), false, false)
 let noteB = new Note(createNoteId(), 440, getIntervalById("5P").numberValue * (Math.pow(2, -1)), false, false)
