@@ -404,6 +404,7 @@ font-style: italic;
 .mode-and-extensions-container{
     flex-direction: column;
     justify-content: center;
+    padding-left: 2em;
 }
 
 @font-face {

@@ -1,8 +1,8 @@
-HTML_actionInput.addEventListener("click", () => {//cambiar nombre a HTmLactionInput, HTML_modeToggle
+HTML_modeToggler.addEventListener("click", () => {
     // Cambiar el estado de isMoved y actualizar el estilo
     noModes = !noModes;
     HTML_noModesContainer.style.transform = noModes ? "translateY(0)" : "translateY(100%)";
-    HTML_actionInputName.innerHTML = noModes ? "Sí quiero elegir un modo" : "No quiero elegir ningún modo"
+    HTML_modeTogglerText.innerHTML = noModes ? "Sí quiero elegir un modo" : "No quiero elegir ningún modo"
 });
 
 //Los modos se seleccionan cuando son clicados
@@ -12,11 +12,9 @@ HTML_modeUl //Cambiar nombre? modeList(Container)?
     .forEach(figure => {
         figure
             .addEventListener("click", () => {
-                unselectElement(HTML_modeUl.querySelector("figure." + CSS_selected))
-                selectElement(figure)
-                //HTML_durationInput.value = figure.getAttribute("data-value");
-                //HTML_setDurationButton.focus();
-                //validateDuration();
+                unselectElement(HTML_modeUl.querySelector("figure." + CSS_selected));
+                selectElement(figure);
+                updateModeCanvas();
             });
     });
 
