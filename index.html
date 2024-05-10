@@ -5,7 +5,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title> Intervalica </title>
+    <link rel="stylesheet" href="styles/chordBar.css">
+    <link rel="stylesheet" href="styles/chordView.css">
     <link rel="stylesheet" href="styles/indexStyle.css">
+    <link rel="stylesheet" href="styles/musicControls.css">
+    <link rel="stylesheet" href="styles/songInputs.css">
+    <link rel="stylesheet" href="styles/dialogs/chordDuration.css">
+    <link rel="stylesheet" href="styles/dialogs/chordIntervals.css">
+    <link rel="stylesheet" href="styles/dialogs/dialogsCommon.css">
+    <link rel="stylesheet" href="styles/dialogs/previousFreqDialog.css">
+    <link rel="stylesheet" href="styles/dialogs/previousIntervalDialog.css">
+    <!-- Este de abajo esta aqui porque no-display tiene que aplicarse al final para que tenga efecto -->
+    <link rel="stylesheet" href="styles/global.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
 
@@ -95,7 +106,7 @@
             <p>
                 Elige el intervalo que habrá entre la tónica del nuevo acorde y la nota elegida del acorde anterior.
             </p>
-            <select id="previous-freq-select">
+            <select id="previous-interval-select">
                 <option data-value="1">Unísono</option>
                 <optgroup label="Segunda">
                     <option data-value="2m">Menor</option>
@@ -144,32 +155,32 @@
             <div class="flex">
                 <div class="chord-view text-unselectable" style="width: 300px; height: 500px; position: relative;">
                 </div>
-
                 <!--Tipo de modo-->
                 <div class="flex mode-and-extensions-container">
+                    <p>Selecciona el modo que deseas para el acorde: </p>
                     <div id="mode-ul" class="ul text-unselectable">
                         <figure id="diminished-mode-option" data-mode-id="dim" class="mode pointer-cursor">
-                            <span class="non-musical-figure-characters">Dim</span>
+                            <span class="">Dim</span>
                             <figcaption class="italic-text">Disminuido</figcaption>
                         </figure>
                         <figure id="augmented-mode-option" data-mode-id="aug" class="mode pointer-cursor">
-                            <span class="non-musical-figure-characters">Aug</span>
+                            <span class="">Aug</span>
                             <figcaption class="italic-text">Aumentado</figcaption>
                         </figure>
                         <figure id="minor-mode-option" data-mode-id="m" class="mode pointer-cursor">
-                            <span class="non-musical-figure-characters">m</span>
+                            <span class="">m</span>
                             <figcaption class="italic-text">Menor</figcaption>
                         </figure>
                         <figure id="major-mode-option" data-mode-id="M" class="mode pointer-cursor selected">
-                            <span class="non-musical-figure-characters">M</span>
+                            <span class="">M</span>
                             <figcaption class="italic-text">Mayor</figcaption>
                         </figure>
                         <figure id="sus2-mode-option" data-mode-id="sus2" class="mode pointer-cursor">
-                            <span class="non-musical-figure-characters">Sus2</span>
+                            <span class="">Sus2</span>
                             <figcaption class="italic-text">Suspendido segunda</figcaption>
                         </figure>
                         <figure id="sus4-mode-option" data-mode-id="sus4" class="mode pointer-cursor">
-                            <span class="non-musical-figure-characters">Sus4</span>
+                            <span class="">Sus4</span>
                             <figcaption class="italic-text">Suspendido cuarta</figcaption>
                         </figure>
 
@@ -181,9 +192,8 @@
 
                     <a id="mode-toggler"><u id="mode-toggler-text">No quiero elegir ningún modo</u></a>
                     <br>
-
+                    <p>Si lo deseas, añade extensiones: </p>
                     <!--Posibles extensiones, incluyendo personalizados-->
-                    <!--Tipo de modo-->
                     <div id="extensions-ul-and-buttons-container">
                         <button id="return-to-intervals-parents-button" class="icon-button no-display" alt="Atrás">
                             <img src="icons/back/arrow_back_24.png">
@@ -192,29 +202,29 @@
                             <!-- Extensiones de segunda -->
                             <figure id="second-extension-option-parent" data-value="seconds"
                                 class="parent mode pointer-cursor">
-                                <span class="non-musical-figure-characters">2ª</span>
+                                <span class="">2ª</span>
                                 <figcaption class="italic-text">Segunda</figcaption>
                             </figure>
                             <figure data-value="2m" class="seconds child mode pointer-cursor no-display">
-                                <span class="non-musical-figure-characters">2ªm</span>
+                                <span class="">2ªm</span>
                                 <figcaption class="italic-text">Segunda menor</figcaption>
                             </figure>
                             <figure data-value="2M" class="seconds child mode pointer-cursor no-display">
-                                <span class="non-musical-figure-characters">2ªM</span>
+                                <span class="">2ªM</span>
                                 <figcaption class="italic-text">Segunda mayor</figcaption>
                             </figure>
                             <!-- Extensiones de sexta -->
                             <figure id="sixths-extensions-option" data-value="sixths"
                                 class="parent mode pointer-cursor">
-                                <span class="non-musical-figure-characters">6ª</span>
+                                <span class="">6ª</span>
                                 <figcaption class="italic-text">Sexta</figcaption>
                             </figure>
                             <figure data-value="6m" class="sixths child mode pointer-cursor no-display">
-                                <span class="non-musical-figure-characters">6ªm</span>
+                                <span class="">6ªm</span>
                                 <figcaption class="italic-text">Sexta menor</figcaption>
                             </figure>
                             <figure data-value="6M" class="sixths child mode pointer-cursor no-display">
-                                <span class="non-musical-figure-characters">6ªM</span>
+                                <span class="">6ªM</span>
                                 <figcaption class="italic-text">Sexta mayor</figcaption>
                             </figure>
                         </div>
@@ -282,14 +292,16 @@
             <!--Botones adelante (un boton Cancelar no parece necesario))-->
             <div class="page-navigation-buttons-container">
                 <button class="decorated-button" data-go-to="octavation-modal">Anterior</button>
-                <button id="set-duration-button" class="decorated-button" data-go-to="finish-chord-creation">Finalizar</button>
+                <button id="set-duration-button" class="decorated-button"
+                    data-go-to="finish-chord-creation">Finalizar</button>
             </div>
         </div>
-
-
     </dialog>
+    <script src="scripts/global.js"></script>
+    <script src="scripts/dialog-scripts/globalDialogs.js"></script>
     <script src="indexRender.js"></script>
-    <script src="scripts/mainPage.js"></script>
+    <script src="scripts/chordBar.js"></script>
+    <script src="scripts/songInputs.js"></script>
     <script src="scripts/dialog-scripts/previousFreqDialog.js"></script>
     <script src="scripts/dialog-scripts/previousIntervalDialog.js"></script>
     <script src="scripts/dialog-scripts/modeAndExtensionsDialog.js"></script>

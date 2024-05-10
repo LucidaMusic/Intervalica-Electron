@@ -1,0 +1,27 @@
+#previous-freq-span {
+  width: 3em;
+  font-size: 2em;
+  text-align: center;
+}
+
+.previous-freq-text-and-input-container {
+  display: flex;
+  flex-direction: column;
+  padding: 3em;
+  width: 300px;
+  height: 500px;
+  justify-content: center;
+  max-width: 300px;
+  align-items: center;
+  gap: 4em;
+}
+
+.previous-freq-modal-mainContent {
+  display: flex;
+  align-items: center;
+}
+
+#set-previous-freq-and-button-container{
+  display: flex;
+  gap: 4px;
+}

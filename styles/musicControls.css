@@ -1,0 +1,37 @@
+#music-controls-bar {
+  margin-top: 4em;
+  border: 2px solid black;
+  display: flex;
+  justify-content: center;
+  position: relative;
+}
+
+#player-buttons-container {
+  display: flex;
+  gap: 1em;
+}
+
+#player-buttons-container > img{
+  height: 1.5em;
+}
+
+
+#volume-input {
+  margin: auto 0;
+  display: flex;
+  position: absolute;
+  right: 0;
+  height: 100%;
+  margin: auto 1rem;
+  cursor: pointer;
+}
+
+.music-controls-bar__button {
+  border: none;
+  background-color: transparent;
+  padding: 0;
+}
+
+.music-controls-bar__button:hover {
+  border: 1px solid black;
+}

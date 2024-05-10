@@ -7,7 +7,7 @@ module.exports = class Chord {
         this._extensions = null;
         this._previousInterval = null;
         this._notes = [];
-        this._noteIDThatDefinesNexChord= null; //poner getters y detters
+        this._noteIDThatDefinesNexChord= null; //poner getters y setters
     }
 
     // Getters
