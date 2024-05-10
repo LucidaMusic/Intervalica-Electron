@@ -13,7 +13,7 @@ HTML_durationUl.querySelectorAll("figure")
         unselectElement(HTML_durationUl.querySelector("figure." + CSS_selected))
         selectElement(figure)
         HTML_durationInput.value = figure.getAttribute("data-value");
-        HTML_setDurationButton.focus();
+        HTML_setDurationButton.focus(); //para que al pulsar enter se active el boton
         validateDuration();
       });
   });
