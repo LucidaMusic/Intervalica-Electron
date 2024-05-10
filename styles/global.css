@@ -1,0 +1,72 @@
+* {
+  margin: 0;
+}
+
+.error-text {
+  color: rgb(252, 0, 0);
+  font-size: small;
+}
+
+button {
+  cursor: pointer;
+}
+
+
+button:disabled {
+  background-color: var(--color-disabled-button);
+  cursor: not-allowed;
+}
+
+.text-unselectable {
+  user-select: none;
+}
+
+.transparent-text {
+  color: transparent;
+}
+
+/* Este y el de abajo supongo que deberian ser globales */
+.musical-characters {
+  font-family: MusiSync;
+  /* font-size: 48px; */
+}
+
+figure>span {
+  font-size: 48px;
+}
+
+.decorated-button {
+  background-color: var(--color-primario);
+  text-transform: uppercase;
+  padding: 0.5em;
+  color: white;
+  border: 0;
+}
+
+.decorated-button:not(:disabled):hover {
+  background-color: var(--color-secundario);
+}
+
+
+.selected {
+  background-color: var(--color-secundario);
+  color: white;
+
+}
+
+.no-display {
+  display: none;
+}
+
+
+.italic-text {
+  font-style: italic;
+}
+
+.pointer-cursor {
+  cursor: pointer;
+}
+
+.flex {
+  display: flex;
+}

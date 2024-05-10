@@ -1,0 +1,57 @@
+/*Vista de acorde, es decir, el rectangulito donde tiene las notas y la informacion */
+.chord-view {
+  border: 1px solid black;
+}
+
+.chord-view-line-container {
+  font-size: 2em;
+  position: absolute;
+  right: 0;
+  left: 0;
+  display: flex;
+  cursor: pointer;
+  transition-delay: 0s;
+  align-items: center;
+  transform: translateY(50%);
+}
+
+.chord-view-line-number {
+  color: inherit;
+  margin-right: 0.5em;
+  margin-left: 0.5em;
+}
+
+.chord-view-line {
+  background-color: var(--color-chord-view-line-blurred);
+  width: 100%;
+  height: 0.25em;
+}
+
+.chord-view-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.chord-view-line-container span {
+  color: black;
+}
+
+.chord-view-line-container.blurred:hover span {
+  color: black;
+}
+
+.chord-view-line-container div {
+  background-color: blue;
+}
+
+.chord-view-line-container.blurred:hover div {
+  background-color: blue;
+}
+
+.chord-view-line-container.blurred span {
+  color: var(--color-chord-view-line-blurred);
+}
+
+.chord-view-line-container.blurred div {
+  background-color: var(--color-chord-view-line-blurred);
+}
