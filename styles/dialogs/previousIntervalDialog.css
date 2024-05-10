@@ -1,0 +1,27 @@
+.arrow-and-fraction-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.arrow,
+.interval-fraction-value {
+  font-size: 1.5em;
+}
+
+.previous-interval-previsualization-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 1em;
+}
+
+.new-freq,
+.previous-freq {
+    font-size: 3em;
+    margin: 0.25em;
+    max-width: 5em;
+    display: block;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}

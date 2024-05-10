@@ -1,0 +1,32 @@
+#mode-ul{
+  position: relative;
+  overflow: hidden;
+}
+
+.no-modes-container{
+  background-color: var(--color-background);
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  transform: translateY(100%);
+  transition: transform 0.5s ease;
+  border-top: 1px solid black;
+  border-bottom: 1px solid black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#extensions-ul-and-buttons-container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.mode-and-extensions-container{
+  flex-direction: column;
+  justify-content: center;
+  padding-left: 2em;
+}

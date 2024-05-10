@@ -6,6 +6,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title> Intervalica </title>
     <link rel="stylesheet" href="styles/indexStyle.css">
+    <link rel="stylesheet" href="styles/chordBar.css">
+    <link rel="stylesheet" href="styles/chordView.css">
+    <link rel="stylesheet" href="styles/musicControls.css">
+    <link rel="stylesheet" href="styles/songInputs.css">
+    <link rel="stylesheet" href="styles/dialogs/previousFreqDialog.css">
+    <link rel="stylesheet" href="styles/dialogs/previousIntervalDialog.css">
+    <link rel="stylesheet" href="styles/dialogs/dialogsCommon.css">
+    <!-- Este de abajo esta aqui porque no-display tiene que aplicarse al final para que tenga efecto -->
+    <link rel="stylesheet" href="styles/global.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
 
@@ -282,7 +291,8 @@
             <!--Botones adelante (un boton Cancelar no parece necesario))-->
             <div class="page-navigation-buttons-container">
                 <button class="decorated-button" data-go-to="octavation-modal">Anterior</button>
-                <button id="set-duration-button" class="decorated-button" data-go-to="finish-chord-creation">Finalizar</button>
+                <button id="set-duration-button" class="decorated-button"
+                    data-go-to="finish-chord-creation">Finalizar</button>
             </div>
         </div>
 
