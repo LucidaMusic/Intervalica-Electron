@@ -1,7 +1,3 @@
-
-
-
-
 //Acción botones siguiente
 [HTML_setPreviousFreqButton,
     HTML_setPreviousFreqButtonQuick]

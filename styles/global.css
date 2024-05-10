@@ -31,8 +31,8 @@ button:disabled {
   /* font-size: 48px; */
 }
 
-.non-musical-figure-characters {
-  /* font-size: 48px; */
+figure>span {
+  font-size: 48px;
 }
 
 .decorated-button {

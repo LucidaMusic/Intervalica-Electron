@@ -1,7 +1,15 @@
+
 const HTML_chordDurationModal = document.getElementById("chord-duration-modal");
 const HTML_durationInput = document.getElementById("chord-duration-input");
 const HTML_durationUl = document.getElementById("duration-ul");
 const durationErrorText = document.getElementById("duration-error-text");
+//Campos de donde coger los datos al final
+const HTML_previousFreq = document.getElementById("previous-freq-span");
+const HTML_previousIntervalSelect = document.getElementById("previous-interval-select");
+//const HTML_modeUl = document.getElementById("mode-ul");
+//const durationErrorText = document.getElementById("mode-ul");
+//const durationErrorText = document.getElementById("duration-error-text");
+
 
 let HTML_setDurationButton = document.getElementById("set-duration-button");
 
@@ -18,19 +26,18 @@ HTML_durationUl.querySelectorAll("figure")
       });
   });
 
-HTML_setDurationButton.addEventListener("click", () => {
-  inPreparationChord.duration = HTML_durationInput.value;
-});
 
 HTML_setDurationButton
   .addEventListener("click", () => {
-    //Deberia ser aqui donde seteo todos los parametros en inPreparationChord, dado que es posible que estemos haciendo mierdas para que no se guarde nada.
-    //Tampoco deberia ser necesario guardar los valores en otro sitio que no sea el propio HTML
-    //Se puede recuperar directamente desde ahi
-    let modeSelectorValue = document.getElementById("mode-select").value;
+    console.log("Frecuencia de tonica")
+    console.log("Modo:");
+    console.log(getSelectedModeValue());
+    //Cogemos todos los datos 
+/*     let modeSelectorValue = document.getElementById("mode-select").value;
+    inPreparationChord.
     inPreparationChord.setMode(findModeByName(modeSelectorValue));
 
     console.log(inPreparationChord.toString());
     //Añadir acorde a cancion y crear el chordBox
-    song.push(inPreparationChord);
+    song.push(inPreparationChord); */
   });

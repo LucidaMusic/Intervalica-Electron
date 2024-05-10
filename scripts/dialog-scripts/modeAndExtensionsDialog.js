@@ -77,7 +77,6 @@ function deselectPossiblySelectedChildInterval() {
     }
 }
 
-
 //El boton + añade el intervalo
 HTML_addIntervalButton
     .addEventListener("click", () => {
@@ -98,3 +97,31 @@ HTML_addIntervalButton
 
         //   a la hora de recuperar el valor podria volver a leer los elementos para no tener que mantener una lista sincronizada de intervalos
     });
+
+function updateModeCanvas() {
+    //Reiniciar canvas mode
+    [...HTML_canvasMode.children]
+        .forEach(child => {
+            HTML_canvasMode.removeChild(child);
+        });
+
+    //cogemos el modo seleccionado
+    let selectedMode = findModeById(getSelectedModeValue())
+
+    //Calculamos rootFreq
+    rootFreq = userSelectedPreviousFreqValue * selectedInterval.numberValue;
+
+    //cogemos sus intervalos y a cada uno le cogemos su numberValue y lo multiplicamos por la rootFreq
+    let modeFreqs = selectedMode.intervals
+        .map(interval => interval.numberValue * rootFreq)
+
+    //Omitimos extensiones por ahora 
+    let extensionsFreqs = []
+
+    //Pintamos las frecuencias en el canvas
+    paintLinesOnModesAndExtensionsCanvas([rootFreq, ...modeFreqs, ...extensionsFreqs])
+}
+
+function getSelectedModeValue(){
+    return HTML_modeUl.querySelector("figure." + CSS_selected).getAttribute("data-mode-id");
+}
