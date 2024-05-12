@@ -53,14 +53,20 @@ document.querySelectorAll("[data-go-to]")
 function resetModalValues() {
   //Previous Freq
   HTML_clickedPreviousFreqSpan.innerHTML = null;
+  HTML_previousFreqChordView.innerHTML = '';
   HTML_durationInput.value = null;
   showErrorText(HTML_previousFreqErrorText, HTML_setPreviousFreqButtonQuick, HTML_setPreviousFreqButton)
   //Previous Interval
   selectedInterval = Intervals.UNISON;
-  HTML_previousFreqSelect.selectedIndex = 0;
+  HTML_previousIntervalSelect.selectedIndex = 0;
 }
 
-function paintLinesOnPrevFreqCanvas(chord) { 
+function paintLinesOnPrevFreqCanvas(chord) {
+  //Actualmente solo pintamos freqs
+  let chordFreqs = [];
+  chordFreqs.push(chord.root.freq);
+  chord.modeNotes.map(note => note.freq).forEach(freq => chordFreqs.push(freq))
+
   let maxFreqValue, minFreqValue; //estos datos los podria tener ya actualizados de cada vez que se crea un acorde. Si las notas recién añadidas son mayores/menores a las que ya se conocia, se actualiza el recuento
 
   if (relativeToSong) {
@@ -69,8 +75,6 @@ function paintLinesOnPrevFreqCanvas(chord) {
     maxFreqValue = Math.max(...allNotesFromSong);
     minFreqValue = Math.min(...allNotesFromSong);
   } else {      //Default is relative to chord
-    let chordFreqs = chord.notes.map(note => note.freq);
-
     maxFreqValue = Math.max(...chordFreqs);
     minFreqValue = Math.min(...chordFreqs);
   }
@@ -86,13 +90,13 @@ function paintLinesOnPrevFreqCanvas(chord) {
 
   let height = 500; //Height real del canvas o contenedor
 
-  //Para cada nota en el acorde
-  for (let i = 0; i < chord.notes.length; i++) {
-    //Leemos el objeto de nota
-    chordNote = chord.notes[i]
+  //Limpiamos el contenido que pudiera haber
+  HTML_previousFreqChordView.innerHTML = '';
 
+  //Para cada nota en el acorde
+  for (let i = 0; i < chordFreqs.length; i++) {
     //Leemos el valor de la frecuencia
-    let chordFreq = chordNote.freq;
+    let chordFreq = chordFreqs[i];
 
     //Calculamos posición en Y para la barra y el texto
     let yPosition = (Math.log(chordFreq) / Math.log(10) - minLogFreq) / logRange * height;
@@ -108,22 +112,19 @@ function paintLinesOnPrevFreqCanvas(chord) {
 
     //Dibujamos parent
     let lineParent = document.createElement("div");
-
-    lineParent.appendChild(number);
-    lineParent.appendChild(line);
-
+    lineParent.append(number, line);
     lineParent.style.bottom = yPosition + "px";
     lineParent.classList.add("chord-view-line-container");
     lineParent.classList.add("blurred");
 
     //Asignamos nota a objeto HTML
-    lineParent.setAttribute("data-note-id", chordNote.id)
+    lineParent.setAttribute("data-note-id", "provisionalid") //esto de momento solo pinta freqs
 
-    HTML_canvasInModal.appendChild(lineParent);
+    HTML_previousFreqChordView.appendChild(lineParent);
   }
 }
 
-function paintLinesOnModesAndExtensionsCanvas(freqs) { 
+function paintLinesOnModesAndExtensionsCanvas(freqs) {
   let maxFreqValue, minFreqValue; //estos datos los podria tener ya actualizados de cada vez que se crea un acorde. Si las notas recién añadidas son mayores/menores a las que ya se conocia, se actualiza el recuento
 
   maxFreqValue = Math.max(...freqs);

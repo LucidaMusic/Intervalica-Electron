@@ -50,11 +50,14 @@
         </div>
         <input id="volume-input" type="range" value="100" min="0" max="100">
     </div>
-    <div id="chord-bar">
-        <!--Pa los "acordes"-->
-        <div class="chord-box">PRUEBA ACORDE</div>
-        <button id="new-chord-button" class="chord-box">Nuevo tono (+)</button>
+    <div id="chord-bar-container">
+        <div id="chord-bar">
+            <!--Pa los "acordes"-->
+            <div class="chord-box">PRUEBA ACORDE</div>
+        </div>
+        <button id="new-chord-button" class="chord-box">Añadir acorde (+)</button>
     </div>
+
 
     <!-- Dialogos -->
 
@@ -68,7 +71,7 @@
             <div class="previous-freq-modal-mainContent">
                 <div class="chord-view-container">
                     <span>Acorde anterior: </span>
-                    <div class="chord-view note-unblur-on-hover text-unselectable"
+                    <div id="previous-freq-chord-view" class="chord-view note-unblur-on-hover text-unselectable"
                         style="width: 300px; height: 500px; position: relative;">
                     </div>
                     <span id="previous-chord-name">Nombre de acorde anterior</span>

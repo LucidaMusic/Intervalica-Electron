@@ -1,10 +1,14 @@
+/// <reference path="../global.js" />
+/// <reference path="globalDialogs.js" />
+
+
 //Acción botones siguiente
 [HTML_setPreviousFreqButton,
     HTML_setPreviousFreqButtonQuick]
     .forEach(element => {
         element.addEventListener("click", () => {
             //Encontrar elemento seleccionado y coger su data-note-id
-            let selectedNoteId = HTML_canvasInModal.querySelector(".chord-view-line-container:not(.blurred)").getAttribute("data-note-id")
+            let selectedNoteId = getSelectedPreviousFreq().getAttribute("data-note-id");
             //Buscar en el acorde anterior la nota con ese id
             //Por ahora se entiende como acorde anterior el último ya existente 
             let selectedNote = song[song.length - 1].notes.find(note => note.id == selectedNoteId)
@@ -18,3 +22,7 @@
             HTML_newFreqSpan.innerHTML = userSelectedPreviousFreqValue * selectedInterval.numberValue;
         });
     })
+
+    function getSelectedPreviousFreq(){
+        return HTML_previousFreqChordView.querySelector(".chord-view-line-container:not(.blurred)");
+    }

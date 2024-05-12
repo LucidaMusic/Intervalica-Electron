@@ -1,3 +1,6 @@
+/// <reference path="../global.js" />
+/// <reference path="globalDialogs.js" />
+
 HTML_modeToggler.addEventListener("click", () => {
     // Cambiar el estado de isMoved y actualizar el estilo
     noModes = !noModes;

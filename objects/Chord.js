@@ -1,63 +1,38 @@
+/// <reference path="../objects/Note.js" />
+
 module.exports = class Chord {
     constructor() {
-        this._id= null;
-        this._name = null;
-        this._duration = null;
-        this._mode = null;
-        this._extensions = null;
-        this._previousInterval = null;
-        this._notes = [];
-        this._noteIDThatDefinesNexChord= null; //poner getters y setters
+        this.chordId = null; //Este id identifica al acorde respecto los demas en la cancion
+        this.name = null;
+        this.previousReferenceNoteId = null; //poner getters y setters
+        this.previousInterval = null; //Clase Interval
+        this.mode = null;
+        this.extensions = [];
+        this.duration = null;
+        this.root = null; //Clase Note
+        this.modeNotes = []; //Clase Note, Notas que vienen del modo
+        this.extensionsNotes = []; //Clase Note, Notas que vienen de las extensiones
+        this.noteIdCount = 0;
     }
 
-    // Getters
-    get name() {
-        return this._name;
+    setNoteId(note) {
+        note.id = this.noteIdCount;
+        this.noteIdCount += 1;
     }
 
-    get duration() {
-        return this._duration;
+    addRootNote(note) {
+        this.setNoteId(note);
+        this.root = note;
     }
 
-    get mode() {
-        return this._mode;
+    addModeNote(note) {
+        this.setNoteId(note);
+        this.modeNotes.push(note);
     }
 
-    get extensions() {
-        return this._extensions;
-    }
-
-    get previousInterval() {
-        return this._previousInterval;
-    }
-
-    get notes() {
-        return this._notes;
-    }
-
-    // Setters
-    set name(name) {
-        this._name = name;
-    }
-
-    set duration(duration) {
-        this._duration = duration;
-    }
-
-    set mode(mode) {
-        this._mode = mode;
-    }
-
-    set extensions(extensions) {
-        this._extensions = extensions;
-    }
-
-    set previousInterval(previousInterval) {
-        this._previousInterval = previousInterval;
-    }
-
-    addNote(note) {
-        this._notes.push(note);
+    addExtensionNote(note) {
+        this.setNoteId(note);
+        this.extensions.push(note);
     }
 }
 

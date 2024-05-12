@@ -23,10 +23,10 @@ let selectedInterval = Intervals.UNISON;
 let rootFreq;
 let noModes = false;
 
-let noteId = 0;
-function createNoteId() {
-  noteId += 1;
-  return noteId;
+let chordId = 0;
+function getChordId() {
+  chordId += 1;
+  return chordId;
 }
 
 //Temporalmente necesito que haya un acorde ya creado
@@ -35,16 +35,22 @@ testingAlreadyCreatedChord.name = "Napolitano sobre C";
 testingAlreadyCreatedChord.duration = 1;
 testingAlreadyCreatedChord.mode = findModeById("m");
 testingAlreadyCreatedChord.previousInterval = getIntervalById("2m");
-let noteA = new Note(createNoteId(), 330, getIntervalById("5P").numberValue * (Math.pow(2, -1)), false, false)
-let noteB = new Note(createNoteId(), 440, getIntervalById("5P").numberValue * (Math.pow(2, -1)), false, false)
-let noteC = new Note(createNoteId(), 550, getIntervalById("5P").numberValue * (Math.pow(2, -1)), false, false)
-let noteD = new Note(createNoteId(), 660, getIntervalById("5P").numberValue * (Math.pow(2, -1)), false, false)
-let noteE = new Note(createNoteId(), 880, getIntervalById("5P").numberValue * (Math.pow(2, -1)), false, false)
-testingAlreadyCreatedChord.addNote(noteA);
-testingAlreadyCreatedChord.addNote(noteB);
-testingAlreadyCreatedChord.addNote(noteC);
-testingAlreadyCreatedChord.addNote(noteD);
-testingAlreadyCreatedChord.addNote(noteE);
+/* let noteA = new Note(getChordId(), 330, getIntervalById("5P").numberValue * (Math.pow(2, -1)), false, false)
+let noteB = new Note(getChordId(), 440, getIntervalById("5P").numberValue * (Math.pow(2, -1)), false, false)
+let noteC = new Note(getChordId(), 550, getIntervalById("5P").numberValue * (Math.pow(2, -1)), false, false)
+let noteD = new Note(getChordId(), 660, getIntervalById("5P").numberValue * (Math.pow(2, -1)), false, false)
+let noteE = new Note(getChordId(), 880, getIntervalById("5P").numberValue * (Math.pow(2, -1)), false, false) */
+
+let noteA = new Note(Intervals.MINOR_THIRD, 0, 440);
+let noteB = new Note(Intervals.MINOR_THIRD, 0, 550);
+let noteC = new Note(Intervals.MINOR_THIRD, 0, 660);
+let noteD = new Note(Intervals.MINOR_THIRD, 0, 880);
+let noteE = new Note(Intervals.MINOR_THIRD, 0, 330);
+testingAlreadyCreatedChord.addRootNote(noteA);
+testingAlreadyCreatedChord.addModeNote(noteB);
+testingAlreadyCreatedChord.addModeNote(noteC);
+testingAlreadyCreatedChord.addModeNote(noteD);
+testingAlreadyCreatedChord.addModeNote(noteE);
 
 song.push(testingAlreadyCreatedChord);
 
