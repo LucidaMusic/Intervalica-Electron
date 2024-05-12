@@ -71,3 +71,11 @@ figure>span {
 .flex {
   display: flex;
 }
+
+.nota-tonica>div {
+  background-color: aqua;
+}
+
+.nota-extension>div {
+  background-color: coral;
+}

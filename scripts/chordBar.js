@@ -20,18 +20,25 @@ HTML_newChordButton
       HTML_previousChordName.innerHTML = previousChord.name;
       paintLinesOnPrevFreqCanvas(previousChord, HTML_previousFreqChordView)
 
+      //ESTO TIENE QUE SER PARTE DE PAINT LINE ON CAVAS  aparte ahi tendre mas facil el acceso al
       //Hacemos que las barras tengan la funcionalidad de ser seleccionadas y su numero mostrado aparte
       HTML_previousFreqChordView.addEventListener("click", function (event) {
         const chordViewLineContainer = event.target.closest(".chord-view-line-container");
         if (chordViewLineContainer) {
           // Obtener valor de frecuencia
           let noteId = chordViewLineContainer.getAttribute("data-note-id");
-          let selectedPreviousNote = song[song.length - 1].notes.find(note => note.id == noteId);
-          previousFreqDesiredValue = selectedPreviousNote.freq;
-          //const previousFreqDesiredValue = chordViewLineContainer.querySelector(".chord-view-line-number").textContent;
-
-          // Mostramos el valor clickado
-          HTML_clickedPreviousFreqSpan.innerHTML = previousFreqDesiredValue;
+          let selectedPreviousNote = null;
+          if (previousChord.root.id == noteId) {
+            HTML_clickedPreviousFreqSpan.innerHTML = previousChord.root.freq;
+          } else {
+            //Miramos en modo
+            let selectedPreviousNoteInMode = previousChord.modeNotes.find(note => note.id == noteId);
+            if (selectedPreviousNoteInMode != undefined) {
+              HTML_clickedPreviousFreqSpan.innerHTML = selectedPreviousNoteInMode.freq;
+            } else {
+              console.error("Algo ta mal supongo");
+            }
+          }
 
           //Devuelve el valor blurred al que ya estaba seleccionado (si lo estaba)
           HTML_previousFreqChordView.querySelectorAll(".chord-view-line-container:not(.blurred)")

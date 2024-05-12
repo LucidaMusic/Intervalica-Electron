@@ -17,10 +17,6 @@ const CSS_selected = "selected"; //Clase css para seleccionar elemento
 //Variables para que tengan alcance global 
 const song = new Array();
 
-let inPreparationChord;
-let userSelectedPreviousFreqValue;
-let selectedInterval = Intervals.UNISON;
-let rootFreq;
 let noModes = false;
 
 let chordId = 0;
@@ -30,7 +26,7 @@ function getChordId() {
 }
 
 //Temporalmente necesito que haya un acorde ya creado
-let testingAlreadyCreatedChord = new Chord();
+let testingAlreadyCreatedChord = new Chord(getChordId());
 testingAlreadyCreatedChord.name = "Napolitano sobre C";
 testingAlreadyCreatedChord.duration = 1;
 testingAlreadyCreatedChord.mode = findModeById("m");

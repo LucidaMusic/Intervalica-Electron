@@ -1,8 +1,8 @@
 /// <reference path="../objects/Note.js" />
 
 module.exports = class Chord {
-    constructor() {
-        this.chordId = null; //Este id identifica al acorde respecto los demas en la cancion
+    constructor(chordId) {
+        this.chordId = chordId; //Este id identifica al acorde respecto los demas en la cancion
         this.name = null;
         this.previousReferenceNoteId = null; //poner getters y setters
         this.previousInterval = null; //Clase Interval
@@ -15,23 +15,23 @@ module.exports = class Chord {
         this.noteIdCount = 0;
     }
 
-    setNoteId(note) {
+    assignIdToNote(note) {
         note.id = this.noteIdCount;
         this.noteIdCount += 1;
     }
 
     addRootNote(note) {
-        this.setNoteId(note);
+        this.assignIdToNote(note);
         this.root = note;
     }
 
     addModeNote(note) {
-        this.setNoteId(note);
+        this.assignIdToNote(note);
         this.modeNotes.push(note);
     }
 
     addExtensionNote(note) {
-        this.setNoteId(note);
+        this.assignIdToNote(note);
         this.extensions.push(note);
     }
 }
