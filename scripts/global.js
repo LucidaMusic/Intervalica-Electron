@@ -11,7 +11,7 @@ const HTML_modalBackground = document.getElementById("modal-background");
 
 //Previous Freq
 const HTML_previousFreqModal = document.getElementById("previous-freq-modal");
-const HTML_clickedPreviousFreqSpan = document.getElementById("previous-freq-span");
+const HTML_previousFreqPreviewSpan = document.getElementById("previous-freq-span");
 const HTML_previousFreqErrorText = document.getElementById("previous-freq-error-text");
 const HTML_setPreviousFreqButton = document.getElementById("set-previous-freq");
 const HTML_setPreviousFreqButtonQuick = document.getElementById("set-previous-freq-quick");

@@ -1,6 +1,8 @@
 /// <reference path="../global.js" />
 /// <reference path="globalDialogs.js" />
 
+let modeAndExtensionsProvisionalChord;
+
 HTML_modeToggler.addEventListener("click", () => {
     // Cambiar el estado de isMoved y actualizar el estilo
     noModes = !noModes;
@@ -103,28 +105,25 @@ HTML_addIntervalButton
 
 function updateModeCanvas() {
     //Reiniciar canvas mode
-    [...HTML_canvasMode.children]
-        .forEach(child => {
-            HTML_canvasMode.removeChild(child);
-        });
+    HTML_canvasMode.innerHTML = "";
+    modeAndExtensionsProvisionalChord = new Chord();
 
-    //cogemos el modo seleccionado
-    let selectedMode = findModeById(getSelectedModeValue())
-
-    //Calculamos rootFreq
-    rootFreq = userSelectedPreviousFreqValue * selectedInterval.numberValue;
-
-    //cogemos sus intervalos y a cada uno le cogemos su numberValue y lo multiplicamos por la rootFreq
-    let modeFreqs = selectedMode.intervals
-        .map(interval => interval.numberValue * rootFreq)
+    //Añadimos la nota de la tonica al acorde provisional
+    modeAndExtensionsProvisionalChord.addRootNote(new Note(getIntervalById(getSelectedPreviousInterval()), 0, 
+    getSelectedPreviousFreq() * getIntervalById(getSelectedPreviousInterval()).numberValue)); 
+    
+    //Añadimos las notas del modo al acorde provisional
+    findModeById(getSelectedModeValue())
+    .intervals
+        .map(interval => new Note(interval, 0, interval.numberValue * modeAndExtensionsProvisionalChord.root.freq))
+        .forEach(note => modeAndExtensionsProvisionalChord.addModeNote(note)); 
 
     //Omitimos extensiones por ahora 
-    let extensionsFreqs = []
 
     //Pintamos las frecuencias en el canvas
-    paintLinesOnModesAndExtensionsCanvas([rootFreq, ...modeFreqs, ...extensionsFreqs])
+    paintLinesOnModesAndExtensionsCanvas(modeAndExtensionsProvisionalChord)
 }
 
-function getSelectedModeValue(){
+function getSelectedModeValue() {
     return HTML_modeUl.querySelector("figure." + CSS_selected).getAttribute("data-mode-id");
 }

@@ -6,7 +6,7 @@ HTML_previousIntervalSelect.addEventListener('change', () => {
     // Obtén el valor de la opción seleccionada
     selectedInterval = getIntervalById(getSelectedPreviousInterval());
     HTML_intervalFractionValueSpan.innerHTML = "(" + selectedInterval.stringValue + ")";
-    HTML_newFreqSpan.innerHTML = userSelectedPreviousFreqValue * selectedInterval.numberValue;
+    HTML_newFreqSpan.innerHTML = getSelectedPreviousFreq() * selectedInterval.numberValue;
 });
 
 HTML_setPreviousIntervalButton.addEventListener("click", () => {
