@@ -102,19 +102,21 @@ function paintGenericLinesOnCanvas(chord, canvas, relativeToSong) {
 	chord.modeNotes.map(note => note.freq).forEach(freq => chordFreqs.push(freq))
 	chord.extensionsNotes.map(note => note.freq).forEach(freq => chordFreqs.push(freq))
 
-	let maxFreqValue, minFreqValue; //estos datos los podria tener ya actualizados de cada vez que se crea un acorde. Si las notas recién añadidas son mayores/menores a las que ya se conocia, se actualiza el recuento
+	let maxFreqValue, minFreqValue;
 
 	if (relativeToSong) {
+		//Esto solo se usa para chordview
+		//Recojo todas las notas para calcular la frecuencia maxima y minima
 		let allNotes = new Array();
 		song.forEach(chord => {
 			allNotes.push(chord.root);
-			allNotes.push(chord.modeNotes);
-			allNotes.push(chord.extensionsNotes);
+			chord.modeNotes.forEach(note => allNotes.push(note));
+			chord.extensionsNotes.forEach(note => allNotes.push(note));
 		});
 
-		allNotes.map(note => note.freq);
+		allNotes = allNotes.map(note => note.freq);
 
-		maxFreqValue = Math.max(...allNotes);
+		maxFreqValue = Math.max(...allNotes); //!!! Si han cambiado los valores hay que volver a pintar los acordes ya pintados
 		minFreqValue = Math.min(...allNotes);
 	} else {      //Default is relative to chord
 		maxFreqValue = Math.max(...chordFreqs);
