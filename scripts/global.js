@@ -1,22 +1,28 @@
 //HTML Variables
 //Main page
-const HTML_firstFreqInput = document.getElementById("freq-input")
+const HTML_firstFreqInput = document.getElementById("freq-input");
+
+//Chord bar
+const HTML_chordBar = document.getElementById("chord-bar");
+const HTML_newChordButton = document.getElementById("new-chord-button");
+
+//Dialogs
 const HTML_modalBackground = document.getElementById("modal-background");
 
 //Previous Freq
 const HTML_previousFreqModal = document.getElementById("previous-freq-modal");
-const HTML_clickedPreviousFreqSpan = document.getElementById("previous-freq-span");
+const HTML_previousFreqPreviewSpan = document.getElementById("previous-freq-span");
 const HTML_previousFreqErrorText = document.getElementById("previous-freq-error-text");
 const HTML_setPreviousFreqButton = document.getElementById("set-previous-freq");
 const HTML_setPreviousFreqButtonQuick = document.getElementById("set-previous-freq-quick");
 const HTML_previousChordName = document.getElementById("previous-chord-name");
-const HTML_canvasInModal = HTML_previousFreqModal.querySelector(".chord-view"); //cambiar nombre canvasPrevFreq
+const HTML_previousFreqChordView = document.getElementById("previous-freq-chord-view");
 //Previous Interval
 const HTML_previousIntervalModal = document.getElementById("previous-interval-modal");
 const HTML_previousFreqSpan = document.getElementById("previous-freq");
 const HTML_newFreqSpan = document.getElementById("new-freq");
 const HTML_intervalFractionValueSpan = document.getElementById("interval-fraction-value");
-const HTML_previousFreqSelect = document.getElementById("previous-interval-select");
+const HTML_previousIntervalSelect = document.getElementById("previous-interval-select");
 const HTML_setPreviousIntervalButton = document.getElementById("set-previous-interval-button")
 //Mode and extensions
 const HTML_chordIntervalsModal = document.getElementById("chord-intervals-modal");

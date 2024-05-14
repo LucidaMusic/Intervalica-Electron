@@ -31,6 +31,7 @@ button:disabled {
   /* font-size: 48px; */
 }
 
+
 figure>span {
   font-size: 48px;
 }
@@ -69,4 +70,12 @@ figure>span {
 
 .flex {
   display: flex;
+}
+
+.nota-tonica>div {
+  background-color: aqua;
+}
+
+.nota-extension>div {
+  background-color: coral;
 }

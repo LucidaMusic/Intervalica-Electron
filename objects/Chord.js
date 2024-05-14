@@ -1,63 +1,55 @@
+/// <reference path="../objects/Note.js" />
+
 module.exports = class Chord {
-    constructor() {
-        this._id= null;
-        this._name = null;
-        this._duration = null;
-        this._mode = null;
-        this._extensions = null;
-        this._previousInterval = null;
-        this._notes = [];
-        this._noteIDThatDefinesNexChord= null; //poner getters y setters
-    }
+	constructor(chordId) {
+		this.chordId = chordId; //Este id identifica al acorde respecto los demas en la cancion
+		this.noteIdCount = 0; //se inicializa a 0 y va incrementando, asignando este valor a las notas del acorde conforme se añaden para identificarlas
+		this.name = null;
+		this.referenceNoteId = null; 
+		this.referenceChordId = null; //La tonica de un acorde viene referenciada por otro acorde y una de sus notas
+		this.intervalReferenceNoteAndRoot = null; //Clase Interval
+		this.root = null; //Clase Note
+		this.mode = null;
+		this.modeNotes = []; //Clase Note, Notas que vienen del modo
+		this.extensions = [];
+		this.extensionsNotes = []; //Clase Note, Notas que vienen de las extensiones
+		this.duration = null;
+	}
 
-    // Getters
-    get name() {
-        return this._name;
-    }
+	assignIdToNote(note) {
+		note.id = this.noteIdCount;
+		this.noteIdCount += 1;
+	}
 
-    get duration() {
-        return this._duration;
-    }
+	addRootNote(note) {
+		this.assignIdToNote(note);
+		this.root = note;
+	}	
 
-    get mode() {
-        return this._mode;
-    }
+	addModeNote(note) {
+		this.assignIdToNote(note);
+		this.modeNotes.push(note);
+	}
 
-    get extensions() {
-        return this._extensions;
-    }
+	addExtensionNote(note) {
+		this.assignIdToNote(note);
+		this.extensions.push(note);
+	}
 
-    get previousInterval() {
-        return this._previousInterval;
-    }
-
-    get notes() {
-        return this._notes;
-    }
-
-    // Setters
-    set name(name) {
-        this._name = name;
-    }
-
-    set duration(duration) {
-        this._duration = duration;
-    }
-
-    set mode(mode) {
-        this._mode = mode;
-    }
-
-    set extensions(extensions) {
-        this._extensions = extensions;
-    }
-
-    set previousInterval(previousInterval) {
-        this._previousInterval = previousInterval;
-    }
-
-    addNote(note) {
-        this._notes.push(note);
-    }
+	getNoteById(noteId) {
+		//Miramos en tonica
+		if (this.root.id == noteId) {
+			return this.root;
+		} else {
+			//Miramos en modo
+			let selectedPreviousNoteInMode = this.modeNotes.find(note => note.id == noteId);
+			if (selectedPreviousNoteInMode != undefined) {
+				return selectedPreviousNoteInMode;
+			} else {
+				//Miramos en extensiones
+				console.error("Algo ta mal supongo");
+			}
+		}
+	}
 }
 

@@ -40,18 +40,19 @@
   color: black;
 }
 
-.chord-view-line-container div {
+/* .chord-view-line-container div {
   background-color: blue;
 }
+*/
 
-.chord-view-line-container.blurred:hover div {
+/* .chord-view-line-container.blurred:hover div {
   background-color: blue;
-}
+}  */
 
-.chord-view-line-container.blurred span {
+/* .chord-view-line-container.blurred span {
   color: var(--color-chord-view-line-blurred);
 }
 
 .chord-view-line-container.blurred div {
   background-color: var(--color-chord-view-line-blurred);
-}
+} */
