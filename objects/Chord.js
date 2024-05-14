@@ -3,16 +3,17 @@
 module.exports = class Chord {
 	constructor(chordId) {
 		this.chordId = chordId; //Este id identifica al acorde respecto los demas en la cancion
+		this.noteIdCount = 0; //se inicializa a 0 y va incrementando, asignando este valor a las notas del acorde conforme se añaden para identificarlas
 		this.name = null;
-		this.previousReferenceNoteId = null; //poner getters y setters
-		this.previousInterval = null; //Clase Interval
-		this.mode = null;
-		this.extensions = [];
-		this.duration = null;
+		this.referenceNoteId = null; 
+		this.referenceChordId = null; //La tonica de un acorde viene referenciada por otro acorde y una de sus notas
+		this.intervalReferenceNoteAndRoot = null; //Clase Interval
 		this.root = null; //Clase Note
+		this.mode = null;
 		this.modeNotes = []; //Clase Note, Notas que vienen del modo
+		this.extensions = [];
 		this.extensionsNotes = []; //Clase Note, Notas que vienen de las extensiones
-		this.noteIdCount = 0;
+		this.duration = null;
 	}
 
 	assignIdToNote(note) {
